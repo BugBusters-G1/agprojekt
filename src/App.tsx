@@ -20,7 +20,7 @@ const JokesList = () => {
 
   if (loading) {
     return <div>Loading...</div>; // Show loading message or spinner while waiting for data
-  } 
+  }
 
   return (
     <main>
