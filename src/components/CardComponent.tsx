@@ -2,16 +2,19 @@ import { Joke } from "../types/Joke";
 
 export function CardComponent({
   category,
-  jokeInSwedish,
-  jokeInEnglish,
+  swedish,
+  direct_translation,
   meaning,
 }: Joke) {
+
+   
+
   return (
     <div>
       <div>
         <p>Test</p>
-        <p>{jokeInSwedish}</p>
-        <p>{jokeInEnglish}</p>
+        <p>{swedish}</p>
+        <p>{direct_translation}</p>
       </div>
     </div>
   );

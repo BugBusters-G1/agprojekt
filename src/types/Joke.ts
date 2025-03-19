@@ -1,6 +1,6 @@
 export interface Joke {
   category: string;
-  jokeInSwedish: string;
-  jokeInEnglish: string;
+  swedish: string;
+  direct_translation: string;
   meaning: string;
 }
