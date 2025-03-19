@@ -1,14 +1,21 @@
-import { Joke } from "../types/Joke"
+import { Joke } from "../types/Joke";
 
-export function CardComponent ({category, jokeInSwedish, jokeInEnglish, meaning}: Joke){
+export function CardComponent({
+  category,
+  swedish,
+  direct_translation,
+  meaning,
+}: Joke) {
 
-    return (
-        <div>
-            <div>
-                <p>{jokeInSwedish}</p>
-                <p>{jokeInEnglish}</p>
-            </div>
-        </div>
-    )
+   
 
+  return (
+    <div>
+      <div>
+        <p>Test</p>
+        <p>{swedish}</p>
+        <p>{direct_translation}</p>
+      </div>
+    </div>
+  );
 }
