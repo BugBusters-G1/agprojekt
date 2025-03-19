@@ -1,20 +1,12 @@
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { CardComponent } from "./components/CardComponent";
 import { useJokes } from "./hooks/useJokes";
-import { Joke } from "./types/Joke";
+
 
 
 const JokesList = () => {
-  const { jokes, loading } = useJokes();
-  const [currentJoke, setCurrentJoke] = useState<Joke | null>(null);
-
-  useEffect(() => {
-    if (jokes.length > 0) {
-      setCurrentJoke(jokes[0]);
-      console.log(currentJoke)
-    }
-  }, [jokes]);
+  const { jokes, loading, currentJoke, getRandomJoke } = useJokes();
 
 
 
@@ -31,10 +23,13 @@ const JokesList = () => {
           direct_translation={currentJoke.direct_translation}
           meaning={currentJoke.meaning}
         />
+        
       ) : (
         <div>Inga skämt tillgängliga.</div>
       )}
-    </main>
+
+      <button onClick={getRandomJoke}>Nästa skämt</button>    
+    </main>                       //getRandomJoke kommer sedan kallas på via komponenten button som vi ska skapa
   );
 };
 
