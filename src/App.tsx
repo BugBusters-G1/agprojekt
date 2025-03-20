@@ -1,5 +1,5 @@
 import { Card } from "./components/Card/Card";
-import { ButtonComponent } from "./components/ButtomComponent";
+import { ButtonComponent } from "./components/Button/Button";
 import { useJokes } from "./hooks/useJokes";
 import "./App.css";
 

@@ -21,3 +21,12 @@
     height: 100%;
     font-size: 1.1rem;
 }
+
+.card-buttons{
+    width: 100%;
+    height: 36px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 35px 10px;
+
+}

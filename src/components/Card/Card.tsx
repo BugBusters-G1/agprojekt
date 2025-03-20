@@ -1,5 +1,5 @@
 import { Joke } from "../../types/Joke";
-import { ButtonComponent } from "../ButtomComponent";
+import { ButtonComponent } from "../Button/Button";
 import "./Card.css";
 
 interface CardProps {
@@ -14,8 +14,10 @@ export function Card({ joke, onGenerateNewJoke }: CardProps) {
         <p>{joke.swedish}</p>
         <p>{joke.direct_translation}</p>
       </div>
-
+      
+      <div className="card-buttons">
       <ButtonComponent onClick={onGenerateNewJoke} />
+      </div>
     </div>
   );
 }
