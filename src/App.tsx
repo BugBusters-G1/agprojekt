@@ -23,4 +23,5 @@ const JokesList = () => {
   );
 };
 
+
 export default JokesList;

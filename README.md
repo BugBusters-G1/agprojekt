@@ -9,7 +9,7 @@ Från din dator, följ stegen nedan:
 
 Installera alla nödvändiga dependencies
 ```shell
-$ npm i
+$ npm i 
 ```
 
 Starta applikationen genom att köra:
