@@ -1,6 +1,6 @@
-import { Joke } from "../types/Joke";
+import { Joke } from "../../types/Joke";
 
-export function CardComponent({
+export function Card({
   category,
   swedish,
   direct_translation,

@@ -1,4 +1,4 @@
-import { CardComponent } from "./components/CardComponent";
+import { Card } from "./components/Card/Card";
 import { ButtonComponent } from "./components/ButtomComponent";
 import { useJokes } from "./hooks/useJokes";
 
@@ -8,15 +8,6 @@ import { useJokes } from "./hooks/useJokes";
 const JokesList = () => {
   const { jokes, loading, currentJoke, getRandomJoke } = useJokes();
 
-
-  const getRandomJoke = () => {
-    if (jokes.length > 0) {
-      const randomIndex = Math.floor(Math.random() * jokes.length);
-      setCurrentJoke(jokes[randomIndex]);
-    }
-  };
-
-
   if (loading) {
     return <div>Loading...</div>; // Show loading message or spinner while waiting for data
   }
@@ -25,7 +16,7 @@ const JokesList = () => {
     <main>
       {currentJoke ? (
         <>
-        <CardComponent
+        <Card
           category={currentJoke.category}
           swedish={currentJoke.swedish}
           direct_translation={currentJoke.direct_translation}
@@ -39,8 +30,7 @@ const JokesList = () => {
       ) : (
         <div>Inga skämt tillgängliga.</div>
       )}
-
-      <button onClick={getRandomJoke}>Nästa skämt</button>    
+  
     </main>                       //getRandomJoke kommer sedan kallas på via komponenten button som vi ska skapa
   );
 };
