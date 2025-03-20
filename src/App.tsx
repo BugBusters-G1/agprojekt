@@ -1,10 +1,9 @@
 import { Card } from "./components/Card/Card";
-import { ButtonComponent } from "./components/Button/Button";
 import { useJokes } from "./hooks/useJokes";
 import "./App.css";
 
 const JokesList = () => {
-  const { jokes, loading, currentJoke, getRandomJoke } = useJokes();
+  const { loading, currentJoke, getRandomJoke } = useJokes();
 
   if (loading) {
     return <div>Loading...</div>; // Show loading message or spinner while waiting for data
@@ -22,6 +21,5 @@ const JokesList = () => {
     </main> //getRandomJoke kommer sedan kallas på via komponenten button som vi ska skapa
   );
 };
-
 
 export default JokesList;
