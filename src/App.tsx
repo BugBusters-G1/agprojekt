@@ -1,5 +1,3 @@
-
-import { useEffect } from "react";
 import { CardComponent } from "./components/CardComponent";
 import { useJokes } from "./hooks/useJokes";
 
