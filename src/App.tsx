@@ -10,6 +10,7 @@ const JokesList = () => {
   }
 
   return (
+
     <main>
       {currentJoke ? (
         <>
@@ -19,6 +20,8 @@ const JokesList = () => {
         <div>Inga skämt tillgängliga.</div>
       )}
     </main> //getRandomJoke kommer sedan kallas på via komponenten button som vi ska skapa
+
+  
   );
 };
 
