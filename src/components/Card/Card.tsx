@@ -1,29 +1,21 @@
 import { Joke } from "../../types/Joke";
-import "./Card.css"
+import { ButtonComponent } from "../ButtomComponent";
+import "./Card.css";
 
-export function Card({
-  category,
-  swedish,
-  direct_translation,
-  meaning,
+interface CardProps {
+  joke: Joke;
+  onGenerateNewJoke: () => void;
+}
 
-
-}: Joke) {
-
-   
-
+export function Card({ joke, onGenerateNewJoke }: CardProps) {
   return (
     <div className="card-box">
       <div className="card-content">
-        
-        <p>{swedish}</p>
-        <p>{direct_translation}</p>
-
-
-
+        <p>{joke.swedish}</p>
+        <p>{joke.direct_translation}</p>
       </div>
-     
 
+      <ButtonComponent onClick={onGenerateNewJoke} />
     </div>
   );
 }

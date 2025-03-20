@@ -1,10 +1,7 @@
 import { Card } from "./components/Card/Card";
 import { ButtonComponent } from "./components/ButtomComponent";
 import { useJokes } from "./hooks/useJokes";
-import "./App.css"
-
-
-
+import "./App.css";
 
 const JokesList = () => {
   const { jokes, loading, currentJoke, getRandomJoke } = useJokes();
@@ -17,24 +14,13 @@ const JokesList = () => {
     <main>
       {currentJoke ? (
         <>
-        <Card
-          category={currentJoke.category}
-          swedish={currentJoke.swedish}
-          direct_translation={currentJoke.direct_translation}
-          meaning={currentJoke.meaning}
-        />
-
-    
-               <ButtonComponent onClick={getRandomJoke} />
-               </>
-
+          <Card joke={currentJoke} onGenerateNewJoke={getRandomJoke} />
+        </>
       ) : (
         <div>Inga skämt tillgängliga.</div>
       )}
-  
-    </main>                       //getRandomJoke kommer sedan kallas på via komponenten button som vi ska skapa
+    </main> //getRandomJoke kommer sedan kallas på via komponenten button som vi ska skapa
   );
 };
-
 
 export default JokesList;
