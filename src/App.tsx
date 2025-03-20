@@ -1,25 +1,14 @@
-import { Card } from "./components/Card/Card";
-import { useJokes } from "./hooks/useJokes";
-import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 
-const JokesList = () => {
-  const { loading, currentJoke, getRandomJoke } = useJokes();
-
-  if (loading) {
-    return <div>Loading...</div>; // Show loading message or spinner while waiting for data
-  }
-
+function App() {
   return (
-    <main>
-      {currentJoke ? (
-        <>
-          <Card joke={currentJoke} onGenerateNewJoke={getRandomJoke} />
-        </>
-      ) : (
-        <div>Inga skämt tillgängliga.</div>
-      )}
-    </main> //getRandomJoke kommer sedan kallas på via komponenten button som vi ska skapa
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
-};
+}
 
-export default JokesList;
+export default App;
