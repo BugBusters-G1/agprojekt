@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { CardComponent } from "./components/CardComponent";
+import { ButtonComponent } from "./components/ButtomComponent";
 import { useJokes } from "./hooks/useJokes";
 import { Joke } from "./types/Joke";
 
@@ -12,10 +13,15 @@ const JokesList = () => {
   useEffect(() => {
     if (jokes.length > 0) {
       setCurrentJoke(jokes[0]);
-      console.log(currentJoke)
     }
   }, [jokes]);
 
+  const getRandomJoke = () => {
+    if (jokes.length > 0) {
+      const randomIndex = Math.floor(Math.random() * jokes.length);
+      setCurrentJoke(jokes[randomIndex]);
+    }
+  };
 
 
   if (loading) {
@@ -25,12 +31,16 @@ const JokesList = () => {
   return (
     <main>
       {currentJoke ? (
+        <>
         <CardComponent
           category={currentJoke.category}
           swedish={currentJoke.swedish}
           direct_translation={currentJoke.direct_translation}
           meaning={currentJoke.meaning}
         />
+    
+               <ButtonComponent onClick={getRandomJoke} />
+               </>
       ) : (
         <div>Inga skämt tillgängliga.</div>
       )}
