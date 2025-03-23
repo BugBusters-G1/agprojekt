@@ -8,8 +8,9 @@ import SavedJokesView from "./pages/SavedJokesView";
 function App() {
   return (
     <>
-    <Navbar/>
+    
     <BrowserRouter>
+      <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/filter" element={<FilterView/>} />
