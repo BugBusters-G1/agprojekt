@@ -4,6 +4,7 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { Filter } from "./components/Filter/Filter";
 import { useState } from "react";
 import { useJokes } from "./hooks/useJokes";
+import { useState } from "react";
 
 function App() {
   const { loading, error, currentJoke, getRandomJoke } = useJokes();
@@ -11,31 +12,30 @@ function App() {
 
   const toggleFilterMenu = () => {
     setFilterMenu((prev) => !prev);
+  const [expanded, setExpanded] = useState<boolean>(false);
+
+  const toggleExpand = () => {
+    setExpanded(!expanded);
   };
 
   return (
     <>
-      <BrowserRouter>
-        <Navbar
-          onGenerateNewJoke={getRandomJoke}
-          filterToggle={toggleFilterMenu}
-        />
+    
+    <BrowserRouter>
+    {isFilterMenu && <Filter toggleFilter={toggleFilterMenu} />}
 
-        {isFilterMenu && <Filter toggleFilter={toggleFilterMenu} />}
+      <Navbar filterToggle={toggleFilterMenu} onGenerateNewJoke= {getRandomJoke} onToggleExpand={toggleExpand}/>
+      <Routes>
+        <Route path="/" element={
+          <Home 
+              loading={loading}
+              currentJoke={currentJoke}
+              error={error}
+              _expanded={expanded}
+              getRandomJoke={getRandomJoke}/>}
+           />
 
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                loading={loading}
-                currentJoke={currentJoke}
-                error={error}
-                getRandomJoke={getRandomJoke}
-              />
-            }
-          />
-        </Routes>
+      </Routes>
       </BrowserRouter>
     </>
   );
