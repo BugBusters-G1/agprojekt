@@ -1,5 +1,5 @@
 import { NavItem, NavItemProps } from "./NavItem";
-
+import "./Navbar.css";
 interface NavbarProps {
   filterToggle: () => void;
   isFilterOpen: boolean;
@@ -9,19 +9,22 @@ interface NavbarProps {
 
 export const Navbar = ({
   filterToggle,
-  isFilterOpen,
   onGenerateNewJoke,
   toggleExpand,
 }: NavbarProps) => {
   const navItems: NavItemProps[] = [
-    { label: "Home", type: "link", to: "/" },
-    { label: "Expand Card", type: "button", onClick: toggleExpand },
+    { type: "link", to: "/" },
+    { type: "button", onClick: toggleExpand, icon: "CircleHelp" },
     {
-      label: isFilterOpen ? "Close Filter" : "Open Filter",
       type: "button",
       onClick: filterToggle,
+      icon: "SlidersHorizontal",
     },
-    { label: "New Joke", type: "button", onClick: onGenerateNewJoke },
+    {
+      type: "button",
+      onClick: onGenerateNewJoke,
+      icon: "CircleArrowRight",
+    },
   ];
 
   return (
