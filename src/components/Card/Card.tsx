@@ -8,7 +8,7 @@ interface CardProps {
 
 export function Card({ joke, expanded }: CardProps) {
   return (
-    <div className={`card-box ${expanded ? "expanded" : ""}`}>
+    <div className={`card-box`}>
       <div className="card-content">
         <p className="category">{joke.category}</p>
         <p className="swedish">{joke.swedish}</p>
