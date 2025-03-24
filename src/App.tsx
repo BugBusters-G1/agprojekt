@@ -8,7 +8,7 @@ import { useJokes } from "./hooks/useJokes";
 function App() {
 
 
-  const { loading, currentJoke, getRandomJoke } = useJokes();
+  const { loading, error, currentJoke, getRandomJoke } = useJokes();
 
 
   return (
@@ -22,6 +22,7 @@ function App() {
           <Home 
               loading={loading}
               currentJoke={currentJoke}
+              error={error}
               getRandomJoke={getRandomJoke}/>}
            />
         <Route path="/filter" element={<FilterView/>} />
