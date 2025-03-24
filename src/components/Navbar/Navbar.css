@@ -1,19 +1,16 @@
-header {
-  width: 100%;
-  height: 36px;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
+
+nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: end;       /* ska ändras när fler komponenter finns*/
 }
 
-.logo {
-  font-size: 1.4rem;
-  font-weight: bold;
-}
 
-.menu-button {
-  height: 36px;
-  width: 36px;
-  all: unset;
-  font-size: 36px;
-}
+
+
+

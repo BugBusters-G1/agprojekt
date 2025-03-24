@@ -1,11 +1,17 @@
 import { Card } from "../components/Card/Card";
-import { useJokes } from "../hooks/useJokes";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import "../App.css";
 
-const Home = () => {
-  const { loading, error, currentJoke, getRandomJoke } = useJokes();
+import "../App.css";
+import { Joke } from "../types/Joke";
+
+
+interface HomeProps {
+  loading: boolean;
+  currentJoke: Joke | null;
+  getRandomJoke: () => void;
+}
+
+const Home = ({loading, currentJoke, getRandomJoke}: HomeProps) => {
+
 
   const renderContent = () => {
     if (loading) return <Skeleton count={3} />;
