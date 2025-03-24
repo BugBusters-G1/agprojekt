@@ -1,14 +1,15 @@
-import { HamburgerMenu } from "./HamburgerMenu";
+import { ButtonComponent } from "../Button/Button";
 import "./Navbar.css";
 
-export function Navbar() {
+
+interface NavbarProps {
+    onGenerateNewJoke: () => void
+}
+
+export function Navbar({onGenerateNewJoke}: NavbarProps) {
     return (
-        <header>
-            <p className="logo">Lagom kul</p>                      {/*Här ska loggan ligga som en img.  Vi kan skapa en länk runt bilden som länkar tillbaka till startsidan */}
-
-        
-            <HamburgerMenu/>
-
-        </header>
+       <nav>
+            <ButtonComponent onClick={onGenerateNewJoke} />
+       </nav>
     )
 }

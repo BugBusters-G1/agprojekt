@@ -1,68 +1,15 @@
-header {
-    width: 100%;
-    min-height: 36px;
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-
-   
-}
-
-
-.logo{
-    font-size: 1.4rem;
-    font-weight: bold;
-}
-
-.menu-button {
-    height: 36px;
-    width: 36px;
-    all: unset;
-    font-size: 36px;
-    
-}
-
-.hamburger-container {
-    position: relative;
-}
-
-.hamburger-menu {
+nav {
     position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    width: 250px;
-    background-color: white;
-    border-left: 1px solid #ccc;
-    padding: 2rem;
-    z-index: 1000;
-    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: end;       /* ska ändras när fler komponenter finns*/
 }
 
-.close-button {         /*Ska korrigera CSS i ett senare skede*/
-    all: unset;
-    font-size: 1.8rem;
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    cursor: pointer;
-    z-index: 1100;
-}
 
-.hamburger-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-  
-.hamburger-menu li {
-    margin-bottom: 1rem;
-}
-  
-.hamburger-menu a {
-    text-decoration: none;
-    color: #333;
-    font-size: 1.1rem;
-    font-weight: 500;
-    display: inline-block;
-}
+
+
+

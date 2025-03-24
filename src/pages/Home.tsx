@@ -1,9 +1,14 @@
 import { Card } from "../components/Card/Card";
-import { useJokes } from "../hooks/useJokes";
 import "../App.css";
+import { Joke } from "../types/Joke";
 
-const Home = () => {
-  const { loading, currentJoke, getRandomJoke } = useJokes();
+interface HomeProps {
+  loading: boolean;
+  currentJoke: Joke | null;
+  getRandomJoke: () => void;
+}
+
+const Home = ({loading, currentJoke, getRandomJoke}: HomeProps) => {
 
   if (loading) {
     return <div>Loading...</div>; // Show loading message or spinner while waiting for data
