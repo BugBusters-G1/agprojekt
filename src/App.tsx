@@ -1,35 +1,42 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import { Navbar } from "./components/Navbar/Navbar";
-import FilterView from "./pages/FilterView";
-import SavedJokesView from "./pages/SavedJokesView";
+import { Filter } from "./components/Filter/Filter";
+import { useState } from "react";
 import { useJokes } from "./hooks/useJokes";
 
 function App() {
-
-
   const { loading, error, currentJoke, getRandomJoke } = useJokes();
+  const [isFilterMenu, setFilterMenu] = useState<boolean>(false);
 
+  const toggleFilterMenu = () => {
+    setFilterMenu((prev) => !prev);
+  };
 
   return (
     <>
+      <BrowserRouter>
+        <Navbar
+          onGenerateNewJoke={getRandomJoke}
+          filterToggle={toggleFilterMenu}
+        />
 
-    
-    <BrowserRouter>
-      <Navbar onGenerateNewJoke= {getRandomJoke}/>
-      <Routes>
-        <Route path="/" element={
-          <Home 
-              loading={loading}
-              currentJoke={currentJoke}
-              error={error}
-              getRandomJoke={getRandomJoke}/>}
-           />
-        <Route path="/filter" element={<FilterView/>} />
-        <Route path="/saved" element={<SavedJokesView/>} />
-      </Routes>
-    </BrowserRouter>
+        {isFilterMenu && <Filter toggleFilter={toggleFilterMenu} />}
 
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                loading={loading}
+                currentJoke={currentJoke}
+                error={error}
+                getRandomJoke={getRandomJoke}
+              />
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
