@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import { Navbar } from "./components/Navbar/Navbar";
-import { useJokes } from "./hooks/useJokes";
 import { Filter } from "./components/Filter/Filter";
 import { useState } from "react";
+import { useJokes } from "./hooks/useJokes";
 
 function App() {
   const { loading, error, currentJoke, getRandomJoke } = useJokes();
