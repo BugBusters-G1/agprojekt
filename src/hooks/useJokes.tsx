@@ -1,44 +1,27 @@
 import { useState, useEffect } from "react";
-import { Joke } from "../types/Joke";
+
+const ENDPOINT_URI = "https://ordbanken-api.vercel.app/api/fetch_all";
 
 export function useJokes() {
-  const [jokes, setJokes] = useState<Joke[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); // Track loading state
-  const [currentJoke, setCurrentJoke] = useState<Joke | null>(null);
-
+  const [jokes, setJokes] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [currentJoke, setCurrentJoke] = useState(null);
 
   useEffect(() => {
-    const fetchJokes = async () => {
-      try {
-        const response = await fetch(
-          "https://ordbanken-api.vercel.app/api/fetch_all"
-        );
-        const jokes_data: Joke[] = await response.json();
-        setJokes(jokes_data);
-
-
-        if (jokes_data.length > 0){   //Sätter med detta ett random skämt direkt när skämten hämtats
-          setCurrentJoke(jokes_data[Math.floor(Math.random()*jokes_data.length)])
-        }
-
-
-      } catch (error) {
-        console.error("Error fetching jokes:", error);
-      } finally {
-        setLoading(false); // Set loading to false after data is fetched (or error occurred)
-      }
-    };
-
-    fetchJokes();
+    fetch(ENDPOINT_URI)
+      .then((res) => (res.ok ? res.json() : Promise.reject("Failed to fetch")))
+      .then((data) => {
+        setJokes(data);
+        setCurrentJoke(data[Math.floor(Math.random() * data.length)]);
+      })
+      .catch(setError)
+      .finally(() => setLoading(false));
   }, []);
 
-  const getRandomJoke = () => {     //Funktionen som generear random skämt ligger här istället
-    if (jokes.length > 0) {
-      const randomIndex = Math.floor(Math.random() * jokes.length)
-      setCurrentJoke(jokes[randomIndex])
-    }
+  const getRandomJoke = () =>
+    jokes.length &&
+    setCurrentJoke(jokes[Math.floor(Math.random() * jokes.length)]);
 
-  }
-
-  return { jokes, loading, currentJoke, getRandomJoke }; // Return both jokes and loading state
+  return { jokes, error, loading, currentJoke, getRandomJoke };
 }

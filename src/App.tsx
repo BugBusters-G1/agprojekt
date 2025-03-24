@@ -5,7 +5,6 @@ import FilterView from "./pages/FilterView";
 import SavedJokesView from "./pages/SavedJokesView";
 import { useJokes } from "./hooks/useJokes";
 
-
 function App() {
 
 
@@ -14,6 +13,7 @@ function App() {
 
   return (
     <>
+
     
     <BrowserRouter>
       <Navbar onGenerateNewJoke= {getRandomJoke}/>
@@ -28,6 +28,7 @@ function App() {
         <Route path="/saved" element={<SavedJokesView/>} />
       </Routes>
     </BrowserRouter>
+
     </>
   );
 }
