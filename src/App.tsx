@@ -9,12 +9,19 @@ function App() {
   const { loading, error, currentJoke, getRandomJoke } = useJokes();
   const [isFilterMenu, setFilterMenu] = useState<boolean>(false);
 
+  const toggleFilterMenu = () => {
+    setFilterMenu((prev) => !prev);
+  };
+
   return (
     <>
       <BrowserRouter>
-        <Navbar onGenerateNewJoke={getRandomJoke} />
+        <Navbar
+          onGenerateNewJoke={getRandomJoke}
+          filterToggle={toggleFilterMenu}
+        />
 
-        {isFilterMenu && <Filter />}
+        {isFilterMenu && <Filter toggleFilter={toggleFilterMenu} />}
 
         <Routes>
           <Route
