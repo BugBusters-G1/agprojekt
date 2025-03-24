@@ -1,12 +1,16 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import { Navbar } from "./components/Navbar/Navbar";
+import { Filter } from "./components/Filter/Filter";
 
 function App() {
   return (
     <>
-      <Navbar />
       <BrowserRouter>
+
+      <Navbar />
+      <Filter/>
+
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
