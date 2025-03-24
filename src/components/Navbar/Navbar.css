@@ -1,23 +1,19 @@
 header {
-    width: 100%;
-    height: 36px;
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-
-   
+  width: 100%;
+  height: 36px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
 }
 
-
-.logo{
-    font-size: 1.4rem;
-    font-weight: bold;
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
 }
 
 .menu-button {
-    height: 36px;
-    width: 36px;
-    all: unset;
-    font-size: 36px;
-    
+  height: 36px;
+  width: 36px;
+  all: unset;
+  font-size: 36px;
 }

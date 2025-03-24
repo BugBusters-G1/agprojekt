@@ -1,25 +1,24 @@
 import { Card } from "../components/Card/Card";
 import { useJokes } from "../hooks/useJokes";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import "../App.css";
 
 const Home = () => {
-  const { loading, currentJoke, getRandomJoke } = useJokes();
+  const { loading, error, currentJoke, getRandomJoke } = useJokes();
 
-  if (loading) {
-    return <div>Loading...</div>; // Show loading message or spinner while waiting for data
-  }
+  const renderContent = () => {
+    if (loading) return <Skeleton count={3} />;
+    if (error) return <p>{error}</p>;
 
-  return (
-    <main>
-      {currentJoke ? (
-        <>
-          <Card joke={currentJoke} onGenerateNewJoke={getRandomJoke} />
-        </>
-      ) : (
-        <div>Inga skämt tillgängliga.</div>
-      )}
-    </main> //getRandomJoke kommer sedan kallas på via komponenten button som vi ska skapa
-  );
+    return currentJoke ? (
+      <Card joke={currentJoke} onGenerateNewJoke={getRandomJoke} />
+    ) : (
+      <p>Inga skämt tillgängliga.</p>
+    );
+  };
+
+  return <main>{renderContent()}</main>;
 };
 
 export default Home;
