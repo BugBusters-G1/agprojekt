@@ -1,25 +1,44 @@
-import { Card } from "./components/Card/Card";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import { Navbar } from "./components/Navbar/Navbar";
+import { Filter } from "./components/Filter/Filter";
+import { useState } from "react";
 import { useJokes } from "./hooks/useJokes";
-import "./App.css";
 
-const JokesList = () => {
-  const { loading, currentJoke, getRandomJoke } = useJokes();
+function App() {
+  const { loading, error, currentJoke, getRandomJoke } = useJokes();
+  const [isFilterMenu, setFilterMenu] = useState<boolean>(false);
 
-  if (loading) {
-    return <div>Loading...</div>; // Show loading message or spinner while waiting for data
-  }
+  const toggleFilterMenu = () => {
+    setFilterMenu((prev) => !prev);
+  };
 
   return (
-    <main>
-      {currentJoke ? (
-        <>
-          <Card joke={currentJoke} onGenerateNewJoke={getRandomJoke} />
-        </>
-      ) : (
-        <div>Inga skämt tillgängliga.</div>
-      )}
-    </main> //getRandomJoke kommer sedan kallas på via komponenten button som vi ska skapa
-  );
-};
+    <>
+      <BrowserRouter>
+        <Navbar
+          onGenerateNewJoke={getRandomJoke}
+          filterToggle={toggleFilterMenu}
+        />
 
-export default JokesList;
+        {isFilterMenu && <Filter toggleFilter={toggleFilterMenu} />}
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                loading={loading}
+                currentJoke={currentJoke}
+                error={error}
+                getRandomJoke={getRandomJoke}
+              />
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
+}
+
+export default App;

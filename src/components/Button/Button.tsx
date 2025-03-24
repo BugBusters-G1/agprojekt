@@ -1,14 +1,15 @@
+import { Children, ReactNode } from "react";
 import "./Button.css";
-import { ArrowRight } from "lucide-react";
 
 interface ButtonComponentProps {
   onClick: () => void;
+  children: ReactNode;
 }
 
-export function ButtonComponent({ onClick }: ButtonComponentProps) {
+export function ButtonComponent({ onClick, children }: ButtonComponentProps) {
   return (
     <button className="card-button" onClick={onClick}>
-      <ArrowRight size={32} strokeWidth={1.5} />
+      {children}
     </button>
   );
 }
