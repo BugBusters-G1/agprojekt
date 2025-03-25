@@ -18,18 +18,23 @@ export function Card({ joke, expanded }: CardProps) {
   const style = categoryStyles[joke.category] || categoryStyles.default
 
   return (
-    <div className={`card-box`} style={{backgroundColor: style.background, color: style.text}}>
-      <div className="card-content">
-        <p className="category">{joke.category}</p>
-        <p className="swedish">{joke.swedish}</p>
 
+    <div className={`card-box ${expanded ? "expanded" : ""}`} style={{backgroundColor: style.background, color: style.text}}>
+
+
+      <div className="card-content">
+        <p className="swedish">{joke.swedish}</p>
+    </div>
         {expanded && (
-          <div className="expanded-content">
+          <div className="card-content expanded">
             <p className="translation">{joke.direct_translation}</p>
             <p className="meaning">{joke.meaning}</p>
+            <div className="category-container">
+          <p className="category">{joke.category}</p>
+      </div>
           </div>
         )}
-      </div>
+
     </div>
   );
 }

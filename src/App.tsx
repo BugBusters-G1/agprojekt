@@ -11,8 +11,13 @@ import { Header } from "./components/Header/Header";
 function App() {
   const { loading, error, currentJoke, getRandomJoke } = useJokes();
   const { isOpen: isFilterOpen, toggle: toggleFilter } = useToggle();
-  const { isOpen: isExpanded, toggle: toggleExpand } = useToggle();
-
+  const { isOpen: isExpanded, toggle: toggleExpand, setIsOpen: setExpanded } = useToggle();
+  
+  const handleNewJoke = () => {
+    setExpanded(false);
+    getRandomJoke(); 
+  };
+  
   return (
     <BrowserRouter>
 
@@ -23,7 +28,7 @@ function App() {
       <Navbar
         filterToggle={toggleFilter}
         isFilterOpen={isFilterOpen}
-        onGenerateNewJoke={getRandomJoke}
+        onGenerateNewJoke={handleNewJoke} 
         toggleExpand={toggleExpand}
       />
       <Routes>
@@ -35,7 +40,7 @@ function App() {
               currentJoke={currentJoke}
               error={error}
               _expanded={isExpanded}
-              getRandomJoke={getRandomJoke}
+              getRandomJoke={handleNewJoke}
             />
           }
         />
