@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 import { useIcon } from "../../hooks/useIcon";
->>>>>>> ca7a9dc (Add: more css structure and design)
 import "./Filter.css";
 import { CircleX } from "lucide-react";
 
