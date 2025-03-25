@@ -1,12 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import { Navbar } from "./components/Navbar/Navbar";
-
 import { useJokes } from "./hooks/useJokes";
 import { useToggle } from "./hooks/useToggle";
 import { Filter } from "./components/Filter/Filter";
-
 import "./App.css";
+import { Header } from "./components/Header/Header";
+
+
 function App() {
   const { loading, error, currentJoke, getRandomJoke } = useJokes();
   const { isOpen: isFilterOpen, toggle: toggleFilter } = useToggle();
@@ -19,6 +20,9 @@ function App() {
   
   return (
     <BrowserRouter>
+
+      <Header/>
+
       {isFilterOpen && <Filter toggleFilter={toggleFilter} />}
 
       <Navbar

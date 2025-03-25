@@ -13,7 +13,6 @@ export const Navbar = ({
   toggleExpand,
 }: NavbarProps) => {
   const navItems: NavItemProps[] = [
-    { type: "link", to: "/" },
     { type: "button", onClick: toggleExpand, icon: "CircleHelp" },
     {
       type: "button",

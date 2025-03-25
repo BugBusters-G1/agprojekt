@@ -6,9 +6,21 @@ interface CardProps {
   expanded: boolean;
 }
 
+const categoryStyles: Record<string, {background: string, text: string}> = {
+  sarcastic_humor: {background:"#FFCC0B", text: "#FFFFFF"},  //Gul med vit text
+  wordplay: {background:"#FF6B00", text: "#FFFCF7"},        //Orange med svart text
+  klassiker: {background:"#235AFD", text: "#000000"},        //Blå med svart text
+  default: {background:"#FFCC0B", text: "#FFFFFF"}
+}
+
 export function Card({ joke, expanded }: CardProps) {
+
+  const style = categoryStyles[joke.category] || categoryStyles.default
+
   return (
-    <div className={`card-box ${expanded ? "expanded" : ""}`}>
+
+    <div className={`card-box ${expanded ? "expanded" : ""}`} style={{backgroundColor: style.background, color: style.text}}>
+
 
       <div className="card-content">
         <p className="swedish">{joke.swedish}</p>

@@ -1,10 +1,21 @@
 :root {
-  --green: #32324;
+  --yellow: #FFCC0B;
+  --orange: #FF6B00;
+  --blue:#235AFD;
+  --backgroundWhite: #FFFCF7;
 }
 
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: "Afacad", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 16px;
+}
+
+body {
+  background-color: #FFFCF7;
 }
 
 main {
