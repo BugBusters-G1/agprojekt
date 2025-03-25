@@ -22,6 +22,11 @@ export const Navbar = ({
     },
     {
       type: "button",
+      onClick: () => {},
+      icon: "Share",
+    },
+    {
+      type: "button",
       onClick: onGenerateNewJoke,
       icon: "CircleArrowRight",
     },

@@ -18,7 +18,7 @@ const Home = ({ loading, currentJoke, error, _expanded }: HomeProps) => {
     if (error) return <p>{error}</p>;
 
     return currentJoke ? (
-      _expanded && <Card joke={currentJoke} expanded={_expanded} />
+      <Card joke={currentJoke} expanded={_expanded} />
     ) : (
       <p>Inga skämt tillgängliga.</p>
     );

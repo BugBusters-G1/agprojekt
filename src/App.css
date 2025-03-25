@@ -1,3 +1,7 @@
+:root {
+  --green: #32324;
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
