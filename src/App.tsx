@@ -7,14 +7,27 @@ import { useToggle } from "./hooks/useToggle";
 import { Filter } from "./components/Filter/Filter";
 
 import "./App.css";
+import { useCategories } from "./hooks/useCategories";
 function App() {
-  const { loading, error, currentJoke, getRandomJoke } = useJokes();
+  const { jokes, loading, error, currentJoke, getRandomJoke } = useJokes();
+  const {
+    categories,
+    error: categoryError,
+    loading: categoryLoading,
+  } = useCategories();
   const { isOpen: isFilterOpen, toggle: toggleFilter } = useToggle();
   const { isOpen: isExpanded, toggle: toggleExpand } = useToggle();
 
   return (
     <BrowserRouter>
-      {isFilterOpen && <Filter toggleFilter={toggleFilter} />}
+      {isFilterOpen && (
+        <Filter
+          availableCategories={categories}
+          toggleFilter={toggleFilter}
+          loading={categoryLoading}
+          error={categoryError}
+        />
+      )}
 
       <Navbar
         filterToggle={toggleFilter}
