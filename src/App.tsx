@@ -8,7 +8,8 @@ import "./App.css";
 import { Header } from "./components/Header/Header";
 
 import { useCategories } from "./hooks/useCategories";
-import { categoryColors, categoryStyles } from "./utils/Colors";
+import { categoryColors } from "./utils/Colors";
+import { useState } from "react";
 function App() {
   const { jokes, loading, error, currentJoke, getRandomJoke } = useJokes();
   const {
@@ -16,6 +17,8 @@ function App() {
     error: categoryError,
     loading: categoryLoading,
   } = useCategories();
+
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const { isOpen: isFilterOpen, toggle: toggleFilter } = useToggle();
   const {
     isOpen: isExpanded,
@@ -23,9 +26,17 @@ function App() {
     setIsOpen: setExpanded,
   } = useToggle();
 
+  const updateSelectedCategories = (category: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
+    );
+  };
+
   const handleNewJoke = () => {
     setExpanded(false);
-    getRandomJoke();
+    getRandomJoke(selectedCategories);
   };
 
   return (
@@ -33,11 +44,14 @@ function App() {
       <Header />
       {isFilterOpen && (
         <Filter
-          availableCategories={categories}
+          onGenerateNewJoke={handleNewJoke}
           toggleFilter={toggleFilter}
+          availableCategories={categories}
           loading={categoryLoading}
           error={categoryError}
           colors={categoryColors}
+          selectedCategories={selectedCategories}
+          updateSelectedCategories={updateSelectedCategories}
         />
       )}
 

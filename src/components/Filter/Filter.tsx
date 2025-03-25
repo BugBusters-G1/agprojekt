@@ -1,10 +1,12 @@
-import { useState } from "react";
 import { useIcon } from "../../hooks/useIcon";
 import "./Filter.css";
 
 interface FilterProps {
   toggleFilter: () => void;
   availableCategories?: string[];
+  selectedCategories: string[];
+  updateSelectedCategories: (categorie: string) => void;
+  onGenerateNewJoke: (categories: string[]) => void;
   loading?: boolean;
   error?: string | null;
   colors: Record<string, { background: string; text: string }>;
@@ -13,19 +15,18 @@ interface FilterProps {
 export function Filter({
   toggleFilter,
   availableCategories,
+  selectedCategories,
+  updateSelectedCategories,
+  onGenerateNewJoke,
   loading,
   error,
   colors,
 }: FilterProps) {
   const InfoIcon = useIcon("Info");
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const handleCheckboxChange = (category: string) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category]
-    );
+    // This will toggle the category in the selectedCategories array
+    updateSelectedCategories(category);
   };
 
   return (
@@ -48,7 +49,7 @@ export function Filter({
                 <input
                   type="checkbox"
                   checked={selectedCategories.includes(category)}
-                  onChange={() => handleCheckboxChange(category)}
+                  onChange={() => handleCheckboxChange(category)} // Handle checkbox change
                   className="category-checkbox"
                 />
                 <label className="category-name">{category}</label>
@@ -61,7 +62,16 @@ export function Filter({
         )}
 
         <div className="filterBtn-section">
-          <button className="filterBtn">Filtrera</button>
+          <button
+            className="filterBtn"
+            onClick={(e) => {
+              e.preventDefault();
+              toggleFilter();
+              onGenerateNewJoke(selectedCategories);
+            }}
+          >
+            Filtrera
+          </button>
         </div>
       </div>
     </div>
