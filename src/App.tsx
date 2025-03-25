@@ -7,28 +7,42 @@ import { Filter } from "./components/Filter/Filter";
 import "./App.css";
 import { Header } from "./components/Header/Header";
 
-
+import { useCategories } from "./hooks/useCategories";
 function App() {
-  const { loading, error, currentJoke, getRandomJoke } = useJokes();
+  const { jokes, loading, error, currentJoke, getRandomJoke } = useJokes();
+  const {
+    categories,
+    error: categoryError,
+    loading: categoryLoading,
+  } = useCategories();
   const { isOpen: isFilterOpen, toggle: toggleFilter } = useToggle();
-  const { isOpen: isExpanded, toggle: toggleExpand, setIsOpen: setExpanded } = useToggle();
-  
+  const {
+    isOpen: isExpanded,
+    toggle: toggleExpand,
+    setIsOpen: setExpanded,
+  } = useToggle();
+
   const handleNewJoke = () => {
     setExpanded(false);
-    getRandomJoke(); 
+    getRandomJoke();
   };
-  
+
   return (
     <BrowserRouter>
-
-      <Header/>
-
-      {isFilterOpen && <Filter toggleFilter={toggleFilter} />}
+      <Header />
+      {isFilterOpen && (
+        <Filter
+          availableCategories={categories}
+          toggleFilter={toggleFilter}
+          loading={categoryLoading}
+          error={categoryError}
+        />
+      )}
 
       <Navbar
         filterToggle={toggleFilter}
         isFilterOpen={isFilterOpen}
-        onGenerateNewJoke={handleNewJoke} 
+        onGenerateNewJoke={handleNewJoke}
         toggleExpand={toggleExpand}
       />
       <Routes>
