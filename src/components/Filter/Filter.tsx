@@ -1,4 +1,4 @@
-import "./Flter.css";
+import "./Filter.css";
 import { CircleX } from "lucide-react";
 interface FilterProps {
   toggleFilter: () => void;
