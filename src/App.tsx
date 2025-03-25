@@ -8,6 +8,7 @@ import "./App.css";
 import { Header } from "./components/Header/Header";
 
 import { useCategories } from "./hooks/useCategories";
+import { categoryColors, categoryStyles } from "./utils/Colors";
 function App() {
   const { jokes, loading, error, currentJoke, getRandomJoke } = useJokes();
   const {
@@ -36,6 +37,7 @@ function App() {
           toggleFilter={toggleFilter}
           loading={categoryLoading}
           error={categoryError}
+          colors={categoryColors}
         />
       )}
 
