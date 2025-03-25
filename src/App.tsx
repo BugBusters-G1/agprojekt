@@ -1,49 +1,43 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import { Navbar } from "./components/Navbar/Navbar";
-import { Filter } from "./components/Filter/Filter";
-import { useState } from "react";
-import { useJokes } from "./hooks/useJokes";
 
+import { useJokes } from "./hooks/useJokes";
+import { useToggle } from "./hooks/useToggle";
+import { Filter } from "./components/Filter/Filter";
+
+import "./App.css";
 function App() {
   const { loading, error, currentJoke, getRandomJoke } = useJokes();
-  const [isFilterMenu, setFilterMenu] = useState<boolean>(false);
+  const { isOpen: isFilterOpen, toggle: toggleFilter } = useToggle();
+  const { isOpen: isExpanded, toggle: toggleExpand } = useToggle();
 
-  const toggleFilterMenu = () => {
-    setFilterMenu((prev) => !prev);
-    const [expanded, setExpanded] = useState<boolean>(false);
+  return (
+    <BrowserRouter>
+      {isFilterOpen && <Filter toggleFilter={toggleFilter} />}
 
-    const toggleExpand = () => {
-      setExpanded(!expanded);
-    };
-
-    return (
-      <>
-        <BrowserRouter>
-          {isFilterMenu && <Filter toggleFilter={toggleFilterMenu} />}
-
-          <Navbar
-            filterToggle={toggleFilterMenu}
-            onGenerateNewJoke={getRandomJoke}
-            onToggleExpand={toggleExpand}
-          />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Home
-                  loading={loading}
-                  currentJoke={currentJoke}
-                  error={error}
-                  _expanded={expanded}
-                  getRandomJoke={getRandomJoke}
-                />
-              }
+      <Navbar
+        filterToggle={toggleFilter}
+        isFilterOpen={isFilterOpen}
+        onGenerateNewJoke={getRandomJoke}
+        toggleExpand={toggleExpand}
+      />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              loading={loading}
+              currentJoke={currentJoke}
+              error={error}
+              _expanded={isExpanded}
+              getRandomJoke={getRandomJoke}
             />
-          </Routes>
-        </BrowserRouter>
-      </>
-    );
-  };
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
+
 export default App;

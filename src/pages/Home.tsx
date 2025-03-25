@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { Card } from "../components/Card/Card";
 import "../App.css";
 import { Joke } from "../types/Joke";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { Navbar } from "../components/Navbar/Navbar";
 
 interface HomeProps {
   loading: boolean;
@@ -14,25 +12,19 @@ interface HomeProps {
   _expanded: boolean;
 }
 
-const Home = ({ loading, currentJoke, error, _expanded, getRandomJoke }: HomeProps) => {
-
-
+const Home = ({ loading, currentJoke, error, _expanded }: HomeProps) => {
   const renderContent = () => {
     if (loading) return <Skeleton count={3} />;
     if (error) return <p>{error}</p>;
 
-    return currentJoke ? (_expanded &&
+    return currentJoke ? (
       <Card joke={currentJoke} expanded={_expanded} />
     ) : (
       <p>Inga skämt tillgängliga.</p>
     );
   };
 
-  return (
-    <main>
-      {renderContent()}
-    </main>
-  );
+  return <main>{renderContent()}</main>;
 };
 
 export default Home;
