@@ -1,4 +1,5 @@
 export interface Joke {
+  category: string;
   categoryInSwedish: string;
   categoryInEnglish: string;
   jokeInSwedish: string;

@@ -4,13 +4,8 @@ import { Joke } from "../types/Joke";
 const ENDPOINT_URI = "https://ordbanken-api.vercel.app/api/fetch_all";
 
 export function useJokes() {
-<<<<<<< HEAD
   const [jokes, setJokes] = useState<Joke[]>([]);
   const [error, setError] = useState<string | null>(null);
-=======
-  const [jokes, setJokes] = useState<>([]);
-  const [error, setError] = useState(null);
->>>>>>> 1673849 (Change: Joke interface structure)
   const [loading, setLoading] = useState(true);
   const [currentJoke, setCurrentJoke] = useState<Joke | null>(null);
 
@@ -30,7 +25,7 @@ export function useJokes() {
 
     const filteredJokes =
       selectedCategories.length > 0
-        ? jokes.filter((joke) => selectedCategories.includes(joke.category))
+        ? jokes.filter((joke) => selectedCategories.includes(joke.ca))
         : jokes;
 
     setCurrentJoke(
