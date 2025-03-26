@@ -20,7 +20,7 @@ body {
 
 main {
   width: 100vw;
-  height: 130vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

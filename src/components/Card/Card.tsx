@@ -15,18 +15,26 @@ export function Card({ joke, expanded }: CardProps) {
   return (
     <div className={`card-box`} style={{backgroundColor: style.background, color: style.text}}>
       <div className="card-content">
-        <p className="category">{joke.categoryInSwedish}</p>
         <p className="swedish">{joke.jokeInSwedish}</p>
+        <p className="meaning">{joke.meaningInSwedish}</p>
 
-      </div>
+        <div className="card-bottom">
+          <div className="card-category-container">
+              <p className="card-category">{joke.categoryInSwedish}</p>
+          </div> 
+        </div>
+     </div>
       {expanded && (
         <div className="card-content expanded" style={{borderTop: `1px solid ${style.lineColor}`}}>
           <p className="translation">{joke.jokeInEnglish}</p>
-          <p className="meaning">{joke.meaningEnglish}</p>
-          <div className="category-container">
-            <p className="category">{joke.categoryInEnglish}</p>
-          </div>
+          <p className="meaning">{joke.meaningInEnglish}</p>
+          <div className="card-bottom">
+          <div className="card-category-container">
+              <p className="card-category">{joke.categoryInEnglish}</p>
+          </div> 
         </div>
+        </div>
+        
       )}
     </div>
   );

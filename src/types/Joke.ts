@@ -6,6 +6,6 @@ export interface Joke {
   swedishPunchline: string;
   jokeInEnglish: string;
   englishPunchline: string;
-  meaningSwedish: string;
-  meaningEnglish: string;
+  meaningInSwedish: string;
+  meaningInEnglish: string;
 }
