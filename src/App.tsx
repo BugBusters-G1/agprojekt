@@ -6,12 +6,14 @@ import { useToggle } from "./hooks/useToggle";
 import { Filter } from "./components/Filter/Filter";
 import "./App.css";
 import { Header } from "./components/Header/Header";
+import { useCopyJoke } from "./hooks/useCopyJoke";
 
 
 function App() {
   const { loading, error, currentJoke, getRandomJoke } = useJokes();
   const { isOpen: isFilterOpen, toggle: toggleFilter } = useToggle();
   const { isOpen: isExpanded, toggle: toggleExpand, setIsOpen: setExpanded } = useToggle();
+  const {copyJokeToClipboard, copied} = useCopyJoke()
   
   const handleNewJoke = () => {
     setExpanded(false);
@@ -30,6 +32,11 @@ function App() {
         isFilterOpen={isFilterOpen}
         onGenerateNewJoke={handleNewJoke} 
         toggleExpand={toggleExpand}
+        onCopyJoke={()=> {
+          if (currentJoke) {
+            copyJokeToClipboard(currentJoke, isExpanded)
+          }
+        }}
       />
       <Routes>
         <Route
