@@ -9,7 +9,9 @@
   margin: 0;
   box-sizing: border-box;
   font-family: "Afacad", sans-serif;
-  font-size: 16px;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 24px;
 }
 
 body {
@@ -18,9 +20,12 @@ body {
 
 main {
   width: 100vw;
-  height: 100vh;
+  height: 130vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  margin-top: 5vh;
 }
+
+
