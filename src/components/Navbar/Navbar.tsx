@@ -5,12 +5,14 @@ interface NavbarProps {
   isFilterOpen: boolean;
   onGenerateNewJoke: () => void;
   toggleExpand: () => void;
+  onCopyJoke: () => void;
 }
 
 export const Navbar = ({
   filterToggle,
   onGenerateNewJoke,
   toggleExpand,
+  onCopyJoke
 }: NavbarProps) => {
   const navItems: NavItemProps[] = [
     { type: "button", onClick: toggleExpand, icon: "CircleHelp" },
@@ -21,8 +23,8 @@ export const Navbar = ({
     },
     {
       type: "button",
-      onClick: () => {},
-      icon: "Share",
+      onClick: onCopyJoke,
+      icon: "Copy",
     },
     {
       type: "button",
