@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useIcon } from "../../hooks/useIcon";
-import Popup from "../Popup/Popup";
+
 import "./Filter.css";
 
 interface FilterProps {
