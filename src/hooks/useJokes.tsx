@@ -25,7 +25,7 @@ export function useJokes() {
 
     const filteredJokes =
       selectedCategories.length > 0
-        ? jokes.filter((joke) => selectedCategories.includes(joke.ca))
+        ? jokes.filter((joke) => selectedCategories.includes(joke.category))
         : jokes;
 
     setCurrentJoke(

@@ -3,7 +3,7 @@ import Home from "./pages/Home";
 import { Navbar } from "./components/Navbar/Navbar";
 import { useJokes } from "./hooks/useJokes";
 import { useToggle } from "./hooks/useToggle";
-import { Filter } from "./components/Filter/Filter";
+import { FilterContainer } from "./components/Filter/FilterContainer";
 import "./App.css";
 import { Header } from "./components/Header/Header";
 import { useCopyJoke } from "./hooks/useCopyJoke";
@@ -23,9 +23,7 @@ function App() {
 
   const { isOpen: isFilterOpen, toggle: toggleFilter } = useToggle();
 
-  
-  const {copyJokeToClipboard, copied} = useCopyJoke()
-  
+  const { copyJokeToClipboard, copied } = useCopyJoke();
 
   const {
     isOpen: isExpanded,
@@ -34,13 +32,13 @@ function App() {
   } = useToggle();
 
   const updateSelectedCategories = (category: string) => {
+    console.log(category);
     setSelectedCategories((prev) =>
       prev.includes(category)
         ? prev.filter((c) => c !== category)
         : [...prev, category]
     );
   };
-
 
   const handleNewJoke = () => {
     setExpanded(false);
@@ -51,7 +49,7 @@ function App() {
     <BrowserRouter>
       <Header />
       {isFilterOpen && (
-        <Filter
+        <FilterContainer
           onGenerateNewJoke={handleNewJoke}
           toggleFilter={toggleFilter}
           availableCategories={categories}
@@ -68,9 +66,9 @@ function App() {
         isFilterOpen={isFilterOpen}
         onGenerateNewJoke={handleNewJoke}
         toggleExpand={toggleExpand}
-        onCopyJoke={()=> {
+        onCopyJoke={() => {
           if (currentJoke) {
-            copyJokeToClipboard(currentJoke, isExpanded)
+            copyJokeToClipboard(currentJoke, isExpanded);
           }
         }}
       />
