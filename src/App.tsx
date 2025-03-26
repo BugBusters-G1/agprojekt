@@ -8,29 +8,65 @@ import "./App.css";
 import { Header } from "./components/Header/Header";
 import { useCopyJoke } from "./hooks/useCopyJoke";
 
-
+import { useCategories } from "./hooks/useCategories";
+import { categoryColors } from "./utils/Colors";
+import { useState } from "react";
 function App() {
-  const { loading, error, currentJoke, getRandomJoke } = useJokes();
+  const { jokes, loading, error, currentJoke, getRandomJoke } = useJokes();
+  const {
+    categories,
+    error: categoryError,
+    loading: categoryLoading,
+  } = useCategories();
+
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
   const { isOpen: isFilterOpen, toggle: toggleFilter } = useToggle();
-  const { isOpen: isExpanded, toggle: toggleExpand, setIsOpen: setExpanded } = useToggle();
+
+  
   const {copyJokeToClipboard, copied} = useCopyJoke()
   
+
+  const {
+    isOpen: isExpanded,
+    toggle: toggleExpand,
+    setIsOpen: setExpanded,
+  } = useToggle();
+
+  const updateSelectedCategories = (category: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
+    );
+  };
+
+
   const handleNewJoke = () => {
     setExpanded(false);
-    getRandomJoke(); 
+    getRandomJoke(selectedCategories);
   };
-  
+
   return (
     <BrowserRouter>
-
-      <Header/>
-
-      {isFilterOpen && <Filter toggleFilter={toggleFilter} />}
+      <Header />
+      {isFilterOpen && (
+        <Filter
+          onGenerateNewJoke={handleNewJoke}
+          toggleFilter={toggleFilter}
+          availableCategories={categories}
+          loading={categoryLoading}
+          error={categoryError}
+          colors={categoryColors}
+          selectedCategories={selectedCategories}
+          updateSelectedCategories={updateSelectedCategories}
+        />
+      )}
 
       <Navbar
         filterToggle={toggleFilter}
         isFilterOpen={isFilterOpen}
-        onGenerateNewJoke={handleNewJoke} 
+        onGenerateNewJoke={handleNewJoke}
         toggleExpand={toggleExpand}
         onCopyJoke={()=> {
           if (currentJoke) {
