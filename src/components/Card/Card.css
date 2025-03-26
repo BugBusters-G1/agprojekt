@@ -6,10 +6,7 @@
   box-shadow: 5px 4px 5px rgba(0, 0, 0, 0.263);
   border-radius: 15px;
   transition: max-height 0.3s ease-in-out;
-
-  
 }
-
 
 .card-content {
   height: 450px;
@@ -17,33 +14,26 @@
   flex-direction: column;
   align-items: center;
   position: relative;
-  
-
 }
 
 .card-box.expanded {
   margin-top: 25%;
- 
-  
-
 }
 
 .card-content.expanded {
   border-top: 1px solid black;
-  padding-top:50px;
- 
+  padding-top: 50px;
 }
 
 .category-container {
   position: absolute;
   bottom: 10px;
   left: 10px;
-  background-color: rgba(0, 0, 0, 0.1); /* Fondo semitransparente opcional */
+  background-color: rgba(0, 0, 0, 0.1);
   padding: 5px 10px;
   border-radius: 5px;
 }
 
 .category {
-  font-size: 0.9rem;
-  font-weight: bold;
+  font-size: 1.2rem;
 }
