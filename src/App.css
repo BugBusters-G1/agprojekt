@@ -1,8 +1,8 @@
 :root {
-  --yellow: #FFCC0B;
-  --orange: #FF6B00;
-  --blue:#235AFD;
-  --backgroundWhite: #FFFCF7;
+  --yellow: #ffcc0b;
+  --orange: #ff6b00;
+  --blue: #235afd;
+  --backgroundWhite: #fffcf7;
 }
 
 * {
@@ -15,7 +15,7 @@
 }
 
 body {
-  background-color: #FFFCF7;
+  background-color: #fffcf7;
 }
 
 main {
