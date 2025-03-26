@@ -19,6 +19,7 @@ function App() {
   } = useCategories();
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
   const { isOpen: isFilterOpen, toggle: toggleFilter } = useToggle();
   const {
     isOpen: isExpanded,
