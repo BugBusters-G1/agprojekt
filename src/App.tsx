@@ -10,7 +10,7 @@ import { useCopyJoke } from "./hooks/useCopyJoke";
 
 import { useCategories } from "./hooks/useCategories";
 import { categoryColors } from "./utils/Colors";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 function App() {
   const { jokes, loading, error, currentJoke, getRandomJoke } = useJokes();
   const {
@@ -39,6 +39,11 @@ function App() {
         : [...prev, category]
     );
   };
+  useEffect(() => {
+    if (isFilterOpen) {
+      setExpanded(false);
+    }
+  }, [isFilterOpen]);
 
   const handleNewJoke = () => {
     setExpanded(false);
