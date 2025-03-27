@@ -1,23 +1,43 @@
-import { ArrowRight, SlidersHorizontal } from "lucide-react";
-import { ButtonComponent } from "../Button/Button";
+import { NavItem, NavItemProps } from "./NavItem";
 import "./Navbar.css";
-
 interface NavbarProps {
-  onGenerateNewJoke: () => void;
   filterToggle: () => void;
+  isFilterOpen: boolean;
+  onGenerateNewJoke: () => void;
+  toggleExpand: () => void;
+  onCopyJoke: () => void;
 }
 
-export function Navbar({ onGenerateNewJoke, filterToggle }: NavbarProps) {
+export const Navbar = ({
+  filterToggle,
+  onGenerateNewJoke,
+  toggleExpand,
+  onCopyJoke
+}: NavbarProps) => {
+  const navItems: NavItemProps[] = [
+    {
+      type: "button",
+      onClick: filterToggle,
+      icon: "SlidersHorizontal",
+    },
+    { type: "button", onClick: toggleExpand, icon: "CircleHelp" },
+    {
+      type: "button",
+      onClick: onCopyJoke,
+      icon: "Copy",
+    },
+    {
+      type: "button",
+      onClick: onGenerateNewJoke,
+      icon: "CircleArrowRight",
+    },
+  ];
+
   return (
     <nav>
-      <ButtonComponent onClick={onGenerateNewJoke}>
-        {" "}
-        <ArrowRight size={32} strokeWidth={1.5} />{" "}
-      </ButtonComponent>
-
-      <ButtonComponent onClick={filterToggle}>
-        <SlidersHorizontal size={32} strokeWidth={1.5} />{" "}
-      </ButtonComponent>
+      {navItems.map((item, index) => (
+        <NavItem key={index} {...item} />
+      ))}
     </nav>
   );
-}
+};

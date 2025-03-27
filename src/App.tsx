@@ -1,43 +1,97 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import { Navbar } from "./components/Navbar/Navbar";
-import { Filter } from "./components/Filter/Filter";
-import { useState } from "react";
 import { useJokes } from "./hooks/useJokes";
+import { useToggle } from "./hooks/useToggle";
+import { FilterContainer } from "./components/Filter/FilterContainer";
+import "./App.css";
+import { Header } from "./components/Header/Header";
+import { useCopyJoke } from "./hooks/useCopyJoke";
 
+import { useCategories } from "./hooks/useCategories";
+import { categoryColors } from "./utils/Colors";
+import { useEffect, useState } from "react";
 function App() {
-  const { loading, error, currentJoke, getRandomJoke } = useJokes();
-  const [isFilterMenu, setFilterMenu] = useState<boolean>(false);
+  const { jokes, loading, error, currentJoke, getRandomJoke } = useJokes();
+  const {
+    categories,
+    error: categoryError,
+    loading: categoryLoading,
+  } = useCategories();
 
-  const toggleFilterMenu = () => {
-    setFilterMenu((prev) => !prev);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+  const { isOpen: isFilterOpen, toggle: toggleFilter } = useToggle();
+
+  const { copyJokeToClipboard, copied } = useCopyJoke();
+
+  const {
+    isOpen: isExpanded,
+    toggle: toggleExpand,
+    setIsOpen: setExpanded,
+  } = useToggle();
+
+  const updateSelectedCategories = (category: string) => {
+    console.log(category);
+    setSelectedCategories((prev) =>
+      prev.includes(category)
+        ? prev.filter((c) => c !== category)
+        : [...prev, category]
+    );
+  };
+  useEffect(() => {
+    if (isFilterOpen) {
+      setExpanded(false);
+    }
+  }, [isFilterOpen]);
+
+  const handleNewJoke = () => {
+    setExpanded(false);
+    getRandomJoke(selectedCategories);
   };
 
   return (
-    <>
-      <BrowserRouter>
-        <Navbar
-          onGenerateNewJoke={getRandomJoke}
-          filterToggle={toggleFilterMenu}
+    <BrowserRouter>
+      <Header />
+      {isFilterOpen && (
+        <FilterContainer
+          onGenerateNewJoke={handleNewJoke}
+          toggleFilter={toggleFilter}
+          availableCategories={categories}
+          loading={categoryLoading}
+          error={categoryError}
+          colors={categoryColors}
+          selectedCategories={selectedCategories}
+          updateSelectedCategories={updateSelectedCategories}
         />
+      )}
 
-        {isFilterMenu && <Filter toggleFilter={toggleFilterMenu} />}
-
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                loading={loading}
-                currentJoke={currentJoke}
-                error={error}
-                getRandomJoke={getRandomJoke}
-              />
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-    </>
+      <Navbar
+        filterToggle={toggleFilter}
+        isFilterOpen={isFilterOpen}
+        onGenerateNewJoke={handleNewJoke}
+        toggleExpand={toggleExpand}
+        onCopyJoke={() => {
+          if (currentJoke) {
+            copyJokeToClipboard(currentJoke, isExpanded);
+          }
+        }}
+      />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              loading={loading}
+              currentJoke={currentJoke}
+              error={error}
+              _expanded={isExpanded}
+              getRandomJoke={handleNewJoke}
+            />
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
