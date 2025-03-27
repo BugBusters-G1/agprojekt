@@ -24,8 +24,13 @@ export function Card({ joke, expanded }: CardProps) {
             <p className="meaning">{joke.meaningInSwedish}</p>
           </div>
         )}
-        <div className="card-category-container" style={{ bottom: expanded ? "25px" : "2px" }}>
-          <p className="card-category">{joke.categoryInSwedish}</p>
+        <div
+          className="card-category-container"
+          style={{ bottom: expanded ? "25px" : "2px" }}
+        >
+          <p className="card-category">
+            {joke.categoryInSwedish.toUpperCase()}
+          </p>
         </div>
       </div>
 
@@ -40,7 +45,9 @@ export function Card({ joke, expanded }: CardProps) {
             <p className="meaning">{joke.meaningInEnglish}</p>
           </div>
           <div className="card-category-container">
-            <p className="card-category">{joke.categoryInEnglish}</p>
+            <p className="card-category">
+              {joke.categoryInEnglish.toUpperCase()}
+            </p>
           </div>
         </div>
       )}
