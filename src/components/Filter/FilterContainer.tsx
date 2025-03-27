@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useIcon } from "../../hooks/useIcon";
 import CategoryItem from "./CategoryItem";
 import FilterButton from "./FilterButton";
 import { Category } from "../../types/Category";
