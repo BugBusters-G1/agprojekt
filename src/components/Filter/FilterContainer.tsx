@@ -2,6 +2,8 @@ import CategoryItem from "./CategoryItem";
 import FilterButton from "./FilterButton";
 import { Category } from "../../types/Category";
 
+import { CircleX } from "lucide-react";
+
 import "./Filter.css";
 
 interface FilterProps {
@@ -31,9 +33,16 @@ export function FilterContainer({
     toggleFilter();
   };
 
+  const handleClose = () => {
+    toggleFilter();
+  };
+
   return (
     <div className="filter-overlay">
       <div className="filter-view">
+        <div className="filter-close" onClick={handleClose}>
+          <CircleX />
+        </div>
         {loading ? (
           <p>Laddar kategorier...</p>
         ) : error ? (
