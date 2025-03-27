@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useIcon } from "../../hooks/useIcon";
 import "./Navbar.css";
-import { SidebarClose } from "lucide-react";
 export interface NavItemProps {
   type: "link" | "button";
   to?: string;

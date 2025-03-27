@@ -27,9 +27,6 @@ export function FilterContainer({
   error,
   colors,
 }: FilterProps) {
-  const [showInfo, setShowInfo] = useState<boolean>(false);
-  const InfoIcon = useIcon("Info");
-
   const handleButtonClick = () => {
     console.log(selectedCategories);
     onGenerateNewJoke(selectedCategories);
