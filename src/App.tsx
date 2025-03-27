@@ -40,10 +40,10 @@ function App() {
     );
   };
   useEffect(() => {
-    if (isFilterOpen) {
+    if (isFilterOpen && isExpanded) {
       setExpanded(false);
     }
-  }, [isFilterOpen]);
+  }, [isFilterOpen, isExpanded]);
 
   const handleNewJoke = () => {
     setExpanded(false);

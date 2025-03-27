@@ -13,12 +13,19 @@
   padding: 15px;
 }
 
+.filter-close {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 5px;
+}
+
 .filter-overlay {
   position: absolute;
   top: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 1000;
+  z-index: 1100;
   backdrop-filter: blur(2px);
   background-color: rgb(255, 255, 255, 0.8);
 }
