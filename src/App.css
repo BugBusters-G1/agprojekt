@@ -1,5 +1,5 @@
 :root {
-  --yellow: #ffcc0b;
+  --yellow: #FFE14C;
   --orange: #ff6b00;
   --blue: #235afd;
   --backgroundWhite: #fffcf7;
@@ -20,12 +20,10 @@ body {
 
 main {
   width: 100vw;
-  height: 130vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   margin-top: 5vh;
 }
-
-

@@ -1,5 +1,5 @@
 export interface Category {
-  loading: boolean;
-  error: boolean;
-  
+  category: string;
+  categoryInSwedish: string;
+  categoryInEnglish: string;
 }

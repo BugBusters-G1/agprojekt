@@ -2,57 +2,51 @@
   display: flex;
   flex-direction: column;
   width: 80%;
-  padding: 20px;
+  padding: 30px;
   box-shadow: 5px 4px 5px rgba(0, 0, 0, 0.263);
   border-radius: 15px;
   transition: max-height 0.3s ease-in-out;
-  margin-top: 100px; 
-
+  margin-top: 100px;
+  overflow: hidden;
 }
 
 .card-content {
-  height: 450px;
+  position: relative;
+  min-height: 450px;
   display: flex;
   flex-direction: column;
-  align-items: right;
-  padding: 20px;
+  align-items: flex-start;
+  gap: 15px;
+  padding-bottom: 80px;  
 }
 
-.card-box.expanded {
-  margin-top: 100px;
-  position: relative;
-  min-height: 450px; 
+.card-content > p {
+  text-align: left;
 }
 
-.card-content.expanded {
-  height: 80%;
-  border-top: 1px solid white;
-  padding-top:30px;
-  align-items: center;
-  position: relative;
-}
 
-.card-box.expanded {
-  margin-top: 25%;
-}
-
-.card-content.expanded {
-  border-top: 1px solid black;
-  padding-top: 50px;
-}
-
-.category-container {
+.card-category-container {
   position: absolute;
-  bottom: 20px;
-  left: 30px;
-  background-color: white; 
-  padding: 5px 10px;
-  border-radius: 20px;
+  bottom: 2px;
+  left: 5px;
+  background-color: white;
+  border-radius: 15px;
+  padding: 2px 6px;
+  z-index: 1;
 }
 
-.category {
+.card-category {
   color: black;
-  font-weight: semi bold;
+  font-weight: 600;
   font-size: 16px;
 }
- 
+
+.punchline {
+  font-weight: 600;
+}
+
+
+.card-content.expanded {
+  border-top: 1px solid white;
+  padding-top: 30px;
+}

@@ -1,35 +1,46 @@
 import "./Card.css";
 import { Joke } from "../../types/Joke";
+import { categoryColors } from "../../utils/Colors";
 
 interface CardProps {
   joke: Joke;
   expanded: boolean;
 }
 
-const categoryStyles: Record<string, { background: string; text: string }> = {
-  sarcastic_humor: { background: "#FFCC0B", text: "#FFFFFF" }, //Gul med vit text
-  wordplay: { background: "#FF6B00", text: "#FFFCF7" }, //Orange med svart text
-  klassiker: { background: "#235AFD", text: "#000000" }, //Blå med svart text
-  default: { background: "#FFCC0B", text: "#FFFFFF" },
-};
-
 export function Card({ joke, expanded }: CardProps) {
-  const style = categoryStyles[joke.category] || categoryStyles.default;
+  const style =
+    categoryColors[joke.category.toLowerCase()] || categoryColors.default;
 
   return (
     <div
-      className={`card-box ${expanded ? "expanded" : ""}`}
+      className="card-box"
       style={{ backgroundColor: style.background, color: style.text }}
     >
       <div className="card-content">
-        <p className="swedish">{joke.swedish}</p>
+        <p className="joke">{joke.jokeInSwedish}</p>
+        <p className="punchline">{joke.swedishPunchline}</p>
+        {expanded && (
+          <div className="meaning-content">
+            <p className="meaning">{joke.meaningInSwedish}</p>
+          </div>
+        )}
+        <div className="card-category-container" style={{ bottom: expanded ? "25px" : "2px" }}>
+          <p className="card-category">{joke.categoryInSwedish}</p>
+        </div>
       </div>
+
       {expanded && (
-        <div className="card-content expanded">
-          <p className="translation">{joke.direct_translation}</p>
-          <p className="meaning">{joke.meaning}</p>
-          <div className="category-container">
-            <p className="category">{joke.category}</p>
+        <div
+          className="card-content expanded"
+          style={{ borderTop: `1px solid ${style.lineColor}` }}
+        >
+          <p className="joke">{joke.jokeInEnglish}</p>
+          <p className="punchline">{joke.englishPunchline}</p>
+          <div className="meaning-content">
+            <p className="meaning">{joke.meaningInEnglish}</p>
+          </div>
+          <div className="card-category-container">
+            <p className="card-category">{joke.categoryInEnglish}</p>
           </div>
         </div>
       )}

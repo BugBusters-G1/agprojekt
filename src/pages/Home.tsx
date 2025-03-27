@@ -24,7 +24,11 @@ const Home = ({ loading, currentJoke, error, _expanded }: HomeProps) => {
     );
   };
 
-  return <main>{renderContent()}</main>;
-};
+  return (
+      <main style={{ marginBottom: _expanded ? "15vh" : "0" }}>
+        {renderContent()}
+      </main>
+  );
+  };
 
 export default Home;

@@ -15,12 +15,12 @@ export const Navbar = ({
   onCopyJoke
 }: NavbarProps) => {
   const navItems: NavItemProps[] = [
-    { type: "button", onClick: toggleExpand, icon: "CircleHelp" },
     {
       type: "button",
       onClick: filterToggle,
       icon: "SlidersHorizontal",
     },
+    { type: "button", onClick: toggleExpand, icon: "CircleHelp" },
     {
       type: "button",
       onClick: onCopyJoke,
