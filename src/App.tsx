@@ -12,7 +12,7 @@ import { useCategories } from "./hooks/useCategories";
 import { categoryColors } from "./utils/Colors";
 import { useEffect, useState } from "react";
 function App() {
-  const { jokes, loading, error, currentJoke, getRandomJoke } = useJokes();
+  const { loading, error, currentJoke, getRandomJoke } = useJokes();
   const {
     categories,
     error: categoryError,
@@ -23,7 +23,7 @@ function App() {
 
   const { isOpen: isFilterOpen, toggle: toggleFilter } = useToggle();
 
-  const { copyJokeToClipboard, copied } = useCopyJoke();
+  const { copyJokeToClipboard } = useCopyJoke();
 
   const {
     isOpen: isExpanded,
