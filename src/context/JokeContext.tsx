@@ -54,7 +54,6 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
         selectedCategories,
         categories,
         updateSelectedCategories,
-
         categoryError,
         categoryLoading,
         copyJokeToClipboard,

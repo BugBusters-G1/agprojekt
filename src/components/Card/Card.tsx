@@ -15,7 +15,11 @@ export function Card({ joke, expanded }: CardProps) {
   return (
     <div
       className="card-box"
-      style={{ backgroundColor: style.background, color: style.text }}
+      style={{
+        backgroundColor: style.background,
+        color: style.text,
+        maxHeight: !expanded ? "60vh" : "",
+      }}
     >
       <div className="card-content">
         <p className="joke">{joke.jokeInSwedish}</p>
