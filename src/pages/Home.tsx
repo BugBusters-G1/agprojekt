@@ -1,18 +1,15 @@
 import { Card } from "../components/Card/Card";
 import "../App.css";
-import { Joke } from "../types/Joke";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useJokesContext } from "../context/JokeContext";
 
 interface HomeProps {
-  loading: boolean;
-  currentJoke: Joke | null;
-  getRandomJoke: () => void;
-  error: string | null;
   _expanded: boolean;
 }
 
-const Home = ({ loading, currentJoke, error, _expanded }: HomeProps) => {
+const Home = ({ _expanded }: HomeProps) => {
+  const { currentJoke, loading, error } = useJokesContext();
   const renderContent = () => {
     if (loading) return <Skeleton count={3} />;
     if (error) return <p>{error}</p>;
@@ -25,10 +22,10 @@ const Home = ({ loading, currentJoke, error, _expanded }: HomeProps) => {
   };
 
   return (
-      <main style={{ marginBottom: _expanded ? "15vh" : "0" }}>
-        {renderContent()}
-      </main>
+    <main style={{ marginBottom: _expanded ? "15vh" : "0" }}>
+      {renderContent()}
+    </main>
   );
-  };
+};
 
 export default Home;

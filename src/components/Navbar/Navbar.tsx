@@ -1,19 +1,15 @@
+import { useJokesContext } from "../../context/JokeContext";
 import { NavItem, NavItemProps } from "./NavItem";
 import "./Navbar.css";
 interface NavbarProps {
   filterToggle: () => void;
   isFilterOpen: boolean;
-  onGenerateNewJoke: () => void;
   toggleExpand: () => void;
-  onCopyJoke: () => void;
 }
 
-export const Navbar = ({
-  filterToggle,
-  onGenerateNewJoke,
-  toggleExpand,
-  onCopyJoke
-}: NavbarProps) => {
+export const Navbar = ({ filterToggle, toggleExpand }: NavbarProps) => {
+  const { handleNewJoke, copyJokeToClipboard, currentJoke } = useJokesContext();
+
   const navItems: NavItemProps[] = [
     {
       type: "button",
@@ -23,12 +19,16 @@ export const Navbar = ({
     { type: "button", onClick: toggleExpand, icon: "CircleHelp" },
     {
       type: "button",
-      onClick: onCopyJoke,
+      onClick: () => {
+        if (currentJoke) {
+          copyJokeToClipboard(currentJoke, false); //change the second param to actual is card expanded boolean
+        }
+      },
       icon: "Copy",
     },
     {
       type: "button",
-      onClick: onGenerateNewJoke,
+      onClick: handleNewJoke,
       icon: "CircleArrowRight",
     },
   ];

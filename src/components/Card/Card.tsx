@@ -1,6 +1,7 @@
 import "./Card.css";
 import { Joke } from "../../types/Joke";
 import { categoryColors } from "../../utils/Colors";
+import { useJokesContext } from "../../context/JokeContext";
 
 interface CardProps {
   joke: Joke;

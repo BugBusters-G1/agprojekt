@@ -3,12 +3,14 @@ import { useJokes } from "../hooks/useJokes";
 import { useCategories } from "../hooks/useCategories";
 import { Joke } from "../types/Joke";
 import { useCopyJoke } from "../hooks/useCopyJoke";
+import { Category } from "../types/Category";
 
 interface JokesContextType {
   loading: boolean;
   error: string | null;
   currentJoke: Joke | null;
-  getRandomJoke: () => void;
+  handleNewJoke: () => void;
+  categories: Category[];
   selectedCategories: string[];
   updateSelectedCategories: (category: string) => void;
   categoryError: string | null;
@@ -37,15 +39,22 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
+  const handleNewJoke = () => {
+    // setExpanded(false);
+    getRandomJoke(selectedCategories);
+  };
+
   return (
     <JokesContext.Provider
       value={{
         loading,
         error,
         currentJoke,
-        getRandomJoke: () => getRandomJoke(selectedCategories),
+        handleNewJoke,
         selectedCategories,
+        categories,
         updateSelectedCategories,
+
         categoryError,
         categoryLoading,
         copyJokeToClipboard,
