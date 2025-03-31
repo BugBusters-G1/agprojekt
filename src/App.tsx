@@ -8,12 +8,14 @@ import { JokesProvider } from "./context/JokeContext";
 import { AppProvider, useAppContext } from "./context/AppContext";
 
 function AppContent() {
-  const { isFilterOpen, toggleFilter } = useAppContext();
+  const { isCategorySelector, toggleCategorySelector } = useAppContext();
 
   return (
     <>
       <Header />
-      {isFilterOpen && <FilterContainer toggleFilter={toggleFilter} />}
+      {isCategorySelector && (
+        <FilterContainer toggleFilter={toggleCategorySelector} />
+      )}
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
