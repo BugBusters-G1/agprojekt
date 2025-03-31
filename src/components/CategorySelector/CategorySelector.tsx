@@ -1,35 +1,27 @@
 import CategoryItem from "./CategoryItem";
-import FilterButton from "./FilterButton";
-import { Category } from "../../types/Category";
+import FilterButton from "./SelectorButton";
 
 import { CircleX } from "lucide-react";
 
-import "./Filter.css";
+import "./CateogrySelectror.css";
+import { useJokesContext } from "../../context/JokeContext";
+import { categoryColors } from "../../utils/Colors";
 
 interface FilterProps {
   toggleFilter: () => void;
-  availableCategories?: Category[];
-  selectedCategories: string[];
-  updateSelectedCategories: (categorie: string) => void;
-  onGenerateNewJoke: (categories: string[]) => void;
-  loading?: boolean;
-  error?: string | null;
-  colors: Record<string, { background: string; text: string }>;
 }
 
-export function FilterContainer({
-  toggleFilter,
-  availableCategories,
-  selectedCategories,
-  updateSelectedCategories,
-  onGenerateNewJoke,
-  loading,
-  error,
-  colors,
-}: FilterProps) {
+export function FilterContainer({ toggleFilter }: FilterProps) {
+  const {
+    loading,
+    error,
+    handleNewJoke,
+    categories,
+    selectedCategories,
+    updateSelectedCategories,
+  } = useJokesContext();
   const handleButtonClick = () => {
-    console.log(selectedCategories);
-    onGenerateNewJoke(selectedCategories);
+    handleNewJoke();
     toggleFilter();
   };
 
@@ -47,14 +39,14 @@ export function FilterContainer({
           <p>Laddar kategorier...</p>
         ) : error ? (
           <p className="error-message">{error}</p>
-        ) : availableCategories && availableCategories.length > 0 ? (
-          availableCategories.map((category) => (
+        ) : categories && categories.length > 0 ? (
+          categories.map((category) => (
             <CategoryItem
               key={category.category}
               category={category}
               selected={selectedCategories.includes(category.category)}
               onToggle={updateSelectedCategories}
-              colors={colors}
+              colors={categoryColors}
             />
           ))
         ) : (
