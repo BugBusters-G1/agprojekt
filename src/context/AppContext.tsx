@@ -1,8 +1,8 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 
 interface TAppContext {
-  isFilterOpen: boolean;
-  toggleFilter: () => void;
+  isCategorySelector: boolean;
+  toggleCategorySelector: () => void;
   isCardExpanded: boolean;
   toggleCardExpand: () => void;
   isLoading: boolean;
@@ -12,21 +12,18 @@ interface TAppContext {
 const AppContext = createContext<TAppContext | null>(null);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isCategorySelector, setCategorySelector] = useState(false);
   const [isCardExpanded, setCardExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const toggleFilter = () => setIsFilterOpen(!isFilterOpen);
-  
-  const toggleCardExpand = () => {
-    setCardExpanded(!isCardExpanded);
-  };
+  const toggleCategorySelector = () => setCategorySelector(!isCategorySelector);
+  const toggleCardExpand = () => setCardExpanded(!isCardExpanded);
 
   return (
     <AppContext.Provider
       value={{
-        isFilterOpen,
-        toggleFilter,
+        isCategorySelector,
+        toggleCategorySelector,
         isCardExpanded,
         toggleCardExpand,
         isLoading,

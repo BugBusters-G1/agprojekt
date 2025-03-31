@@ -1,10 +1,9 @@
 import CategoryItem from "./CategoryItem";
-import FilterButton from "./FilterButton";
-import { Category } from "../../types/Category";
+import FilterButton from "./SelectorButton";
 
 import { CircleX } from "lucide-react";
 
-import "./Filter.css";
+import "./CateogrySelectror.css";
 import { useJokesContext } from "../../context/JokeContext";
 import { categoryColors } from "../../utils/Colors";
 
@@ -16,7 +15,6 @@ export function FilterContainer({ toggleFilter }: FilterProps) {
   const {
     loading,
     error,
-    currentJoke,
     handleNewJoke,
     categories,
     selectedCategories,
