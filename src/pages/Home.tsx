@@ -6,6 +6,7 @@ import { useJokesContext } from "../context/JokeContext";
 import { useAppContext } from "../context/AppContext";
 import { Joke } from "../types/Joke";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const Home = () => {
   const { jokes, loading, error, getRandomJoke,selectedCategories } = useJokesContext();
@@ -16,7 +17,6 @@ const Home = () => {
   const handleDrag = (_: any, info: { offset: { x: number; y: number } }) => {
     if (!jokeQueue || jokeQueue.length === 0) return;
     
-
     if (info.offset.x > 100) {
       const newJoke = getRandomJoke(selectedCategories)
 
@@ -25,7 +25,6 @@ const Home = () => {
       setJokeQueue((prevJokes) =>
         prevJokes ? [...prevJokes.slice(1), newJoke] : [newJoke]
       );
-      
     }
   };
 
@@ -42,7 +41,26 @@ const Home = () => {
     return (
       <div className="card-stack-grid">
         {jokeQueue?.slice(0).reverse().map((joke, index) => (
-        <Card key={index} joke={joke} expanded={isCardExpanded} handleDrag={handleDrag}/>
+
+
+        <motion.div
+          key={index}
+          drag={index === 0 ? "x" : false}
+          onDragEnd={index === 0 ? handleDrag : undefined}
+          initial={{ opacity: 1, scale: 1 }}
+          animate={{ scale: 1 - index * 0.03, y: index * 8 }}
+          exit={{ x: 500, opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          style={{
+
+            gridRow: 1,
+            gridColumn: 1,
+            width: "100%",
+            zIndex: jokeQueue.length - index,
+          }}
+        >
+          <Card joke={joke} expanded={isCardExpanded} />
+        </motion.div>
     
        ))}
       </div>
