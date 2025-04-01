@@ -2,13 +2,13 @@ import "./Card.css";
 import { Joke } from "../../types/Joke";
 import { categoryColors } from "../../utils/Colors";
 
-
 interface CardProps {
   joke: Joke;
   expanded: boolean;
+  index: number;
 }
 
-export function Card({ joke, expanded }: CardProps) {
+export function Card({ joke, expanded, index }: CardProps) {
   const style =
     categoryColors[joke.category.toLowerCase()] || categoryColors.default;
 
@@ -39,7 +39,7 @@ export function Card({ joke, expanded }: CardProps) {
         </div>
       </div>
 
-      {expanded && (
+      {expanded && index === 0 && (
         <div
           className="card-content expanded"
           style={{ borderTop: `1px solid ${style.lineColor}` }}
