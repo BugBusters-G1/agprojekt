@@ -55,7 +55,7 @@ const Home = () => {
         <p>{error}</p>
       ) : (
         <div className="card-stack-grid">
-          {jokeQueue.slice(0, 5).map((joke, index) => (
+          {jokeQueue.slice(0, 5).map((joke, mIndex) => (
             <motion.div
               key={joke._id}
               drag="x"
@@ -64,10 +64,10 @@ const Home = () => {
               style={{
                 gridRow: 1,
                 gridColumn: 1,
-                zIndex: jokeQueue.length - index,
+                zIndex: jokeQueue.length - mIndex,
               }}
             >
-              <Card joke={joke} expanded={isCardExpanded} />
+              <Card joke={joke} expanded={isCardExpanded} index={mIndex} />
             </motion.div>
           ))}
         </div>
