@@ -1,4 +1,11 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useContext,
+  useState,
+} from "react";
 import { useJokes } from "../hooks/useJokes";
 import { useCategories } from "../hooks/useCategories";
 import { Joke } from "../types/Joke";
@@ -16,6 +23,9 @@ interface JokesContextType {
   categoryError: string | null;
   categoryLoading: boolean;
   copyJokeToClipboard: (joke: Joke, expanded: boolean) => void;
+  setJokeQueue: Dispatch<SetStateAction<Joke[]>>;
+  jokeQueue: Joke[];
+  removeTopJoke: () => void;
 }
 
 const JokesContext = createContext<JokesContextType | null>(null);
@@ -28,8 +38,8 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
     error: categoryError,
     loading: categoryLoading,
   } = useCategories();
-
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [jokeQueue, setJokeQueue] = useState<Joke[]>([]);
 
   const updateSelectedCategories = (category: string) => {
     setSelectedCategories((prev) =>
@@ -39,6 +49,20 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
+  const removeTopJoke = () => {
+    setJokeQueue((prevQueue) => {
+      const newQueue = prevQueue.slice(1);
+
+      if (newQueue.length < 2) {
+        const newJokes = Array.from({ length: 5 }, () =>
+          getRandomJoke(selectedCategories)
+        ).filter(Boolean) as Joke[];
+        return [...newQueue, ...newJokes];
+      }
+
+      return newQueue;
+    });
+  };
 
   return (
     <JokesContext.Provider
@@ -53,6 +77,9 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
         categoryError,
         categoryLoading,
         copyJokeToClipboard,
+        jokeQueue,
+        setJokeQueue,
+        removeTopJoke,
       }}
     >
       {children}

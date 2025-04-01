@@ -13,10 +13,9 @@ const shuffleArray = (array: Joke[]) => {
 };
 
 const Home = () => {
-  const { jokes, loading, error, getRandomJoke, selectedCategories } =
+  const { jokes, loading, error, removeTopJoke, jokeQueue, setJokeQueue } =
     useJokesContext();
   const { isCardExpanded } = useAppContext();
-  const [jokeQueue, setJokeQueue] = useState<Joke[]>([]);
 
   useEffect(() => {
     if (jokes && jokes.length > 0) {
@@ -26,24 +25,8 @@ const Home = () => {
   }, [jokes]);
 
   const handleDrag = (_: any, info: { offset: { x: number; y: number } }) => {
-    if (!jokeQueue || jokeQueue.length === 0) return;
-
     if (Math.abs(info.offset.x) > 100) {
-      //Om drag offset på x axel är över 100 eller under -100(swipe track, höger vänster)
-      setJokeQueue((prevQueue) => {
-        const newQueue = prevQueue.slice(1); //Klipper bort skämtet längst fram
-
-        if (newQueue.length < 2) {
-          //Om kön är under 2 element
-          const newJokes = Array.from({ length: 5 }, () =>
-            //Skapa 5 nya skämt
-            getRandomJoke(selectedCategories)
-          ).filter(Boolean) as Joke[];
-          return [...newQueue, ...newJokes]; //returnera 5 nya skämt + 2
-        }
-
-        return newQueue;
-      });
+      removeTopJoke();
     }
   };
 
