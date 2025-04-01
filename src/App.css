@@ -1,5 +1,7 @@
+@import "tailwindcss";
+
 :root {
-  --yellow: #FFE14C;
+  --yellow: #ffe14c;
   --orange: #ff6b00;
   --blue: #235afd;
   --backgroundWhite: #fffcf7;
@@ -11,30 +13,9 @@
   font-family: "Afacad", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-  font-size: 24px;
 }
 
 body {
   background-color: #fffcf7;
+  overflow: hidden;
 }
-
-main {
-  width: 100vw;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  
-}
-
-
-.card-stack-grid {
-  display: grid;
-  position: relative;
-  width: 100vw;
-  max-width: 500px;
-  height: 100vh;
-  place-items: center;
-}
-

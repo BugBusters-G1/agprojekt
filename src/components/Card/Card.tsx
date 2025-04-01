@@ -1,6 +1,6 @@
-import "./Card.css";
 import { Joke } from "../../types/Joke";
 import { categoryColors } from "../../utils/Colors";
+import { CardContent } from "./CardContent";
 
 interface CardProps {
   joke: Joke;
@@ -14,48 +14,38 @@ export function Card({ joke, expanded, index }: CardProps) {
 
   return (
     <div
-      className="card-box"
+      className="rounded-lg min-h-[200px] max-h-fit w-full max-w-sm text-2xl flex flex-col"
       style={{
         backgroundColor: style.background,
         color: style.text,
-        maxHeight: !expanded ? "60vh" : "",
       }}
     >
-      <div className="card-content">
-        <p className="joke">{joke.jokeInSwedish}</p>
-        <p className="punchline">{joke.swedishPunchline}</p>
-        {expanded && (
-          <div className="meaning-content">
-            <p className="meaning">{joke.meaningInSwedish}</p>
-          </div>
-        )}
-        <div
-          className="card-category-container"
-          style={{ bottom: expanded ? "25px" : "2px" }}
-        >
-          <p className="card-category">
-            {joke.categoryInSwedish.toUpperCase()}
-          </p>
-        </div>
+      <div className="flex flex-col flex-grow p-4">
+        <CardContent
+          joke={joke.jokeInSwedish}
+          punchline={joke.swedishPunchline}
+        />
+      </div>
+
+      {/* Category stays at the bottom */}
+      <div className="p-2 flex justify-center">
+        <Category placeholder={joke.categoryInSwedish} />
       </div>
 
       {expanded && index === 0 && (
-        <div
-          className="card-content expanded"
-          style={{ borderTop: `1px solid ${style.lineColor}` }}
-        >
-          <p className="joke">{joke.jokeInEnglish}</p>
-          <p className="punchline">{joke.englishPunchline}</p>
-          <div className="meaning-content">
-            <p className="meaning">{joke.meaningInEnglish}</p>
-          </div>
-          <div className="card-category-container">
-            <p className="card-category">
-              {joke.categoryInEnglish.toUpperCase()}
-            </p>
-          </div>
-        </div>
+        <CardContent
+          joke={joke.jokeInEnglish}
+          punchline={joke.englishPunchline}
+        />
       )}
     </div>
   );
 }
+
+const Category = ({ placeholder }: { placeholder: string }) => {
+  return (
+    <div className="">
+      <p className="text-base">{placeholder.toUpperCase()}</p>
+    </div>
+  );
+};

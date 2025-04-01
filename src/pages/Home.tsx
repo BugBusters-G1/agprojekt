@@ -1,5 +1,4 @@
 import { Card } from "../components/Card/Card";
-import "../App.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useJokesContext } from "../context/JokeContext";
@@ -31,13 +30,13 @@ const Home = () => {
   };
 
   return (
-    <main style={{ marginBottom: isCardExpanded ? "15vh" : "0" }}>
+    <main className="pt-40 flex items-start justify-center h-screen w-screen">
       {loading ? (
         <Skeleton count={3} />
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <div className="card-stack-grid">
+        <div className="grid place-items-center">
           {jokeQueue.slice(0, 5).map((joke, mIndex) => (
             <motion.div
               key={joke._id}
