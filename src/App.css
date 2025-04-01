@@ -25,5 +25,16 @@ main {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 5vh;
+  
 }
+
+
+.card-stack-grid {
+  display: grid;
+  position: relative;
+  width: 100vw;
+  max-width: 500px;
+  height: 100vh;
+  place-items: center;
+}
+

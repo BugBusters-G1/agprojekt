@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
 import { useJokes } from "../hooks/useJokes";
 import { useCategories } from "../hooks/useCategories";
 import { Joke } from "../types/Joke";
@@ -6,10 +6,10 @@ import { useCopyJoke } from "../hooks/useCopyJoke";
 import { Category } from "../types/Category";
 
 interface JokesContextType {
+  jokes: Joke[];
   loading: boolean;
   error: string | null;
-  currentJoke: Joke | null;
-  handleNewJoke: () => void;
+  getRandomJoke: (selectedCategories: string[]) => Joke | null;
   categories: Category[];
   selectedCategories: string[];
   updateSelectedCategories: (category: string) => void;
@@ -21,7 +21,7 @@ interface JokesContextType {
 const JokesContext = createContext<JokesContextType | null>(null);
 
 export const JokesProvider = ({ children }: { children: ReactNode }) => {
-  const { loading, error, currentJoke, getRandomJoke } = useJokes();
+  const { loading, error, jokes, getRandomJoke } = useJokes();
   const { copyJokeToClipboard } = useCopyJoke();
   const {
     categories,
@@ -39,18 +39,14 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-  const handleNewJoke = () => {
-    // setExpanded(false);
-    getRandomJoke(selectedCategories);
-  };
 
   return (
     <JokesContext.Provider
       value={{
+        jokes,
         loading,
         error,
-        currentJoke,
-        handleNewJoke,
+        getRandomJoke,
         selectedCategories,
         categories,
         updateSelectedCategories,

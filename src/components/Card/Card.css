@@ -6,8 +6,10 @@
   box-shadow: 5px 4px 5px rgba(0, 0, 0, 0.263);
   border-radius: 15px;
   transition: max-height 0.3s ease-in-out;
-  margin-top: 100px;
   overflow: hidden;
+  grid-row: 1;
+  grid-column: 1;
+  z-index: 1000;
 }
 
 .card-content {
