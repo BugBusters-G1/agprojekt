@@ -8,72 +8,70 @@ import { Joke } from "../types/Joke";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
+const shuffleArray = (array: Joke[]) => {
+  return [...array].sort(() => Math.random() - 0.5);
+};
+
 const Home = () => {
-  const { jokes, loading, error, getRandomJoke,selectedCategories } = useJokesContext();
+  const { jokes, loading, error, getRandomJoke, selectedCategories } =
+    useJokesContext();
   const { isCardExpanded } = useAppContext();
-  const [jokeHistory, setJokeHistory] = useState<Joke>();
-  const [jokeQueue, setJokeQueue] = useState<Joke[] | null >([]);
-
-  const handleDrag = (_: any, info: { offset: { x: number; y: number } }) => {
-    if (!jokeQueue || jokeQueue.length === 0) return;
-    
-    if (info.offset.x > 100) {
-      const newJoke = getRandomJoke(selectedCategories)
-
-      if (!newJoke) return; 
-
-      setJokeQueue((prevJokes) =>
-        prevJokes ? [...prevJokes.slice(1), newJoke] : [newJoke]
-      );
-    }
-  };
+  const [jokeQueue, setJokeQueue] = useState<Joke[]>([]);
 
   useEffect(() => {
-    if (jokes && jokes.length >= 3) {
-      setJokeQueue(jokes.slice(0, 3));
+    if (jokes && jokes.length > 0) {
+      const shuffledJokes = shuffleArray(jokes).slice(0, 5);
+      setJokeQueue(shuffledJokes);
     }
   }, [jokes]);
 
-  const renderContent = () => {
-    if (loading) return <Skeleton count={3} />;
-    if (error) return <p>{error}</p>;
+  const handleDrag = (_: any, info: { offset: { x: number; y: number } }) => {
+    if (!jokeQueue || jokeQueue.length === 0) return;
 
-    return (
-      <div className="card-stack-grid">
-        {jokeQueue?.slice(0).reverse().map((joke, index) => (
+    if (Math.abs(info.offset.x) > 100) {
+      //Om drag offset på x axel är över 100 eller under -100(swipe track, höger vänster)
+      setJokeQueue((prevQueue) => {
+        const newQueue = prevQueue.slice(1); //Klipper bort skämtet längst fram
 
+        if (newQueue.length < 2) {
+          //Om kön är under 2 element
+          const newJokes = Array.from({ length: 5 }, () =>
+            //Skapa 5 nya skämt
+            getRandomJoke(selectedCategories)
+          ).filter(Boolean) as Joke[];
+          return [...newQueue, ...newJokes]; //returnera 5 nya skämt + 2
+        }
 
-        <motion.div
-          key={index}
-          drag={index === 0 ? "x" : false}
-          onDragEnd={index === 0 ? handleDrag : undefined}
-          initial={{ opacity: 1, scale: 1 }}
-          animate={{ scale: 1 - index * 0.03, y: index * 8 }}
-          exit={{ x: 500, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          style={{
-
-            gridRow: 1,
-            gridColumn: 1,
-            width: "100%",
-            zIndex: jokeQueue.length - index,
-          }}
-        >
-          <Card joke={joke} expanded={isCardExpanded} />
-        </motion.div>
-    
-       ))}
-      </div>
-
-    )
-
-
-
+        return newQueue;
+      });
+    }
   };
 
   return (
     <main style={{ marginBottom: isCardExpanded ? "15vh" : "0" }}>
-      {renderContent()}
+      {loading ? (
+        <Skeleton count={3} />
+      ) : error ? (
+        <p>{error}</p>
+      ) : (
+        <div className="card-stack-grid">
+          {jokeQueue.slice(0, 5).map((joke, index) => (
+            <motion.div
+              key={joke._id}
+              drag="x"
+              onDragEnd={handleDrag}
+              dragConstraints={{ left: 0, right: 0 }}
+              style={{
+                gridRow: 1,
+                gridColumn: 1,
+                zIndex: jokeQueue.length - index,
+              }}
+            >
+              <Card joke={joke} expanded={isCardExpanded} />
+            </motion.div>
+          ))}
+        </div>
+      )}
     </main>
   );
 };

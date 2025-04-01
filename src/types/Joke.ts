@@ -1,4 +1,5 @@
 export interface Joke {
+  _id: number;
   category: string;
   categoryInSwedish: string;
   categoryInEnglish: string;
