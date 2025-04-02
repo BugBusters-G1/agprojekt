@@ -18,8 +18,20 @@ const Home = () => {
 
   useEffect(() => {
     if (jokes && jokes.length > 0) {
-      const shuffledJokes = shuffleArray(jokes).slice(0, 5);
-      setJokeQueue(shuffledJokes);
+      setJokeQueue((prevQueue) => {
+        // Get the remaining joke IDs (last 2 jokes in queue)
+        const remainingIds = prevQueue.slice(-2).map((j) => j._id);
+
+        // Filter jokes to exclude ones already in remaining cards
+        const filteredJokes = jokes.filter(
+          (j) => !remainingIds.includes(j._id)
+        );
+
+        // Shuffle and pick up to 5 new unique jokes
+        const newJokes = shuffleArray(filteredJokes).slice(0, 5);
+
+        return newJokes;
+      });
     }
   }, [jokes]);
 
@@ -37,9 +49,9 @@ const Home = () => {
         <p>{error}</p>
       ) : (
         <div className="grid place-items-center w-full h-auto">
-          {jokeQueue.slice(0, 5).map((joke, mIndex) => (
+          {jokeQueue.slice(0, 2).map((joke, mIndex) => (
             <motion.div
-              key={joke._id}
+              key={joke._id + mIndex} //gör key lite mer unikt pga dubletter vid shuffle
               drag="x"
               onDragEnd={handleDrag}
               dragConstraints={{ left: 0, right: 0 }}
