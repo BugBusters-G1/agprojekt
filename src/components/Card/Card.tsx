@@ -29,7 +29,7 @@ export function Card({ joke, expanded, index }: CardProps) {
         joke={joke.jokeInSwedish}
         punchline={joke.swedishPunchline}
         category={joke.categoryInSwedish}
-        explanation={joke.meaningInSwedish}
+        explanation={expanded ? joke.meaningInSwedish : ""}
         isExpanded={false}
       />
 
