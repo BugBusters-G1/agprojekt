@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import { useJokesContext } from "../../context/JokeContext";
 import { useAppContext } from "../../context/AppContext";
 
@@ -10,25 +10,22 @@ interface SwipeCardProps {
 export function SwipeCard({ children, index }: SwipeCardProps) {
   const { removeTopJoke } = useJokesContext();
   const { toggleCardExpand, isCardExpanded } = useAppContext();
+
+  const x = useMotionValue(0);
   const handleDragEnd = (_: any, info: { offset: { x: number } }) => {
-    if (Math.abs(info.offset.x) > 100) {
+    if (Math.abs(x.get()) > 50) {
       removeTopJoke();
     }
   };
-
   return (
     <motion.div
-      drag
-      onDrag={() => {
-        if (isCardExpanded) {
-          toggleCardExpand();
-        }
-      }}
+      drag={!isCardExpanded ? "x" : false}
       onDragEnd={handleDragEnd}
-      dragConstraints={{ top: 0, bottom: 0, left: 0, right: 0 }}
+      dragConstraints={{ left: 0, right: 0 }}
       style={{
         gridColumn: 1,
         gridRow: 1,
+        x,
       }}
     >
       {children}
