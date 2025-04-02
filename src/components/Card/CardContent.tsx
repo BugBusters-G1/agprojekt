@@ -21,7 +21,7 @@ export function CardContent({
     >
       <div className="flex flex-col gap-2">
         <p className="text-lg sm:text-xl">{joke}</p>
-        <p className="text-lg sm:text-xl font-bold">{punchline}</p>
+        <p className="text-lg sm:text-xl font-semibold">{punchline}</p>
         <p className="text-md">{explanation}</p>
       </div>
       <Category placeholder={category} />
@@ -32,7 +32,7 @@ export function CardContent({
 const Category = ({ placeholder }: { placeholder: string }) => {
   return (
     <div className="rounded-lg  w-auto flex">
-      <p className="bg-white text-black p-[2px] text-xs rounded-xl font-bold">
+      <p className="bg-white text-black p-[3px] text-sm rounded-xl font-semibold">
         {placeholder.toUpperCase()}
       </p>
     </div>

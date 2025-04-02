@@ -33,7 +33,10 @@ const Home = () => {
   }, [jokeQueue, getRandomJoke, selectedCategories, setJokeQueue]);
 
   return (
-    <main className="pt-30 pb-10 flex items-start justify-center min-h-screen h-auto w-screen">
+    <main
+      className="py-30
+ flex items-start justify-center min-h-screen h-auto w-screen"
+    >
       {loading ? (
         <Skeleton count={3} />
       ) : error ? (
