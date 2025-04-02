@@ -15,8 +15,8 @@ export function CardContent({
 }: CardContentProps) {
   return (
     <div
-      className={`w-full border-t-1 h-100 flex p-3 flex-col justify-between gap-2 ${
-        isExpanded ? "border-t-1" : "border-none"
+      className={`w-full border-t-1 h-100 flex flex-col justify-between gap-2 ${
+        isExpanded ? "border-t-1 pb-2 pt-3" : "pb-5 border-none"
       }`}
     >
       <div className="flex flex-col gap-2">

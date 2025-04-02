@@ -49,19 +49,13 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
+  // Helper function to shuffle an array
+  const shuffleArray = (array: Joke[]) => {
+    return [...array].sort(() => Math.random() - 0.5);
+  };
+
   const removeTopJoke = () => {
-    setJokeQueue((prevQueue) => {
-      const newQueue = prevQueue.slice(1);
-
-      if (newQueue.length < 2) {
-        const newJokes = Array.from({ length: 5 }, () =>
-          getRandomJoke(selectedCategories)
-        ).filter(Boolean) as Joke[];
-        return [...newQueue, ...newJokes];
-      }
-
-      return newQueue;
-    });
+    setJokeQueue((prevQueue) => prevQueue.slice(0, -1));
   };
 
   return (

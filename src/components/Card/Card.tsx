@@ -12,9 +12,13 @@ interface CardProps {
 export function Card({ joke, expanded, index }: CardProps) {
   const style =
     categoryColors[joke.category.toLowerCase()] || categoryColors.default;
+  const { toggleCardExpand } = useAppContext();
 
   return (
     <div
+      onClick={() => {
+        toggleCardExpand();
+      }}
       className="rounded-xl h-auto w-70 p-4"
       style={{
         backgroundColor: style.background,
