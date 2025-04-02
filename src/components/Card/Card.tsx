@@ -19,7 +19,7 @@ export function Card({ joke, expanded, index }: CardProps) {
       onClick={() => {
         toggleCardExpand();
       }}
-      className={`rounded-xl h-auto w-70 p-4 ${
+      className={`rounded-xl select-none h-auto w-70 p-4 ${
         index != 1 ? "shadow-xl" : "shadow-xs"
       }`}
       style={{
