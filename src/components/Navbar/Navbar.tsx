@@ -27,7 +27,10 @@ export const Navbar = () => {
     },
     {
       type: "button",
-      onClick: removeTopJoke,
+      onClick: () => {
+        if (isCardExpanded) toggleCardExpand();
+        removeTopJoke();
+      },
       icon: "CircleArrowRight",
     },
   ];
