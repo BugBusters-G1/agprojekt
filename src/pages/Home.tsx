@@ -19,18 +19,18 @@ const Home = () => {
     jokeQueue,
     setJokeQueue,
     selectedCategories,
-    getRandomJoke,
+    getUniqueRandomJoke,
   } = useJokesContext();
   const { isCardExpanded, toggleCardExpand } = useAppContext();
 
   useEffect(() => {
     if (jokeQueue.length < 2) {
-      const newJoke = getRandomJoke(selectedCategories);
+      const newJoke = getUniqueRandomJoke(selectedCategories);
       if (newJoke) {
         setJokeQueue((prev) => [newJoke, ...prev]);
       }
     }
-  }, [jokeQueue, getRandomJoke, selectedCategories, setJokeQueue]);
+  }, [jokeQueue, getUniqueRandomJoke, selectedCategories, setJokeQueue]);
 
   return (
     <main

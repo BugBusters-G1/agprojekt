@@ -17,7 +17,8 @@
         "react-dom": "^18.3.1",
         "react-loading-skeleton": "^3.5.0",
         "react-router-dom": "^7.4.0",
-        "tailwindcss": "^4.1.0"
+        "tailwindcss": "^4.1.0",
+        "uuidv4": "^6.2.13"
     },
     "devDependencies": {
         "@eslint/js": "^9.9.0",

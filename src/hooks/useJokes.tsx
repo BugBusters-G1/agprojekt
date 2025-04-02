@@ -7,7 +7,6 @@ export function useJokes() {
   const [jokes, setJokes] = useState<Joke[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  
 
   useEffect(() => {
     fetch(ENDPOINT_URI)
@@ -21,18 +20,17 @@ export function useJokes() {
 
   const getRandomJoke = (selectedCategories: string[] = []): Joke | null => {
     if (!jokes.length) return null;
-  
+
     const filteredJokes =
       selectedCategories.length > 0
         ? jokes.filter((joke) => selectedCategories.includes(joke.category))
         : jokes;
-  
+
     const randomJoke =
       filteredJokes.length > 0
         ? filteredJokes[Math.floor(Math.random() * filteredJokes.length)]
         : null;
-  
-    
+
     return randomJoke;
   };
 

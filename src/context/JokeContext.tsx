@@ -11,12 +11,13 @@ import { useCategories } from "../hooks/useCategories";
 import { Joke } from "../types/Joke";
 import { useCopyJoke } from "../hooks/useCopyJoke";
 import { Category } from "../types/Category";
+import { v4 as uuidv4 } from "uuid"; // Import UUID library
 
 interface JokesContextType {
   jokes: Joke[];
   loading: boolean;
   error: string | null;
-  getRandomJoke: (selectedCategories: string[]) => Joke | null;
+  getUniqueRandomJoke: (selectedCategories: string[]) => Joke | null;
   categories: Category[];
   selectedCategories: string[];
   updateSelectedCategories: (category: string) => void;
@@ -49,9 +50,12 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
-  // Helper function to shuffle an array
-  const shuffleArray = (array: Joke[]) => {
-    return [...array].sort(() => Math.random() - 0.5);
+  const getUniqueRandomJoke = (categories: string[]) => {
+    const joke = getRandomJoke(categories);
+    if (joke) {
+      return { ...joke, instanceId: uuidv4() };
+    }
+    return null;
   };
 
   const removeTopJoke = () => {
@@ -64,7 +68,7 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
         jokes,
         loading,
         error,
-        getRandomJoke,
+        getUniqueRandomJoke,
         selectedCategories,
         categories,
         updateSelectedCategories,
