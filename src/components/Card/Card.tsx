@@ -1,3 +1,4 @@
+import { useAppContext } from "../../context/AppContext";
 import { Joke } from "../../types/Joke";
 import { categoryColors } from "../../utils/Colors";
 import { CardContent } from "./CardContent";
@@ -14,38 +15,29 @@ export function Card({ joke, expanded, index }: CardProps) {
 
   return (
     <div
-      className="rounded-lg min-h-[200px] max-h-fit w-full max-w-sm text-2xl flex flex-col"
+      className="rounded-xl h-auto w-70 p-4"
       style={{
         backgroundColor: style.background,
         color: style.text,
       }}
     >
-      <div className="flex flex-col flex-grow p-4">
-        <CardContent
-          joke={joke.jokeInSwedish}
-          punchline={joke.swedishPunchline}
-        />
-      </div>
+      <CardContent
+        joke={joke.jokeInSwedish}
+        punchline={joke.swedishPunchline}
+        category={joke.categoryInSwedish}
+        explanation={joke.meaningInSwedish}
+        isExpanded={false}
+      />
 
-      {/* Category stays at the bottom */}
-      <div className="p-2 flex justify-center">
-        <Category placeholder={joke.categoryInSwedish} />
-      </div>
-
-      {expanded && index === 0 && (
+      {expanded && (
         <CardContent
           joke={joke.jokeInEnglish}
           punchline={joke.englishPunchline}
+          category={joke.categoryInEnglish}
+          explanation={joke.meaningInEnglish}
+          isExpanded={expanded}
         />
       )}
     </div>
   );
 }
-
-const Category = ({ placeholder }: { placeholder: string }) => {
-  return (
-    <div className="">
-      <p className="text-base">{placeholder.toUpperCase()}</p>
-    </div>
-  );
-};

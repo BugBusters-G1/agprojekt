@@ -30,13 +30,13 @@ const Home = () => {
   };
 
   return (
-    <main className="pt-40 flex items-start justify-center h-screen w-screen">
+    <main className="pt-40 pb-40 flex items-start justify-center h-auto w-screen">
       {loading ? (
         <Skeleton count={3} />
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <div className="grid place-items-center">
+        <div className="grid place-items-center w-full h-auto">
           {jokeQueue.slice(0, 5).map((joke, mIndex) => (
             <motion.div
               key={joke._id}
