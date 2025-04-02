@@ -44,7 +44,7 @@ const Home = () => {
       ) : (
         <div className="grid place-items-center w-full h-auto">
           {jokeQueue.map((joke, index, arr) => (
-            <SwipeCard key={joke._id} index={index}>
+            <SwipeCard key={joke._id} id={joke._id} queue={jokeQueue}>
               <Card
                 key={joke._id + index}
                 joke={joke}
