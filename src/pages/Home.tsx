@@ -1,27 +1,57 @@
 import { Card } from "../components/Card/Card";
-import "../App.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useJokesContext } from "../context/JokeContext";
 import { useAppContext } from "../context/AppContext";
+import { Joke } from "../types/Joke";
+import { useEffect, useState } from "react";
+import { SwipeCard } from "../components/Card/SwipeCard";
+
+const shuffleArray = (array: Joke[]) => {
+  return [...array].sort(() => Math.random() - 0.5);
+};
 
 const Home = () => {
-  const { currentJoke, loading, error } = useJokesContext();
-  const { isCardExpanded } = useAppContext();
-  const renderContent = () => {
-    if (loading) return <Skeleton count={3} />;
-    if (error) return <p>{error}</p>;
+  const {
+    jokes,
+    loading,
+    error,
+    jokeQueue,
+    setJokeQueue,
+    selectedCategories,
+    getRandomJoke,
+  } = useJokesContext();
+  const { isCardExpanded, toggleCardExpand } = useAppContext();
 
-    return currentJoke ? (
-      <Card joke={currentJoke} expanded={isCardExpanded} />
-    ) : (
-      <p>Inga skämt tillgängliga.</p>
-    );
-  };
+  useEffect(() => {
+    if (jokeQueue.length < 2) {
+      const newJoke = getRandomJoke(selectedCategories);
+      if (newJoke) {
+        setJokeQueue((prev) => [newJoke, ...prev]);
+      }
+    }
+  }, [jokeQueue, getRandomJoke, selectedCategories, setJokeQueue]);
 
   return (
-    <main style={{ marginBottom: isCardExpanded ? "15vh" : "0" }}>
-      {renderContent()}
+    <main className="pt-30 pb-10  flex items-start justify-center h-auto w-screen">
+      {loading ? (
+        <Skeleton count={3} />
+      ) : error ? (
+        <p>{error}</p>
+      ) : (
+        <div className="grid place-items-center w-full h-auto">
+          {jokeQueue.map((joke, index, arr) => (
+            <SwipeCard key={joke._id} index={index}>
+              <Card
+                key={joke._id + index}
+                joke={joke}
+                expanded={index === arr.length - 1 && isCardExpanded}
+                index={index}
+              />
+            </SwipeCard>
+          ))}
+        </div>
+      )}
     </main>
   );
 };
