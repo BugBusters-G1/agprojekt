@@ -37,7 +37,7 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
           type="checkbox"
           checked={selected}
           onChange={() => onToggle(category.category)}
-          className="w-6"
+          className="w-7 h-7"
         />
       </div>
 
