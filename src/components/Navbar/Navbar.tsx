@@ -5,9 +5,10 @@ import "./Navbar.css";
 import BurgerIcon from "../../assets/BURGER.svg"; // Import as string
 import LeftIcon from "../../assets/ARROW_LEFT.svg"; // Import as string
 import RightIcon from "../../assets/ARROW_RIGHT.svg"; // Import as string
+import ExitIcon from "../../assets/EXIT_BIG.svg"; 
 
 export const Navbar = () => {
-  const { toggleCardExpand, toggleCategorySelector, isCardExpanded } =
+  const { toggleCardExpand, toggleCategorySelector,  isCategorySelector, isCardExpanded } =
     useAppContext();
 
   const { removeTopJoke, restorePreviousJoke } = useJokesContext();
@@ -22,7 +23,7 @@ export const Navbar = () => {
     {
       type: "button",
       onClick: toggleCategorySelector,
-      imgSrc: BurgerIcon,
+      imgSrc: isCategorySelector ? ExitIcon : BurgerIcon,
     },
 
     {
