@@ -1,11 +1,10 @@
 .filter-view {
   position: absolute;
-  width: 80%;
+  width: 83%;
   height: auto;
   top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgb(255, 255, 255, 0.8);
   border-radius: 15px;
   display: flex;
   align-items: center;
@@ -21,13 +20,11 @@
 }
 
 .filter-overlay {
-  position: absolute;
-  top: 0;
+    display: flex;
+    justify-content: center;
   width: 100vw;
   height: 100vh;
   z-index: 1100;
-  backdrop-filter: blur(2px);
-  background-color: rgb(255, 255, 255, 0.8);
 }
 
 .category-checkbox {

@@ -7,9 +7,7 @@ nav {
   height: 60px;
   display: flex;
   justify-content: space-around;
-  background-color: #f3f3f3;
   border-radius: 16px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
   height: 64px;
   width: calc(100% - 2rem);
   max-width: 400px; /*Tillfälligt innan media queries för desktop*/
@@ -19,17 +17,25 @@ nav {
 }
 
 .nav-item {
+  width: 81px;
   all: unset;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
   transition: background-color 0.2s ease;
-  background-color: var(--backgroundWhite);
-  height: 44px;
-  width: 44px;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  height: 81px;
+  width: 81px;
 }
 
 .nav-item:hover {
   background-color: rgba(0, 0, 0, 0.05);
+}
+
+.nav-item svg {
+    color: red;
+    width: auto;
+
 }

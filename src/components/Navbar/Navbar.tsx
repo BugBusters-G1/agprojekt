@@ -13,25 +13,22 @@ export const Navbar = () => {
     {
       type: "button",
       onClick: toggleCategorySelector,
-      icon: "SlidersHorizontal",
+      icon: "CircleChevronLeft",
     },
-    { type: "button", onClick: toggleCardExpand, icon: "CircleHelp" },
+
     {
       type: "button",
-      onClick: () => {
-        // if (currentJoke) {
-        //   copyJokeToClipboard(currentJoke, isCardExpanded);
-        // }
-      },
-      icon: "Copy",
+      onClick: toggleCategorySelector,
+      icon: "SlidersHorizontal",
     },
+
     {
       type: "button",
       onClick: () => {
         if (isCardExpanded) toggleCardExpand();
         removeTopJoke();
       },
-      icon: "CircleArrowRight",
+      icon: "CircleChevronRight",
     },
   ];
 
