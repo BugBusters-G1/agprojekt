@@ -7,6 +7,8 @@ interface TAppContext {
   toggleCardExpand: () => void;
   isLoading: boolean;
   setIsLoading: (state: boolean) => void;
+  isPopupVisible: boolean;
+  togglePopup: () => void;
 }
 
 const AppContext = createContext<TAppContext | null>(null);
@@ -15,10 +17,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [isCategorySelector, setCategorySelector] = useState(false);
   const [isCardExpanded, setCardExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPopupVisible, setPopupVisible] = useState(false); // State for popup visibility
 
   const toggleCategorySelector = () => setCategorySelector(!isCategorySelector);
   const toggleCardExpand = () => setCardExpanded(!isCardExpanded);
-
+  const togglePopup = () => setPopupVisible(!isPopupVisible);
   return (
     <AppContext.Provider
       value={{
@@ -28,6 +31,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         toggleCardExpand,
         isLoading,
         setIsLoading,
+        isPopupVisible,
+        togglePopup,
       }}
     >
       {children}
