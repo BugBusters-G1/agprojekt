@@ -1,0 +1,29 @@
+.filter-view {
+  position: absolute;
+  width: 83%;
+  height: auto;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 15px;
+}
+
+.filter-close {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 5px;
+}
+
+.filter-overlay {
+    display: flex;
+    justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1100;
+}
+

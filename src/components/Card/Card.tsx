@@ -1,55 +1,48 @@
-import "./Card.css";
+import { useAppContext } from "../../context/AppContext";
 import { Joke } from "../../types/Joke";
 import { categoryColors } from "../../utils/Colors";
+import { CardContent } from "./CardContent";
 
 interface CardProps {
   joke: Joke;
   expanded: boolean;
+  index: number;
 }
 
-export function Card({ joke, expanded }: CardProps) {
+export function Card({ joke, expanded, index }: CardProps) {
   const style =
     categoryColors[joke.category.toLowerCase()] || categoryColors.default;
+  const { toggleCardExpand } = useAppContext();
 
   return (
     <div
-      className="card-box"
-      style={{ backgroundColor: style.background, color: style.text }}
+      onClick={() => {
+        toggleCardExpand();
+      }}
+      className={`rounded-xl select-none h-auto w-80 p-4 ${
+        index != 1 ? "shadow-xl" : "shadow-xs"
+      }`}
+      style={{
+        backgroundColor: style.background,
+        color: style.text,
+      }}
     >
-      <div className="card-content">
-        <p className="joke">{joke.jokeInSwedish}</p>
-        <p className="punchline">{joke.swedishPunchline}</p>
-        {expanded && (
-          <div className="meaning-content">
-            <p className="meaning">{joke.meaningInSwedish}</p>
-          </div>
-        )}
-        <div
-          className="card-category-container"
-          style={{ bottom: expanded ? "25px" : "2px" }}
-        >
-          <p className="card-category">
-            {joke.categoryInSwedish.toUpperCase()}
-          </p>
-        </div>
-      </div>
+      <CardContent
+        joke={joke.jokeInSwedish}
+        punchline={joke.swedishPunchline}
+        category={joke.categoryInSwedish}
+        explanation={expanded ? joke.meaningInSwedish : ""}
+        isExpanded={false}
+      />
 
       {expanded && (
-        <div
-          className="card-content expanded"
-          style={{ borderTop: `1px solid ${style.lineColor}` }}
-        >
-          <p className="joke">{joke.jokeInEnglish}</p>
-          <p className="punchline">{joke.englishPunchline}</p>
-          <div className="meaning-content">
-            <p className="meaning">{joke.meaningInEnglish}</p>
-          </div>
-          <div className="card-category-container">
-            <p className="card-category">
-              {joke.categoryInEnglish.toUpperCase()}
-            </p>
-          </div>
-        </div>
+        <CardContent
+          joke={joke.jokeInEnglish}
+          punchline={joke.englishPunchline}
+          category={joke.categoryInEnglish}
+          explanation={joke.meaningInEnglish}
+          isExpanded={expanded}
+        />
       )}
     </div>
   );

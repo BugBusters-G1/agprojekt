@@ -1,97 +1,33 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import { Navbar } from "./components/Navbar/Navbar";
-import { useJokes } from "./hooks/useJokes";
-import { useToggle } from "./hooks/useToggle";
-import { FilterContainer } from "./components/Filter/FilterContainer";
+import { FilterContainer } from "./components/CategorySelector/CategorySelector";
 import "./App.css";
 import { Header } from "./components/Header/Header";
-import { useCopyJoke } from "./hooks/useCopyJoke";
+import { JokesProvider } from "./context/JokeContext";
+import { AppProvider, useAppContext } from "./context/AppContext";
 
-import { useCategories } from "./hooks/useCategories";
-import { categoryColors } from "./utils/Colors";
-import { useEffect, useState } from "react";
-function App() {
-  const { loading, error, currentJoke, getRandomJoke } = useJokes();
-  const {
-    categories,
-    error: categoryError,
-    loading: categoryLoading,
-  } = useCategories();
-
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-
-  const { isOpen: isFilterOpen, toggle: toggleFilter } = useToggle();
-
-  const { copyJokeToClipboard } = useCopyJoke();
-
-  const {
-    isOpen: isExpanded,
-    toggle: toggleExpand,
-    setIsOpen: setExpanded,
-  } = useToggle();
-
-  const updateSelectedCategories = (category: string) => {
-    console.log(category);
-    setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category]
-    );
-  };
-  useEffect(() => {
-    if (isFilterOpen && isExpanded) {
-      setExpanded(false);
-    }
-  }, [isFilterOpen, isExpanded]);
-
-  const handleNewJoke = () => {
-    setExpanded(false);
-    getRandomJoke(selectedCategories);
-  };
+function AppContent() {
 
   return (
-    <BrowserRouter>
+    <>
       <Header />
-      {isFilterOpen && (
-        <FilterContainer
-          onGenerateNewJoke={handleNewJoke}
-          toggleFilter={toggleFilter}
-          availableCategories={categories}
-          loading={categoryLoading}
-          error={categoryError}
-          colors={categoryColors}
-          selectedCategories={selectedCategories}
-          updateSelectedCategories={updateSelectedCategories}
-        />
-      )}
-
-      <Navbar
-        filterToggle={toggleFilter}
-        isFilterOpen={isFilterOpen}
-        onGenerateNewJoke={handleNewJoke}
-        toggleExpand={toggleExpand}
-        onCopyJoke={() => {
-          if (currentJoke) {
-            copyJokeToClipboard(currentJoke, isExpanded);
-          }
-        }}
-      />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Home
-              loading={loading}
-              currentJoke={currentJoke}
-              error={error}
-              _expanded={isExpanded}
-              getRandomJoke={handleNewJoke}
-            />
-          }
-        />
+        <Route path="/" element={<Home />} />
       </Routes>
-    </BrowserRouter>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <AppProvider>
+      <JokesProvider>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </JokesProvider>
+    </AppProvider>
   );
 }
 

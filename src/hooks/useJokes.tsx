@@ -7,33 +7,32 @@ export function useJokes() {
   const [jokes, setJokes] = useState<Joke[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [currentJoke, setCurrentJoke] = useState<Joke | null>(null);
 
   useEffect(() => {
     fetch(ENDPOINT_URI)
       .then((res) => (res.ok ? res.json() : Promise.reject("Failed to fetch")))
       .then((data: Joke[]) => {
         setJokes(data);
-        setCurrentJoke(data[Math.floor(Math.random() * data.length)]);
       })
       .catch((err) => setError(String(err)))
       .finally(() => setLoading(false));
   }, []);
 
-  const getRandomJoke = (selectedCategories: string[] = []) => {
-    if (!jokes.length) return;
+  const getRandomJoke = (selectedCategories: string[] = []): Joke | null => {
+    if (!jokes.length) return null;
 
     const filteredJokes =
       selectedCategories.length > 0
         ? jokes.filter((joke) => selectedCategories.includes(joke.category))
         : jokes;
 
-    setCurrentJoke(
+    const randomJoke =
       filteredJokes.length > 0
         ? filteredJokes[Math.floor(Math.random() * filteredJokes.length)]
-        : null
-    );
+        : null;
+
+    return randomJoke;
   };
 
-  return { jokes, error, loading, currentJoke, getRandomJoke };
+  return { jokes, error, loading, getRandomJoke };
 }
