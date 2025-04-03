@@ -36,11 +36,11 @@ const Home = () => {
   return (
     <main
       className={`w-screen pt-30 flex flex-col justify-between ${
-        isCardExpanded ? "h-auto" : "h-full"
+        isCardExpanded ? "h-auto gap-2 " : "h-full gap-0"
       }`}
     >
       {loading ? (
-        <Skeleton count={3} />
+        <Skeleton count={1} height={100} />
       ) : error ? (
         <p>{error}</p>
       ) : (
