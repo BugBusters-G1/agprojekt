@@ -10,12 +10,12 @@ export const Navbar = () => {
   const { toggleCardExpand, toggleCategorySelector, isCardExpanded } =
     useAppContext();
 
-  const { removeTopJoke } = useJokesContext();
+  const { removeTopJoke, restorePreviousJoke } = useJokesContext();
 
   const navItems: NavItemProps[] = [
     {
       type: "button",
-      onClick: toggleCategorySelector,
+      onClick: restorePreviousJoke,
       imgSrc: LeftIcon,
     },
 
