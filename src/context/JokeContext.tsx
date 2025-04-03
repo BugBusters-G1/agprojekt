@@ -11,7 +11,7 @@ import { useCategories } from "../hooks/useCategories";
 import { Joke } from "../types/Joke";
 import { useCopyJoke } from "../hooks/useCopyJoke";
 import { Category } from "../types/Category";
-import { v4 as uuidv4 } from "uuid"; // Import UUID library
+import { v4 as uuidv4 } from "uuid";
 
 interface JokesContextType {
   jokes: Joke[];
@@ -64,19 +64,21 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
   const removeTopJoke = () => {
     setJokeQueue((prevQueue) => {
       if (prevQueue.length === 0) return prevQueue;
-  
+
       const removedJoke = prevQueue[prevQueue.length - 1];
-      setJokeHistory(removedJoke); 
-  
-      return prevQueue.slice(0, -1); 
+      setJokeHistory(removedJoke);
+
+      const newJoke = getUniqueRandomJoke(selectedCategories);
+
+      return newJoke ? [newJoke, ...prevQueue.slice(0, -1)] : prevQueue;
     });
   };
 
   const restorePreviousJoke = () => {
     if (!jokeHistory) return;
-  
+
     setJokeQueue((prev) => [...prev, jokeHistory]);
-    setJokeHistory(null); 
+    setJokeHistory(null);
   };
 
   return (
@@ -96,7 +98,7 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
         setJokeQueue,
         removeTopJoke,
         jokeHistory,
-        restorePreviousJoke
+        restorePreviousJoke,
       }}
     >
       {children}

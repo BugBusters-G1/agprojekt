@@ -18,7 +18,7 @@ export function FilterContainer({}: FilterProps) {
   } = useJokesContext();
 
   return (
-    <div className="rounded-2xl shadow-lg select-none h-auto w-70 overflow-hidden border-amber-50">
+    <div className="rounded-2xl shadow-xl select-none h-auto w-70 overflow-hidden">
       {loading ? (
         <p>Laddar kategorier...</p>
       ) : error ? (
