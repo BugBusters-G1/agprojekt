@@ -41,7 +41,6 @@ export const Navbar = () => {
         if (isCategorySelector && categoriesChanged) {
           togglePopup();
           setCategoriesChanged(false);
-          s
         }
       },
       imgSrc: isCategorySelector ? ExitIcon : BurgerIcon,
