@@ -19,21 +19,24 @@ const Home = () => {
     jokeQueue,
     setJokeQueue,
     selectedCategories,
-    getRandomJoke,
+    getUniqueRandomJoke,
   } = useJokesContext();
   const { isCardExpanded, toggleCardExpand } = useAppContext();
 
   useEffect(() => {
     if (jokeQueue.length < 2) {
-      const newJoke = getRandomJoke(selectedCategories);
+      const newJoke = getUniqueRandomJoke(selectedCategories);
       if (newJoke) {
         setJokeQueue((prev) => [newJoke, ...prev]);
       }
     }
-  }, [jokeQueue, getRandomJoke, selectedCategories, setJokeQueue]);
+  }, [jokeQueue, getUniqueRandomJoke, selectedCategories, setJokeQueue]);
 
   return (
-    <main className="pt-30 pb-10  flex items-start justify-center h-auto w-screen">
+    <main
+      className="py-30
+ flex items-start justify-center min-h-screen h-auto w-screen"
+    >
       {loading ? (
         <Skeleton count={3} />
       ) : error ? (
@@ -41,7 +44,7 @@ const Home = () => {
       ) : (
         <div className="grid place-items-center w-full h-auto">
           {jokeQueue.map((joke, index, arr) => (
-            <SwipeCard key={joke._id} index={index}>
+            <SwipeCard key={joke._id} id={joke._id} queue={jokeQueue}>
               <Card
                 key={joke._id + index}
                 joke={joke}
