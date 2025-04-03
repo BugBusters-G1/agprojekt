@@ -7,6 +7,16 @@ interface CategoryItemProps {
   colors: Record<string, { background: string; text: string }>;
 }
 
+
+const categoryDescriptions: Record<string, string> = {
+  "blue":
+    "Göteborgsskämt är ordvitsar med lekfulla ordspel och dubbeltydigheter, ofta med en lättsam och charmigt torr humor.",
+  "orange":
+    "Skämt för alla åldrar är roliga och ofarliga skämt som passar både barn och vuxna, med humor som alla kan uppskatta.",
+  "yellow":
+    "Ordvitsar är skämt som leker med ordens olika betydelser eller ljud, ofta med en twist som får en att fnissa.",
+};
+
 const CategoryItem: React.FC<CategoryItemProps> = ({
   category,
   selected,
@@ -15,24 +25,24 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
 }) => {
   return (
     <div
-      className="category"
+      className="w-full min-h-30 p-5"
       style={{
         backgroundColor: colors[category.category.toLowerCase()]?.background,
         color: colors[category.category.toLowerCase()]?.text,
       }}
     >
-      <div className="category-content">
-        <label className="category-name">{category.categoryInSwedish}</label>
+      <div className="flex flex-row justify-between">
+        <label className="text-2xl">{category.categoryInSwedish == "ordvits" ? "Ordvitsar" : category.categoryInSwedish}</label>
         <input
           type="checkbox"
           checked={selected}
           onChange={() => onToggle(category.category)}
-          className="category-checkbox"
+          className="w-6"
         />
       </div>
 
-      <div className="category-description">
-        <p>{"Beskrivning saknas"}</p>
+      <div className="text-xs pt-3 w-3/4">
+        <p>{categoryDescriptions[category.category.toLowerCase()]}</p>
       </div>
     </div>
   );
