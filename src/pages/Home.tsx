@@ -3,19 +3,13 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useJokesContext } from "../context/JokeContext";
 import { useAppContext } from "../context/AppContext";
-import { Joke } from "../types/Joke";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { SwipeCard } from "../components/Card/SwipeCard";
 import { Navbar } from "../components/Navbar/Navbar";
 import { FilterContainer } from "../components/CategorySelector/CategorySelector";
 
-const shuffleArray = (array: Joke[]) => {
-  return [...array].sort(() => Math.random() - 0.5);
-};
-
 const Home = () => {
   const {
-    jokes,
     loading,
     error,
     jokeQueue,
@@ -23,7 +17,8 @@ const Home = () => {
     selectedCategories,
     getUniqueRandomJoke,
   } = useJokesContext();
-  const { isCardExpanded, toggleCardExpand, toggleCategorySelector, isCategorySelector } = useAppContext();
+  const { isCardExpanded, toggleCategorySelector, isCategorySelector } =
+    useAppContext();
 
   useEffect(() => {
     if (jokeQueue.length < 2) {
@@ -47,7 +42,7 @@ const Home = () => {
       ) : (
         <div className="h-full flex flex-col justify-center">
           <div className="grid place-items-center w-full h-auto">
-          {isCategorySelector ? (
+            {isCategorySelector ? (
               <FilterContainer toggleFilter={toggleCategorySelector} />
             ) : (
               jokeQueue.map((joke, index, arr) => (
@@ -61,7 +56,6 @@ const Home = () => {
                 </SwipeCard>
               ))
             )}
-
           </div>
         </div>
       )}

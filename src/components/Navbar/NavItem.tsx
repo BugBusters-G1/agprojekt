@@ -9,7 +9,7 @@ export interface NavItemProps {
   imgSrc?: string | ReactNode;
 }
 
-export function NavItem({ type, to, onClick, icon, imgSrc }: NavItemProps) {
+export function NavItem({ type, to, onClick, imgSrc }: NavItemProps) {
   return type === "link" ? (
     <Link to={to!} className="nav-item">
       {imgSrc &&

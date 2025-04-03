@@ -11,7 +11,7 @@ interface SwipeCardProps {
 
 export function SwipeCard({ children, id, queue }: SwipeCardProps) {
   const { removeTopJoke, restorePreviousJoke } = useJokesContext();
-  const { toggleCardExpand, isCardExpanded } = useAppContext();
+  const { isCardExpanded } = useAppContext();
 
   const x = useMotionValue(0);
 
@@ -37,9 +37,9 @@ export function SwipeCard({ children, id, queue }: SwipeCardProps) {
       transition={{
         type: "spring",
         stiffness: 300,
-        damping: 20, 
+        damping: 20,
       }}
-      dragElastic={0.35} 
+      dragElastic={0.35}
       animate={{ scale: isFront ? 1.05 : 1 }}
       style={{
         gridColumn: 1,
