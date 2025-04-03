@@ -1,25 +1,30 @@
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { useIcon } from "../../hooks/useIcon";
-import "./Navbar.css";
-// Import the BURGER.svg f7rom the assets folder
-import kiugikg from "../../assets/BURGER.svg";
 
 export interface NavItemProps {
   type: "link" | "button";
   to?: string;
   onClick?: () => void;
   icon?: string;
+  imgSrc?: string | ReactNode;
 }
 
-export function NavItem({ type, to, onClick, icon }: NavItemProps) {
-  const _icon = icon ? useIcon(icon) : null;
-
+export function NavItem({ type, to, onClick, icon, imgSrc }: NavItemProps) {
   return type === "link" ? (
-    <Link to={to!} className="nav-item"></Link>
+    <Link to={to!} className="nav-item">
+      {imgSrc &&
+        (typeof imgSrc === "string" ? <img src={imgSrc} alt="icon" /> : imgSrc)}
+    </Link>
   ) : (
     <button onClick={onClick} className="nav-item">
-      {/* Use the imported burgerIcon SVG here */}
-      <img src={kiugikg} alt="Burger Icon" />
+      {/* Render either an image or a React component depending on the type of imgSrc */}
+      {imgSrc ? (
+        typeof imgSrc === "string" ? (
+          <img src={imgSrc} alt="icon" />
+        ) : (
+          imgSrc
+        )
+      ) : null}
     </button>
   );
 }

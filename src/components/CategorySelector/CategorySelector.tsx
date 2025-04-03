@@ -15,15 +15,10 @@ export function FilterContainer({ toggleFilter }: FilterProps) {
   const {
     loading,
     error,
-    handleNewJoke,
     categories,
     selectedCategories,
     updateSelectedCategories,
   } = useJokesContext();
-  const handleButtonClick = () => {
-    handleNewJoke();
-    toggleFilter();
-  };
 
   const handleClose = () => {
     toggleFilter();
@@ -49,7 +44,6 @@ export function FilterContainer({ toggleFilter }: FilterProps) {
         ) : (
           <p>Inga kategorier tillgängliga.</p>
         )}
-
       </div>
     </div>
   );

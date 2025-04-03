@@ -6,6 +6,7 @@ import { useAppContext } from "../context/AppContext";
 import { Joke } from "../types/Joke";
 import { useEffect, useState } from "react";
 import { SwipeCard } from "../components/Card/SwipeCard";
+import { Navbar } from "../components/Navbar/Navbar";
 
 const shuffleArray = (array: Joke[]) => {
   return [...array].sort(() => Math.random() - 0.5);
@@ -34,27 +35,31 @@ const Home = () => {
 
   return (
     <main
-      className="py-30
- flex items-start justify-center min-h-screen h-auto w-screen"
+      className={`w-screen pt-30 flex flex-col justify-between ${
+        isCardExpanded ? "h-auto" : "h-full"
+      }`}
     >
       {loading ? (
         <Skeleton count={3} />
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <div className="grid place-items-center w-full h-auto">
-          {jokeQueue.map((joke, index, arr) => (
-            <SwipeCard key={joke._id} id={joke._id} queue={jokeQueue}>
-              <Card
-                key={joke._id + index}
-                joke={joke}
-                expanded={index === arr.length - 1 && isCardExpanded}
-                index={index}
-              />
-            </SwipeCard>
-          ))}
+        <div className="h-full flex flex-col justify-center">
+          <div className="grid place-items-center w-full h-auto">
+            {jokeQueue.map((joke, index, arr) => (
+              <SwipeCard key={joke._id} id={joke._id} queue={jokeQueue}>
+                <Card
+                  key={joke._id + index}
+                  joke={joke}
+                  expanded={index === arr.length - 1 && isCardExpanded}
+                  index={index}
+                />
+              </SwipeCard>
+            ))}
+          </div>
         </div>
       )}
+      <Navbar />
     </main>
   );
 };
