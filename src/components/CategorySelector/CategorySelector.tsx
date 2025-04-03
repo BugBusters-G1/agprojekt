@@ -15,15 +15,10 @@ export function FilterContainer({ toggleFilter }: FilterProps) {
   const {
     loading,
     error,
-    handleNewJoke,
     categories,
     selectedCategories,
     updateSelectedCategories,
   } = useJokesContext();
-  const handleButtonClick = () => {
-    handleNewJoke();
-    toggleFilter();
-  };
 
   const handleClose = () => {
     toggleFilter();
@@ -32,9 +27,6 @@ export function FilterContainer({ toggleFilter }: FilterProps) {
   return (
     <div className="filter-overlay">
       <div className="filter-view">
-        <div className="filter-close" onClick={handleClose}>
-          <CircleX />
-        </div>
         {loading ? (
           <p>Laddar kategorier...</p>
         ) : error ? (
@@ -52,8 +44,6 @@ export function FilterContainer({ toggleFilter }: FilterProps) {
         ) : (
           <p>Inga kategorier tillgängliga.</p>
         )}
-
-        <FilterButton onClick={handleButtonClick} />
       </div>
     </div>
   );

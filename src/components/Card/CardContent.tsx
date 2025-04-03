@@ -20,8 +20,8 @@ export function CardContent({
       }`}
     >
       <div className="flex flex-col gap-2">
-        <p className="text-lg sm:text-xl">{joke}</p>
-        <p className="text-lg sm:text-xl font-semibold">{punchline}</p>
+        <p className="text-[24px]">{joke}</p>
+        <p className="text-[24px] sm:text-xl font-semibold">{punchline}</p>
         <p className="text-md">{explanation}</p>
       </div>
       <Category placeholder={category} />

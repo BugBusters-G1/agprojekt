@@ -2,6 +2,9 @@ import { useAppContext } from "../../context/AppContext";
 import { useJokesContext } from "../../context/JokeContext";
 import { NavItem, NavItemProps } from "./NavItem";
 import "./Navbar.css";
+import BurgerIcon from "../../assets/BURGER.svg"; // Import as string
+import LeftIcon from "../../assets/ARROW_LEFT.svg"; // Import as string
+import RightIcon from "../../assets/ARROW_RIGHT.svg"; // Import as string
 
 export const Navbar = () => {
   const { toggleCardExpand, toggleCategorySelector, isCardExpanded } =
@@ -13,25 +16,22 @@ export const Navbar = () => {
     {
       type: "button",
       onClick: toggleCategorySelector,
-      icon: "SlidersHorizontal",
+      imgSrc: LeftIcon,
     },
-    { type: "button", onClick: toggleCardExpand, icon: "CircleHelp" },
+
     {
       type: "button",
-      onClick: () => {
-        // if (currentJoke) {
-        //   copyJokeToClipboard(currentJoke, isCardExpanded);
-        // }
-      },
-      icon: "Copy",
+      onClick: toggleCategorySelector,
+      imgSrc: BurgerIcon,
     },
+
     {
       type: "button",
       onClick: () => {
         if (isCardExpanded) toggleCardExpand();
         removeTopJoke();
       },
-      icon: "CircleArrowRight",
+      imgSrc: RightIcon,
     },
   ];
 

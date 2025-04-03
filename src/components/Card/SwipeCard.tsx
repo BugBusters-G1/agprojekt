@@ -22,6 +22,7 @@ export function SwipeCard({ children, id, queue }: SwipeCardProps) {
       removeTopJoke();
     }
   };
+
   return (
     <motion.div
       drag={!isCardExpanded ? "x" : false}

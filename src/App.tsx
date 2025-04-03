@@ -19,7 +19,6 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
-      <Navbar />
     </>
   );
 }
