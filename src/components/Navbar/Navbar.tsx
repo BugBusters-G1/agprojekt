@@ -17,7 +17,7 @@ export const Navbar = () => {
     togglePopup,
   } = useAppContext();
 
-  const { removeTopJoke, restorePreviousJoke, selectedCategories, jok } =
+  const { removeTopJoke, restorePreviousJoke, selectedCategories } =
     useJokesContext();
 
   const [categoriesChanged, setCategoriesChanged] = useState(false);
