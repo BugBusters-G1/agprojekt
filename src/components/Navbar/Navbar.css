@@ -6,7 +6,7 @@ nav {
   border-radius: 16px;
   height: 100px;
   align-items: center;
-  z-index: 1000;
+  z-index: 500;
 }
 
 .nav-item {

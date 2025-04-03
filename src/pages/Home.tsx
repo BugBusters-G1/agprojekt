@@ -12,6 +12,7 @@ const Home = () => {
   const {
     loading,
     error,
+    jokes,
     jokeQueue,
     setJokeQueue,
     selectedCategories,
@@ -19,15 +20,21 @@ const Home = () => {
   } = useJokesContext();
   const { isCardExpanded, toggleCategorySelector, isCategorySelector } =
     useAppContext();
-
   useEffect(() => {
-    if (jokeQueue.length < 2) {
-      const newJoke = getUniqueRandomJoke(selectedCategories);
-      if (newJoke) {
-        setJokeQueue((prev) => [newJoke, ...prev]);
-      }
-    }
-  }, [jokeQueue, getUniqueRandomJoke, selectedCategories, setJokeQueue]);
+    const jokesToUse =
+      selectedCategories.length > 0
+        ? jokes.filter((joke) =>
+            selectedCategories.some((category) =>
+              joke.category.includes(category)
+            )
+          )
+        : jokes;
+
+    const shuffledJokes = [...jokesToUse].sort(() => Math.random() - 0.5);
+    const randomJokes = shuffledJokes.slice(0, 2);
+
+    setJokeQueue(randomJokes);
+  }, [selectedCategories, jokes]);
 
   return (
     <main
@@ -45,16 +52,24 @@ const Home = () => {
             {isCategorySelector ? (
               <FilterContainer toggleFilter={toggleCategorySelector} />
             ) : (
-              jokeQueue.map((joke, index, arr) => (
-                <SwipeCard key={joke._id} id={joke._id} queue={jokeQueue}>
-                  <Card
-                    key={joke._id + index}
-                    joke={joke}
-                    expanded={index === arr.length - 1 && isCardExpanded}
-                    index={index}
-                  />
-                </SwipeCard>
-              ))
+              jokeQueue.map((joke, index, arr) =>
+                jokeQueue.map((joke, index) => (
+                  <SwipeCard
+                    key={`${joke._id}-${index}`}
+                    id={joke._id}
+                    queue={jokeQueue}
+                  >
+                    <Card
+                      key={`${joke._id}-${index}`}
+                      joke={joke}
+                      expanded={
+                        index === jokeQueue.length - 1 && isCardExpanded
+                      }
+                      index={index}
+                    />
+                  </SwipeCard>
+                ))
+              )
             )}
           </div>
         </div>

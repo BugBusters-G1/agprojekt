@@ -64,19 +64,24 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
   const removeTopJoke = () => {
     setJokeQueue((prevQueue) => {
       if (prevQueue.length === 0) return prevQueue;
-  
+
+      // Remove the last joke
       const removedJoke = prevQueue[prevQueue.length - 1];
-      setJokeHistory(removedJoke); 
-  
-      return prevQueue.slice(0, -1); 
+      setJokeHistory(removedJoke);
+
+      // Fetch a new joke
+      const newJoke = getUniqueRandomJoke(selectedCategories);
+
+      // Add the new joke to the top of the queue and return the updated queue
+      return newJoke ? [newJoke, ...prevQueue.slice(0, -1)] : prevQueue;
     });
   };
 
   const restorePreviousJoke = () => {
     if (!jokeHistory) return;
-  
+
     setJokeQueue((prev) => [...prev, jokeHistory]);
-    setJokeHistory(null); 
+    setJokeHistory(null);
   };
 
   return (
@@ -96,7 +101,7 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
         setJokeQueue,
         removeTopJoke,
         jokeHistory,
-        restorePreviousJoke
+        restorePreviousJoke,
       }}
     >
       {children}
