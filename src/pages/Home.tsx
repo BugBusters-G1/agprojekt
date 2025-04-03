@@ -16,7 +16,6 @@ const Home = () => {
     jokeQueue,
     setJokeQueue,
     selectedCategories,
-    getUniqueRandomJoke,
   } = useJokesContext();
   const { isCardExpanded, toggleCategorySelector, isCategorySelector } =
     useAppContext();
