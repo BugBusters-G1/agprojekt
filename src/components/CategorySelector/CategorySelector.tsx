@@ -1,5 +1,4 @@
 import CategoryItem from "./CategoryItem";
-
 import "./CateogrySelectror.css";
 import { useJokesContext } from "../../context/JokeContext";
 import { categoryColors } from "../../utils/Colors";
@@ -13,8 +12,8 @@ export function FilterContainer({}: FilterProps) {
     loading,
     error,
     categories,
-    selectedCategories,
-    updateSelectedCategories,
+    tempSelectedCategories,
+    setTempSelectedCategories,
   } = useJokesContext();
 
   return (
@@ -28,8 +27,14 @@ export function FilterContainer({}: FilterProps) {
           <CategoryItem
             key={category.category}
             category={category}
-            selected={selectedCategories.includes(category.category)}
-            onToggle={updateSelectedCategories}
+           selected={tempSelectedCategories.includes(category.category)}
+onToggle={(categoryName: string) => {
+  setTempSelectedCategories((prev) =>
+    prev.includes(categoryName)
+      ? prev.filter((c) => c !== categoryName)
+      : [...prev, categoryName]
+  );
+}}
             colors={categoryColors}
           />
         ))
