@@ -14,7 +14,6 @@ const Home = () => {
   const { isCardExpanded, toggleCategorySelector, isCategorySelector } =
     useAppContext();
   useEffect(() => {
-    // If no categories are selected, default to all jokes
     const jokesToUse =
       selectedCategories.length > 0
         ? jokes.filter((joke) =>
@@ -22,15 +21,13 @@ const Home = () => {
               joke.category.includes(category)
             )
           )
-        : jokes; // Use all jokes if no categories are selected
+        : jokes;
 
-    // Shuffle the jokes and take the first two
     const shuffledJokes = [...jokesToUse].sort(() => Math.random() - 0.5);
     const randomJokes = shuffledJokes.slice(0, 2);
 
-    // Update the joke queue with the new jokes
     setJokeQueue(randomJokes);
-  }, [selectedCategories, jokes]); // Re-run the effect when `selectedCategories` or `jokes` change
+  }, [selectedCategories, jokes]);
 
   return (
     <main
