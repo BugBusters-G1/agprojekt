@@ -10,7 +10,7 @@ interface SwipeCardProps {
 }
 
 export function SwipeCard({ children, id, queue }: SwipeCardProps) {
-  const { removeTopJoke, restorePreviousJoke } = useJokesContext();
+  const { removeTopJoke } = useJokesContext();
   const { toggleCardExpand, isCardExpanded } = useAppContext();
 
   const x = useMotionValue(0);
@@ -22,11 +22,9 @@ export function SwipeCard({ children, id, queue }: SwipeCardProps) {
   const SWIPE_THRESHOLD = 100;
 
   const handleDragEnd = (_: any, info: { offset: { x: number } }) => {
-    if (info.offset.x > SWIPE_THRESHOLD) {
+    if (Math.abs(info.offset.x) > SWIPE_THRESHOLD) {
       removeTopJoke();
-    } else if (info.offset.x < -SWIPE_THRESHOLD) {
-      restorePreviousJoke();
-    }
+    } 
   };
 
   return (

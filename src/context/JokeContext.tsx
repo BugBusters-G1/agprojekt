@@ -27,8 +27,6 @@ interface JokesContextType {
   setJokeQueue: Dispatch<SetStateAction<Joke[]>>;
   jokeQueue: Joke[];
   removeTopJoke: () => void;
-  jokeHistory: Joke | null;
-  restorePreviousJoke: () => void;
 }
 
 const JokesContext = createContext<JokesContextType | null>(null);
@@ -43,7 +41,6 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
   } = useCategories();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [jokeQueue, setJokeQueue] = useState<Joke[]>([]);
-  const [jokeHistory, setJokeHistory] = useState<Joke | null>(null);
 
   const updateSelectedCategories = (category: string) => {
     setSelectedCategories((prev) =>
@@ -62,21 +59,7 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeTopJoke = () => {
-    setJokeQueue((prevQueue) => {
-      if (prevQueue.length === 0) return prevQueue;
-  
-      const removedJoke = prevQueue[prevQueue.length - 1];
-      setJokeHistory(removedJoke); 
-  
-      return prevQueue.slice(0, -1); 
-    });
-  };
-
-  const restorePreviousJoke = () => {
-    if (!jokeHistory) return;
-  
-    setJokeQueue((prev) => [...prev, jokeHistory]);
-    setJokeHistory(null); 
+    setJokeQueue((prevQueue) => prevQueue.slice(0, -1))
   };
 
   return (
@@ -95,8 +78,6 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
         jokeQueue,
         setJokeQueue,
         removeTopJoke,
-        jokeHistory,
-        restorePreviousJoke
       }}
     >
       {children}
