@@ -29,6 +29,11 @@ interface JokesContextType {
   removeTopJoke: () => void;
   jokeHistory: Joke | null;
   restorePreviousJoke: () => void;
+  tempSelectedCategories: string[];
+  setTempSelectedCategories: Dispatch<SetStateAction<string[]>>;
+ initCategorySelection: () => void;
+  applyCategoryChanges: () => void;
+  discardCategoryChanges: () => void;
 }
 
 const JokesContext = createContext<JokesContextType | null>(null);
@@ -42,6 +47,20 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
     loading: categoryLoading,
   } = useCategories();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [tempSelectedCategories, setTempSelectedCategories] = useState<string[]>([]);
+
+const initCategorySelection = () => {
+  setTempSelectedCategories(selectedCategories);
+};
+
+const applyCategoryChanges = () => {
+  setSelectedCategories(tempSelectedCategories);
+};
+
+const discardCategoryChanges = () => {
+  setTempSelectedCategories(selectedCategories);
+};
+
   const [jokeQueue, setJokeQueue] = useState<Joke[]>([]);
   const [jokeHistory, setJokeHistory] = useState<Joke | null>(null);
 
@@ -99,6 +118,11 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
         removeTopJoke,
         jokeHistory,
         restorePreviousJoke,
+        tempSelectedCategories,
+        setTempSelectedCategories,
+        initCategorySelection,
+        applyCategoryChanges,
+        discardCategoryChanges,
       }}
     >
       {children}
