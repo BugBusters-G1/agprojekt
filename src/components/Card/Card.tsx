@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import { useAppContext } from "../../context/AppContext";
 import { useCopyJoke } from "../../hooks/useCopyJoke";
 import { Joke } from "../../types/Joke";
@@ -7,6 +7,7 @@ import { CardButton } from "./CardBtn";
 import { CardContent } from "./CardContent";
 import ArrowDown from "../../assets/Pil_ner.svg";
 import ArrowUp from "../../assets/Pil_upp.svg";
+import { useRef, useState } from "react";
 
 interface CardProps {
   joke: Joke;
@@ -18,35 +19,36 @@ export function Card({ joke, expanded, index }: CardProps) {
   const style =
     categoryColors[joke.category.toLowerCase()] || categoryColors.default;
   const { toggleCardExpand } = useAppContext();
-  const {copyJokeToClipboard} = useCopyJoke();
+  const { copyJokeToClipboard } = useCopyJoke();
 
-  const timerRef = useRef<number| null>(null);
-  const [longPressTriggered, setLongPressTriggered] = useState(false)
+  const timerRef = useRef<number | null>(null);
+  const [longPressTriggered, setLongPressTriggered] = useState(false);
 
   const handlePressStart = (e: React.TouchEvent | React.MouseEvent) => {
+    if ("button" in e) {
+      return;
+    }
 
-    if ("button" in e) { return }
-
-    setLongPressTriggered(false)
+    setLongPressTriggered(false);
     timerRef.current = window.setTimeout(() => {
-      copyJokeToClipboard(joke, expanded)
-      setLongPressTriggered(true)
-    }, 900)
-  }
+      copyJokeToClipboard(joke, expanded);
+      setLongPressTriggered(true);
+    }, 900);
+  };
 
   const handlePressEnd = () => {
-    if(timerRef.current) {
-      clearTimeout(timerRef.current)
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
     }
-  }
+  };
 
   const handleClick = () => {
     if (!longPressTriggered) {
       toggleCardExpand();
     }
-  }
+  };
 
-  const color = "#235AFD";
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
   return (
     <div
       onMouseDown={(e) => handlePressStart(e)}
@@ -55,11 +57,11 @@ export function Card({ joke, expanded, index }: CardProps) {
       onTouchStart={(e) => handlePressStart(e)}
       onTouchEnd={handlePressEnd}
       onClick={() => {
-        handleClick()
+        handleClick();
       }}
-      className={`rounded-xl select-none h-auto w-80 p-4 z- ${
-        index != 1 ? "shadow-xl" : "shadow-2xl"
-      }`}
+      className={`rounded-xl select-none h-auto w-80 lg:w-150 py-4 ${
+        isDesktop ? "flex flex-row " : "block"
+      }${index != 1 ? "shadow-xl" : "shadow-2xl"}`}
       style={{
         backgroundColor: style.background,
         color: style.text,
@@ -68,18 +70,22 @@ export function Card({ joke, expanded, index }: CardProps) {
       <CardContent
         joke={joke.jokeInSwedish}
         punchline={joke.swedishPunchline}
-        explanation={expanded ? joke.meaningInSwedish : ""}
+        explanation={isDesktop || expanded ? joke.meaningInSwedish : ""}
+        showDesktopBorder={true}
         isExpanded={false}
+        isDesktop={isDesktop}
       />
 
-      {expanded && (
+      {isDesktop || expanded ? (
         <CardContent
           joke={joke.jokeInEnglish}
           punchline={joke.englishPunchline}
           explanation={joke.meaningInEnglish}
           isExpanded={expanded}
+          showDesktopBorder={false}
+          isDesktop={isDesktop}
         />
-      )}
+      ) : null}
 
       <div className="flex flex-col justify-center items-center">
         <CardButton

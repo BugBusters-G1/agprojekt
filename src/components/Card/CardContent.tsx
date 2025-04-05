@@ -2,6 +2,8 @@ interface CardContentProps {
   joke: string;
   punchline: string;
   isExpanded: boolean | false;
+  isDesktop: boolean | false;
+  showDesktopBorder: boolean | false;
   explanation: string;
 }
 
@@ -9,13 +11,15 @@ export function CardContent({
   joke,
   punchline,
   isExpanded,
+  showDesktopBorder,
+  isDesktop,
   explanation,
 }: CardContentProps) {
   return (
     <div
-      className={`w-full border-t-1 flex flex-col min-h-100 justify-between gap-2 ${
-        isExpanded ? "border-t-1 pb-2 pt-3" : "pb-5 border-none"
-      }`}
+      className={`w-full flex flex-col min-h-100 justify-between p-4 overflow-hidden ${
+        !isDesktop && isExpanded ? "pb-2 pt-3" : ""
+      }${isDesktop && showDesktopBorder ? "border-r-1 pb-2 pt-3" : ""} `}
     >
       <div className="flex flex-col gap-2">
         <p className="text-[24px]">{joke}</p>
