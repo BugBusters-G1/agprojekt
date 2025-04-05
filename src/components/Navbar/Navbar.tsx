@@ -2,16 +2,30 @@ import { useAppContext } from "../../context/AppContext";
 import { useJokesContext } from "../../context/JokeContext";
 import { NavItem, NavItemProps } from "./NavItem";
 import "./Navbar.css";
-import BurgerIcon from "../../assets/BURGER.svg"; // Import as string
-import LeftIcon from "../../assets/ARROW_LEFT.svg"; // Import as string
-import RightIcon from "../../assets/ARROW_RIGHT.svg"; // Import as string
-import ExitIcon from "../../assets/EXIT_BIG.svg"; 
+import BurgerIcon from "../../assets/BURGER.svg";
+import LeftIcon from "../../assets/ARROW_LEFT.svg";
+import RightIcon from "../../assets/ARROW_RIGHT.svg";
+import ExitIcon from "../../assets/EXIT_BIG.svg";
+import { useEffect, useState } from "react";
 
 export const Navbar = () => {
-  const { toggleCardExpand, toggleCategorySelector,  isCategorySelector, isCardExpanded } =
-    useAppContext();
+  const {
+    toggleCardExpand,
+    toggleCategorySelector,
+    isCategorySelector,
+    isCardExpanded,
+    togglePopup,
+  } = useAppContext();
 
-  const { removeTopJoke, restorePreviousJoke } = useJokesContext();
+  const { removeTopJoke, restorePreviousJoke, selectedCategories } =
+    useJokesContext();
+
+  const [categoriesChanged, setCategoriesChanged] = useState(false);
+
+  useEffect(() => {
+    const isCategoriesModified = selectedCategories?.length > 0;
+    setCategoriesChanged(isCategoriesModified);
+  }, [selectedCategories]);
 
   const navItems: NavItemProps[] = [
     {
@@ -22,7 +36,13 @@ export const Navbar = () => {
 
     {
       type: "button",
-      onClick: toggleCategorySelector,
+      onClick: () => {
+        toggleCategorySelector();
+        if (isCategorySelector && categoriesChanged) {
+          togglePopup();
+          setCategoriesChanged(false);
+        }
+      },
       imgSrc: isCategorySelector ? ExitIcon : BurgerIcon,
     },
 

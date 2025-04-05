@@ -11,7 +11,7 @@ interface SwipeCardProps {
 
 export function SwipeCard({ children, id, queue }: SwipeCardProps) {
   const { removeTopJoke, restorePreviousJoke } = useJokesContext();
-  const { toggleCardExpand, isCardExpanded } = useAppContext();
+  const { isCardExpanded } = useAppContext();
 
   const x = useMotionValue(0);
 
@@ -31,15 +31,15 @@ export function SwipeCard({ children, id, queue }: SwipeCardProps) {
 
   return (
     <motion.div
-      drag={!isCardExpanded ? "x" : false}
+      drag={isCardExpanded ? false : true}
       onDragEnd={handleDragEnd}
-      dragConstraints={{ left: 0, right: 0 }}
-      transition={{
-        type: "spring",
-        stiffness: 300,
-        damping: 20, 
+      dragConstraints={{
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
       }}
-      dragElastic={0.35} 
+      dragElastic={{ left: 0.6, right: 0.6, bottom: 0.2, top: 0.2 }}
       animate={{ scale: isFront ? 1.05 : 1 }}
       style={{
         gridColumn: 1,
