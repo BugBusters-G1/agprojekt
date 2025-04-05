@@ -3,7 +3,6 @@ import { useJokesContext } from "../../context/JokeContext";
 import { NavItem, NavItemProps } from "./NavItem";
 import "./Navbar.css";
 import BurgerIcon from "../../assets/BURGER.svg"; // Import as string
-import LeftIcon from "../../assets/ARROW_LEFT.svg"; // Import as string
 import RightIcon from "../../assets/ARROW_RIGHT.svg"; // Import as string
 import ExitIcon from "../../assets/EXIT_BIG.svg"; 
 
@@ -11,14 +10,9 @@ export const Navbar = () => {
   const { toggleCardExpand, toggleCategorySelector,  isCategorySelector, isCardExpanded } =
     useAppContext();
 
-  const { removeTopJoke, restorePreviousJoke } = useJokesContext();
+  const { removeTopJoke } = useJokesContext();
 
   const navItems: NavItemProps[] = [
-    {
-      type: "button",
-      onClick: restorePreviousJoke,
-      imgSrc: LeftIcon,
-    },
 
     {
       type: "button",
