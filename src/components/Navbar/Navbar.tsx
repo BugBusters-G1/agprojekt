@@ -14,7 +14,7 @@ export const Navbar = () => {
     toggleCategorySelector,
     isCategorySelector,
     isCardExpanded,
-    togglePopup,
+    showPopup
   } = useAppContext();
 
   const { removeTopJoke, restorePreviousJoke, selectedCategories } =
@@ -39,7 +39,7 @@ export const Navbar = () => {
       onClick: () => {
         toggleCategorySelector();
         if (isCategorySelector && categoriesChanged) {
-          togglePopup();
+          showPopup("Ändringar sparade!")
           setCategoriesChanged(false);
         }
       },

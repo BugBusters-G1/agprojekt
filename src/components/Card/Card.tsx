@@ -15,17 +15,20 @@ export function Card({ joke, expanded, index }: CardProps) {
   const style =
     categoryColors[joke.category.toLowerCase()] || categoryColors.default;
   const { toggleCardExpand } = useAppContext();
-  const {copyJokeToClipboard, copied} = useCopyJoke();
+  const {copyJokeToClipboard} = useCopyJoke();
 
   const timerRef = useRef<number| null>(null);
   const [longPressTriggered, setLongPressTriggered] = useState(false)
 
-  const handlePressStart = () => {
+  const handlePressStart = (e: React.TouchEvent | React.MouseEvent) => {
+
+    if ("button" in e) { return }
+
     setLongPressTriggered(false)
-    timerRef.current = setTimeout(() => {
+    timerRef.current = window.setTimeout(() => {
       copyJokeToClipboard(joke, expanded)
       setLongPressTriggered(true)
-    }, 600)
+    }, 900)
   }
 
   const handlePressEnd = () => {
@@ -42,10 +45,10 @@ export function Card({ joke, expanded, index }: CardProps) {
 
   return (
     <div
-      onMouseDown={handlePressStart}
+      onMouseDown={(e) => handlePressStart(e)}
       onMouseUp={handlePressEnd}
       onMouseLeave={handlePressEnd}
-      onTouchStart={handlePressStart}
+      onTouchStart={(e) => handlePressStart(e)}
       onTouchEnd={handlePressEnd}
       onClick={() => {
         handleClick()
