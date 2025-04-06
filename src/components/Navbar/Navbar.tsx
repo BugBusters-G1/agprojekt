@@ -16,7 +16,12 @@ export const Navbar = () => {
     toggleCategorySelector,
     isCategorySelector,
     isCardExpanded,
+<<<<<<< HEAD
     showPopup
+=======
+    togglePopup,
+    triggerSwipeAnimation,
+>>>>>>> 4ce6771 (Add: trigger swipe animation on Next joke button click)
   } = useAppContext();
 
 
@@ -37,7 +42,22 @@ export const Navbar = () => {
   };
   
   useEffect(() => {
+<<<<<<< HEAD
     setCategoriesChanged(!areArraysEqual(tempSelectedCategories, selectedCategories));
+=======
+    const areArraysEqual = (a: string[], b: string[]) => {
+      if (a.length !== b.length) return false;
+      const sortedA = [...a].sort();
+      const sortedB = [...b].sort();
+      return sortedA.every((val, i) => val === sortedB[i]);
+    };
+
+    const hasChanged = !areArraysEqual(
+      tempSelectedCategories,
+      selectedCategories
+    );
+    setCategoriesChanged(hasChanged);
+>>>>>>> 4ce6771 (Add: trigger swipe animation on Next joke button click)
   }, [tempSelectedCategories, selectedCategories]);
   
  
@@ -70,15 +90,44 @@ export const Navbar = () => {
   const navItems: NavItemProps[] = [
     {
       type: "button",
+<<<<<<< HEAD
       onClick: handleCategoryButtonClick,
       imgSrc: getCategoryIcon(),
+=======
+      onClick: restorePreviousJoke,
+      imgSrc: LeftIcon,
+    },
+
+    {
+      type: "button",
+      onClick: () => {
+        if (isCategorySelector) {
+          if (categoriesChanged) {
+            applyCategoryChanges();
+            togglePopup();
+            setCategoriesChanged(false);
+          } else {
+            discardCategoryChanges();
+          }
+        } else {
+          initCategorySelection();
+        }
+
+        toggleCategorySelector();
+      },
+      imgSrc: isCategorySelector
+        ? categoriesChanged
+          ? CheckIcon
+          : ExitIcon
+        : BurgerIcon,
+>>>>>>> 4ce6771 (Add: trigger swipe animation on Next joke button click)
     },
 
     {
       type: "button",
       onClick: () => {
         if (isCardExpanded) toggleCardExpand();
-        removeTopJoke();
+        triggerSwipeAnimation();
       },
       imgSrc: RightIcon,
     },

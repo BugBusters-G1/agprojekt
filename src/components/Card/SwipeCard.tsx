@@ -1,9 +1,12 @@
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { useJokesContext } from "../../context/JokeContext";
 import { useAppContext } from "../../context/AppContext";
 import { Joke } from "../../types/Joke";
 import { useEffect } from "react";
+<<<<<<< HEAD
 import { useMediaQuery } from "react-responsive";
+=======
+>>>>>>> 4ce6771 (Add: trigger swipe animation on Next joke button click)
 
 interface SwipeCardProps {
   children: React.ReactNode;
@@ -12,9 +15,14 @@ interface SwipeCardProps {
 }
 
 export function SwipeCard({ children, id, queue }: SwipeCardProps) {
+<<<<<<< HEAD
 
   const { removeTopJoke } = useJokesContext();
   const { isCardExpanded } = useAppContext();
+=======
+  const { removeTopJoke, restorePreviousJoke } = useJokesContext();
+  const { isCardExpanded, registerSwipeAnimation } = useAppContext();
+>>>>>>> 4ce6771 (Add: trigger swipe animation on Next joke button click)
 
 
   const x = useMotionValue(0);
@@ -32,6 +40,23 @@ export function SwipeCard({ children, id, queue }: SwipeCardProps) {
       removeTopJoke();
     } 
   };
+
+  const swipeRight = () => {
+    animate(x, window.innerWidth, {
+      duration: 0.4,
+      ease: "easeInOut",
+      onComplete: () => {
+        removeTopJoke();
+      },
+    });
+  };
+
+  // Register swipeRight function to context on mount
+  useEffect(() => {
+    if (isFront) {
+      registerSwipeAnimation(swipeRight);
+    }
+  }, [isFront]);
 
   return (
     <motion.div
