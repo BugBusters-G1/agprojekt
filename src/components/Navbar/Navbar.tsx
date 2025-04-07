@@ -15,7 +15,7 @@ export const Navbar = () => {
     toggleCategorySelector,
     isCategorySelector,
     isCardExpanded,
-    togglePopup,
+    showPopup
   } = useAppContext();
 
   const {
@@ -55,7 +55,7 @@ export const Navbar = () => {
         if (isCategorySelector) {
           if (categoriesChanged) {
             applyCategoryChanges();      
-            togglePopup();              
+            showPopup("Ändringar sparade!");             
             setCategoriesChanged(false);
           } else {
             discardCategoryChanges();   
