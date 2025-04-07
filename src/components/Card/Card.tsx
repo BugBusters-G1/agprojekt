@@ -3,6 +3,7 @@ import { useAppContext } from "../../context/AppContext";
 import { useCopyJoke } from "../../hooks/useCopyJoke";
 import { Joke } from "../../types/Joke";
 import { categoryColors } from "../../utils/Colors";
+import { CardButton } from "./CardBtn";
 import { CardContent } from "./CardContent";
 
 interface CardProps {
@@ -43,6 +44,7 @@ export function Card({ joke, expanded, index }: CardProps) {
     }
   }
 
+  const color = "#235AFD";
   return (
     <div
       onMouseDown={(e) => handlePressStart(e)}
@@ -64,7 +66,6 @@ export function Card({ joke, expanded, index }: CardProps) {
       <CardContent
         joke={joke.jokeInSwedish}
         punchline={joke.swedishPunchline}
-        category={joke.categoryInSwedish}
         explanation={expanded ? joke.meaningInSwedish : ""}
         isExpanded={false}
       />
@@ -73,11 +74,18 @@ export function Card({ joke, expanded, index }: CardProps) {
         <CardContent
           joke={joke.jokeInEnglish}
           punchline={joke.englishPunchline}
-          category={joke.categoryInEnglish}
           explanation={joke.meaningInEnglish}
           isExpanded={expanded}
         />
       )}
+
+      <div className="flex flex-col justify-center items-center">
+        <CardButton
+          onClick={toggleCardExpand}
+          activeColor={style.backgroundActive}
+          label={expanded ? "Minimze" : "Don't get it?"}
+        />
+      </div>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import BurgerIcon from "../../assets/BURGER.svg";
 import LeftIcon from "../../assets/ARROW_LEFT.svg";
 import RightIcon from "../../assets/ARROW_RIGHT.svg";
 import ExitIcon from "../../assets/EXIT_BIG.svg";
+import CheckIcon from "../../assets/Checmark.svg";
 import { useEffect, useState } from "react";
 
 export const Navbar = () => {
@@ -17,15 +18,29 @@ export const Navbar = () => {
     showPopup
   } = useAppContext();
 
-  const { removeTopJoke, restorePreviousJoke, selectedCategories } =
-    useJokesContext();
+  const {
+    removeTopJoke,
+    restorePreviousJoke,
+    selectedCategories,
+    tempSelectedCategories,
+    applyCategoryChanges,
+    discardCategoryChanges,
+    initCategorySelection,
+  } = useJokesContext();
 
   const [categoriesChanged, setCategoriesChanged] = useState(false);
 
   useEffect(() => {
-    const isCategoriesModified = selectedCategories?.length > 0;
-    setCategoriesChanged(isCategoriesModified);
-  }, [selectedCategories]);
+    const areArraysEqual = (a: string[], b: string[]) => {
+      if (a.length !== b.length) return false;
+      const sortedA = [...a].sort();
+      const sortedB = [...b].sort();
+      return sortedA.every((val, i) => val === sortedB[i]);
+    };
+
+    const hasChanged = !areArraysEqual(tempSelectedCategories, selectedCategories);
+    setCategoriesChanged(hasChanged);
+  }, [tempSelectedCategories, selectedCategories]);
 
   const navItems: NavItemProps[] = [
     {
@@ -37,13 +52,23 @@ export const Navbar = () => {
     {
       type: "button",
       onClick: () => {
-        toggleCategorySelector();
-        if (isCategorySelector && categoriesChanged) {
-          showPopup("Ändringar sparade!")
-          setCategoriesChanged(false);
+        if (isCategorySelector) {
+          if (categoriesChanged) {
+            applyCategoryChanges();      
+            showPopup("Ändringar sparade!");             
+            setCategoriesChanged(false);
+          } else {
+            discardCategoryChanges();   
+          }
+        } else {
+          initCategorySelection();       
         }
+
+        toggleCategorySelector();        
       },
-      imgSrc: isCategorySelector ? ExitIcon : BurgerIcon,
+      imgSrc: isCategorySelector
+        ? (categoriesChanged ? CheckIcon : ExitIcon)
+        : BurgerIcon,
     },
 
     {
