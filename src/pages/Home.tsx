@@ -9,10 +9,11 @@ import { Navbar } from "../components/Navbar/Navbar";
 import { FilterContainer } from "../components/CategorySelector/CategorySelector";
 
 const Home = () => {
-  const { loading, error, jokes, jokeQueue, setJokeQueue, selectedCategories } =
+  const { loading, error, jokes, jokeQueue, setJokeQueue, selectedCategories, getUniqueRandomJoke } =
     useJokesContext();
   const { isCardExpanded, toggleCategorySelector, isCategorySelector } =
     useAppContext();
+
   useEffect(() => {
     // If no categories are selected, default to all jokes
     const jokesToUse =
@@ -31,6 +32,16 @@ const Home = () => {
     // Update the joke queue with the new jokes
     setJokeQueue(randomJokes);
   }, [selectedCategories, jokes]); // Re-run the effect when `selectedCategories` or `jokes` change
+
+  //Keeping jokequeue from running out
+  useEffect(() => {
+    if (jokeQueue.length < 2) {
+      const newJoke = getUniqueRandomJoke(selectedCategories);
+      if (newJoke) {
+        setJokeQueue((prev) => [newJoke, ...prev]);
+      }
+    }
+  }, [jokeQueue, getUniqueRandomJoke, selectedCategories]);
 
   return (
     <main
