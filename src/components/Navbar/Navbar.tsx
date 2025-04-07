@@ -2,12 +2,13 @@ import { useAppContext } from "../../context/AppContext";
 import { useJokesContext } from "../../context/JokeContext";
 import { NavItem, NavItemProps } from "./NavItem";
 import "./Navbar.css";
+
 import BurgerIcon from "../../assets/BURGER.svg";
-import LeftIcon from "../../assets/ARROW_LEFT.svg";
 import RightIcon from "../../assets/ARROW_RIGHT.svg";
 import ExitIcon from "../../assets/EXIT_BIG.svg";
 import CheckIcon from "../../assets/Checmark.svg";
 import { useEffect, useState } from "react";
+
 
 export const Navbar = () => {
   const {
@@ -18,9 +19,9 @@ export const Navbar = () => {
     showPopup
   } = useAppContext();
 
+
   const {
     removeTopJoke,
-    restorePreviousJoke,
     selectedCategories,
     tempSelectedCategories,
     applyCategoryChanges,
@@ -42,12 +43,8 @@ export const Navbar = () => {
     setCategoriesChanged(hasChanged);
   }, [tempSelectedCategories, selectedCategories]);
 
+
   const navItems: NavItemProps[] = [
-    {
-      type: "button",
-      onClick: restorePreviousJoke,
-      imgSrc: LeftIcon,
-    },
 
     {
       type: "button",

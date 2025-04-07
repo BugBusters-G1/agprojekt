@@ -27,13 +27,12 @@ interface JokesContextType {
   setJokeQueue: Dispatch<SetStateAction<Joke[]>>;
   jokeQueue: Joke[];
   removeTopJoke: () => void;
-  jokeHistory: Joke | null;
-  restorePreviousJoke: () => void;
   tempSelectedCategories: string[];
   setTempSelectedCategories: Dispatch<SetStateAction<string[]>>;
- initCategorySelection: () => void;
+  initCategorySelection: () => void;
   applyCategoryChanges: () => void;
   discardCategoryChanges: () => void;
+
 }
 
 const JokesContext = createContext<JokesContextType | null>(null);
@@ -62,7 +61,6 @@ const discardCategoryChanges = () => {
 };
 
   const [jokeQueue, setJokeQueue] = useState<Joke[]>([]);
-  const [jokeHistory, setJokeHistory] = useState<Joke | null>(null);
 
   const updateSelectedCategories = (category: string) => {
     setSelectedCategories((prev) =>
@@ -81,23 +79,7 @@ const discardCategoryChanges = () => {
   };
 
   const removeTopJoke = () => {
-    setJokeQueue((prevQueue) => {
-      if (prevQueue.length === 0) return prevQueue;
-
-      const removedJoke = prevQueue[prevQueue.length - 1];
-      setJokeHistory(removedJoke);
-
-      const newJoke = getUniqueRandomJoke(selectedCategories);
-
-      return newJoke ? [newJoke, ...prevQueue.slice(0, -1)] : prevQueue;
-    });
-  };
-
-  const restorePreviousJoke = () => {
-    if (!jokeHistory) return;
-
-    setJokeQueue((prev) => [...prev, jokeHistory]);
-    setJokeHistory(null);
+    setJokeQueue((prevQueue) => prevQueue.slice(0, -1))
   };
 
   return (
@@ -116,8 +98,6 @@ const discardCategoryChanges = () => {
         jokeQueue,
         setJokeQueue,
         removeTopJoke,
-        jokeHistory,
-        restorePreviousJoke,
         tempSelectedCategories,
         setTempSelectedCategories,
         initCategorySelection,
