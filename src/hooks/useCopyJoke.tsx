@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { Joke } from "../types/Joke";
+import { useAppContext } from "../context/AppContext";
 
 export function useCopyJoke() {
-  const [copied, setCopied] = useState<boolean>(false);
+  const {showPopup} = useAppContext();
 
   const getJokeText = (joke: Joke, expanded: boolean): string => {
     let text = `${joke.jokeInSwedish}\n${joke.swedishPunchline}`;
@@ -21,14 +21,13 @@ export function useCopyJoke() {
     navigator.clipboard
       .writeText(text)
       .then(() => {
-        setCopied(true); // Could be changed to a global popup
-        setTimeout(() => setCopied(false), 2000);
-        console.log("Skämtet har kopierats");
+        showPopup("Skämtet har kopierats!")
+        console.log("Skämtet har kopierats!");
       })
       .catch((error) => {
         console.log("Skämtet kunde inte kopieras", error);
       });
   };
 
-  return { copyJokeToClipboard, copied };
+  return { copyJokeToClipboard };
 }

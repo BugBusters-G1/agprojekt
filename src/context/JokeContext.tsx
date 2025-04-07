@@ -11,7 +11,7 @@ import { useCategories } from "../hooks/useCategories";
 import { Joke } from "../types/Joke";
 import { useCopyJoke } from "../hooks/useCopyJoke";
 import { Category } from "../types/Category";
-import { v4 as uuidv4 } from "uuid"; // Import UUID library
+import { v4 as uuidv4 } from "uuid";
 
 interface JokesContextType {
   jokes: Joke[];
@@ -27,6 +27,12 @@ interface JokesContextType {
   setJokeQueue: Dispatch<SetStateAction<Joke[]>>;
   jokeQueue: Joke[];
   removeTopJoke: () => void;
+  tempSelectedCategories: string[];
+  setTempSelectedCategories: Dispatch<SetStateAction<string[]>>;
+  initCategorySelection: () => void;
+  applyCategoryChanges: () => void;
+  discardCategoryChanges: () => void;
+
 }
 
 const JokesContext = createContext<JokesContextType | null>(null);
@@ -40,6 +46,20 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
     loading: categoryLoading,
   } = useCategories();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [tempSelectedCategories, setTempSelectedCategories] = useState<string[]>([]);
+
+const initCategorySelection = () => {
+  setTempSelectedCategories(selectedCategories);
+};
+
+const applyCategoryChanges = () => {
+  setSelectedCategories(tempSelectedCategories);
+};
+
+const discardCategoryChanges = () => {
+  setTempSelectedCategories(selectedCategories);
+};
+
   const [jokeQueue, setJokeQueue] = useState<Joke[]>([]);
 
   const updateSelectedCategories = (category: string) => {
@@ -78,6 +98,11 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
         jokeQueue,
         setJokeQueue,
         removeTopJoke,
+        tempSelectedCategories,
+        setTempSelectedCategories,
+        initCategorySelection,
+        applyCategoryChanges,
+        discardCategoryChanges,
       }}
     >
       {children}
