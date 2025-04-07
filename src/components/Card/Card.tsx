@@ -61,7 +61,7 @@ export function Card({ joke, expanded, index }: CardProps) {
       }}
       className={`rounded-xl select-none h-auto w-80 lg:w-150 py-4 ${
         isDesktop ? "flex flex-row " : "block"
-      }${index != 1 ? "shadow-xl" : "shadow-2xl"}`}
+      }${index != 1 ? "shadow-lg" : "shadow-2xl"}`}
       style={{
         backgroundColor: style.background,
         color: style.text,
