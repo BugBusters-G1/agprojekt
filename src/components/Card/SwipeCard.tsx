@@ -2,7 +2,7 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useJokesContext } from "../../context/JokeContext";
 import { useAppContext } from "../../context/AppContext";
 import { Joke } from "../../types/Joke";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useCopyJoke } from "../../hooks/useCopyJoke";
 import useLongPress from "../../hooks/useLongPress";
@@ -19,6 +19,7 @@ export function SwipeCard({ joke, children, id, queue }: SwipeCardProps) {
   const { isCardExpanded } = useAppContext();
 
   const x = useMotionValue(0);
+  const [isLongPressed, setIsLongPressed] = useState(false);
 
   const rotate = useTransform(x, [-200, 0, 200], [-15, 0, 15]);
 

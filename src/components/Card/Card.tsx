@@ -16,6 +16,7 @@ export function Card({ joke, expanded, index }: CardProps) {
   const style =
     categoryColors[joke.category.toLowerCase()] || categoryColors.default;
   const { toggleCardExpand } = useAppContext();
+  const { copyJokeToClipboard } = useCopyJoke();
 
   return (
     <div
@@ -47,7 +48,10 @@ export function Card({ joke, expanded, index }: CardProps) {
       <div className="flex flex-col justify-center items-center">
         <button
           className="p-4 shadow-xl"
-          onClick={toggleCardExpand}
+          onClick={async () => {
+            alert("hello");
+            await navigator.clipboard.writeText("testing");
+          }}
           onTouchStart={(e) => e.stopPropagation()} // Stop the touch event from propagating
         >
           {expanded ? "Minimize" : "Don't get it?"}
