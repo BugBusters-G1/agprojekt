@@ -16,13 +16,10 @@ export function useCopyJoke() {
 
   const copyJokeToClipboard = async (joke: Joke, expanded: boolean) => {
     if (!joke) return;
-    const text = new ClipboardItem({
-      "text/plain": fetch(getJokeText(joke, expanded))
-        .then((response) => response.text())
-        .then((text) => new Blob([text], { type: "text/plain" })),
-    });
+    const text = getJokeText(joke, expanded);
+
     try {
-      await navigator.clipboard.write([text]);
+      await navigator.clipboard.writeText(text);
       showPopup("Skämtet har kopierats!");
       console.log("Skämtet har kopierats!");
     } catch (error) {
