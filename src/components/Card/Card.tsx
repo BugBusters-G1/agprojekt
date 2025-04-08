@@ -5,6 +5,8 @@ import { Joke } from "../../types/Joke";
 import { categoryColors } from "../../utils/Colors";
 import { CardButton } from "./CardBtn";
 import { CardContent } from "./CardContent";
+import ArrowDown from "../../assets/Pil_ner.svg";
+import ArrowUp from "../../assets/Pil_upp.svg";
 
 interface CardProps {
   joke: Joke;
@@ -83,7 +85,14 @@ export function Card({ joke, expanded, index }: CardProps) {
         <CardButton
           onClick={toggleCardExpand}
           activeColor={style.backgroundActive}
-          label={expanded ? "Minimze" : "Don't get it?"}
+          label={expanded ? "Got it!" : "Don't get it?"}
+          icon={
+            expanded ? (
+              <img src={ArrowUp} alt="Arrow up" className="w-4 h-4" />
+            ) : (
+              <img src={ArrowDown} alt="Arrow down" className="w-4 h-4" />
+            )
+          }
         />
       </div>
     </div>
