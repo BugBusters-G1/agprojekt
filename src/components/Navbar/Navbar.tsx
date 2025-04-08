@@ -31,41 +31,47 @@ export const Navbar = () => {
 
   const [categoriesChanged, setCategoriesChanged] = useState(false);
 
+  const areArraysEqual = (a: string[], b: string[]) => {
+    if (a.length !== b.length) return false;
+    return [...a].sort().every((val, i) => val === [...b].sort()[i]);
+  };
+  
   useEffect(() => {
-    const areArraysEqual = (a: string[], b: string[]) => {
-      if (a.length !== b.length) return false;
-      const sortedA = [...a].sort();
-      const sortedB = [...b].sort();
-      return sortedA.every((val, i) => val === sortedB[i]);
-    };
-
-    const hasChanged = !areArraysEqual(tempSelectedCategories, selectedCategories);
-    setCategoriesChanged(hasChanged);
+    setCategoriesChanged(!areArraysEqual(tempSelectedCategories, selectedCategories));
   }, [tempSelectedCategories, selectedCategories]);
-
-
+  
+ 
+  const handleCategoryButtonClick = () => {
+    if (!isCategorySelector) {
+      initCategorySelection();
+      toggleCategorySelector();
+      return;
+    }
+  
+    if (categoriesChanged) {
+      applyCategoryChanges();
+      showPopup("Ändringar sparade!");
+      setCategoriesChanged(false);
+    } else {
+      discardCategoryChanges();
+    }
+  
+    toggleCategorySelector();
+  };
+  
+ 
+  const getCategoryIcon = () =>
+    isCategorySelector
+      ? categoriesChanged
+        ? CheckIcon
+        : ExitIcon
+      : BurgerIcon;
+  
   const navItems: NavItemProps[] = [
-
     {
       type: "button",
-      onClick: () => {
-        if (isCategorySelector) {
-          if (categoriesChanged) {
-            applyCategoryChanges();      
-            showPopup("Ändringar sparade!");             
-            setCategoriesChanged(false);
-          } else {
-            discardCategoryChanges();   
-          }
-        } else {
-          initCategorySelection();       
-        }
-
-        toggleCategorySelector();        
-      },
-      imgSrc: isCategorySelector
-        ? (categoriesChanged ? CheckIcon : ExitIcon)
-        : BurgerIcon,
+      onClick: handleCategoryButtonClick,
+      imgSrc: getCategoryIcon(),
     },
 
     {
