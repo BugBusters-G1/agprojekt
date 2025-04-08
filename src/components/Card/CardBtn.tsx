@@ -1,7 +1,9 @@
 import { useState } from "react";
+import React from "react";
 
 interface CardButtonProps {
   label: string;
+  icon?: React.ReactNode;
   onClick?: () => void;
   activeColor?: string;
   textColor?: string;
@@ -10,6 +12,7 @@ interface CardButtonProps {
 
 export function CardButton({
   label,
+  icon,
   onClick,
   activeColor = "#e2e8f0",
   textColor = "#000",
@@ -27,9 +30,12 @@ export function CardButton({
         backgroundColor: isPressed ? activeColor : "transparent",
         color: textColor,
       }}
-      className={`rounded-lg px-4 py-2 transition-colors duration-150 shadow-md ${className}`}
+      className={`flex items-center justify-center rounded-full px-4 py-2 transition-colors duration-150 shadow-md ${className}`}
     >
-      {label}
+  <span className="flex items-center gap-2">
+    <span>{label}</span>
+    {icon}
+  </span>
     </button>
   );
 }
