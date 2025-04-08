@@ -1,17 +1,17 @@
 .app-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: var(--backgroundWhite);
-    padding: 1.5rem 1.5rem 0.8rem 1.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--backgroundWhite);
+  padding: 1.5rem 1.5rem 0.8rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .app-header-logo {
-    height: 60px;
-    max-width: 160px;
-    object-fit: contain;
+  height: 60px;
+  max-width: 160px;
+  object-fit: contain;
 }

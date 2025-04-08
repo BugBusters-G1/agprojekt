@@ -59,7 +59,7 @@ export function Card({ joke, expanded, index }: CardProps) {
       onClick={() => {
         handleClick();
       }}
-      className={`rounded-xl select-none h-auto w-80 lg:w-150 py-4 ${
+      className={`rounded-[20px] select-none h-auto lg:min-h-150 w-80  flex flex-col gap-10 lg:w-200 p-3 ${
         isDesktop ? "flex flex-row " : "block"
       }${index != 1 ? "shadow-lg" : "shadow-2xl"}`}
       style={{
@@ -87,6 +87,7 @@ export function Card({ joke, expanded, index }: CardProps) {
         />
       ) : null}
 
+<<<<<<< HEAD
       <div className="flex flex-col justify-center items-center">
         <CardButton
           onClick={toggleCardExpand}
@@ -101,6 +102,17 @@ export function Card({ joke, expanded, index }: CardProps) {
           }
         />
       </div>
+=======
+      {!isDesktop && (
+        <div className="flex flex-col justify-centert items-center pb-4">
+          <CardButton
+            onClick={toggleCardExpand}
+            activeColor={style.backgroundActive}
+            label={expanded ? "Minimze" : "Don't get it?"}
+          />
+        </div>
+      )}
+>>>>>>> ead2cc4 (Change: css layout)
     </div>
   );
 }

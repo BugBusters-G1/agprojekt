@@ -15,10 +15,9 @@
   font-style: normal;
 }
 
-body {
+body { 
   background-color: #fffcf7;
   overflow-x: hidden;
-  height: auto;
 }
 @keyframes shrinkBar {
   0% {

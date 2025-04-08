@@ -1,6 +1,5 @@
 import LogoWithName from "../../assets/LogoWithName.png";
 import { Link } from "react-router-dom";
-import "./Header.css";
 import { useAppContext } from "../../context/AppContext";
 import { useJokesContext } from "../../context/JokeContext";
 import { motion, useAnimation } from "framer-motion";
@@ -22,8 +21,12 @@ export function Header() {
 
   return (
     <header
+<<<<<<< HEAD
       onClick={handleClick}
       className={"app-header"}
+=======
+      className={"w-100 h-30"}
+>>>>>>> ead2cc4 (Change: css layout)
       style={{
         backgroundColor: isCardExpanded ? "#fffcf7" : "transparent",
       }}

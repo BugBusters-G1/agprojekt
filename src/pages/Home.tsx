@@ -9,8 +9,15 @@ import { Navbar } from "../components/Navbar/Navbar";
 import { FilterContainer } from "../components/CategorySelector/CategorySelector";
 
 const Home = () => {
-  const { loading, error, jokes, jokeQueue, setJokeQueue, selectedCategories, getUniqueRandomJoke } =
-    useJokesContext();
+  const {
+    loading,
+    error,
+    jokes,
+    jokeQueue,
+    setJokeQueue,
+    selectedCategories,
+    getUniqueRandomJoke,
+  } = useJokesContext();
   const { isCardExpanded, toggleCategorySelector, isCategorySelector } =
     useAppContext();
 
@@ -42,8 +49,8 @@ const Home = () => {
 
   return (
     <main
-      className={`w-screen min-h-screen pt-30 flex flex-col justify-between ${
-        isCardExpanded ? "h-auto gap-3" : "h-full"
+      className={`w-screen h-auto flex flex-col ${
+        isCardExpanded ? "h-auto" : "h-screen"
       }`}
     >
       {loading ? (

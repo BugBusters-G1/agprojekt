@@ -68,6 +68,7 @@ export function SwipeCard({ children, id, queue }: SwipeCardProps) {
         top: 0,
         bottom: 0,
       }}
+      className="relative"
       dragElastic={{ left: 0.6, right: 0.6, bottom: 0.2, top: 0.2 }}
       animate={{ scale: isFront ? 1.05 : 1 }}
       style={{
