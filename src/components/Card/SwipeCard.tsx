@@ -2,6 +2,11 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useJokesContext } from "../../context/JokeContext";
 import { useAppContext } from "../../context/AppContext";
 import { Joke } from "../../types/Joke";
+<<<<<<< Updated upstream
+=======
+import { useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
+>>>>>>> Stashed changes
 
 interface SwipeCardProps {
   children: React.ReactNode;
@@ -23,6 +28,8 @@ export function SwipeCard({ children, id, queue }: SwipeCardProps) {
 
   const SWIPE_THRESHOLD = 100;
 
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+
   const handleDragEnd = (_: any, info: { offset: { x: number } }) => {
     if (Math.abs(info.offset.x) > SWIPE_THRESHOLD) {
       removeTopJoke();
@@ -31,7 +38,7 @@ export function SwipeCard({ children, id, queue }: SwipeCardProps) {
 
   return (
     <motion.div
-      drag={isCardExpanded ? false : true}
+      drag={!(isCardExpanded || isDesktop)}
       onDragEnd={handleDragEnd}
       dragConstraints={{
         left: 0,
