@@ -11,6 +11,7 @@ interface TAppContext {
   togglePopup: () => void;
   popupMessage: string; 
   showPopup: (message: string) => void; 
+  resetUI: () => void;
 }
 
 const AppContext = createContext<TAppContext | null>(null);
@@ -31,6 +32,13 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setPopupVisible(true)
   }
 
+  const resetUI = () => {
+    setCategorySelector(false)
+    setCardExpanded(false)
+    setPopupVisible(false)
+    setPopupMessage("")
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -43,7 +51,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         isPopupVisible,
         togglePopup,
         popupMessage,
-        showPopup
+        showPopup,
+        resetUI
       }}
     >
       {children}

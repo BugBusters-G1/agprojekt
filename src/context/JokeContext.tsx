@@ -32,6 +32,7 @@ interface JokesContextType {
   initCategorySelection: () => void;
   applyCategoryChanges: () => void;
   discardCategoryChanges: () => void;
+  resetJokes: () => void;
 
 }
 
@@ -82,6 +83,12 @@ const discardCategoryChanges = () => {
     setJokeQueue((prevQueue) => prevQueue.slice(0, -1))
   };
 
+  const resetJokes = () => {
+    setSelectedCategories([])
+    setTempSelectedCategories([])
+    setJokeQueue([])
+  }
+
   return (
     <JokesContext.Provider
       value={{
@@ -103,6 +110,7 @@ const discardCategoryChanges = () => {
         initCategorySelection,
         applyCategoryChanges,
         discardCategoryChanges,
+        resetJokes
       }}
     >
       {children}
