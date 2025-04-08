@@ -2,11 +2,8 @@ import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useJokesContext } from "../../context/JokeContext";
 import { useAppContext } from "../../context/AppContext";
 import { Joke } from "../../types/Joke";
-<<<<<<< Updated upstream
-=======
 import { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
->>>>>>> Stashed changes
 
 interface SwipeCardProps {
   children: React.ReactNode;
