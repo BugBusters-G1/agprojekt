@@ -18,7 +18,7 @@ const Popup = () => {
 
   return (
     isPopupVisible && (
-      <div className="fixed top-10 left-1/2 overflow-hidden transform -translate-x-1/2 z-[1000] w-11/12 max-w-sm bg-white/95 text-black rounded-lg shadow-lg p-4">
+      <div className="fixed top-5 left-1/2 overflow-hidden transform -translate-x-1/2 z-[1000] w-11/12 max-w-sm bg-white/95 text-black rounded-lg shadow-lg p-4">
         <div className="popup-content">
           <p className="text-center">{popupMessage}</p>
         </div>
