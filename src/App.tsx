@@ -5,7 +5,6 @@ import { Header } from "./components/Header/Header";
 import { JokesProvider } from "./context/JokeContext";
 import { AppProvider } from "./context/AppContext";
 import Popup from "./components/Popup/Popup";
-import Test from "./pages/Test";
 
 function AppContent() {
   return (
@@ -13,7 +12,6 @@ function AppContent() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/test" element={<Test />} />
       </Routes>
       <Popup />
     </>

@@ -8,10 +8,6 @@ type Options = {
 type EventType = React.MouseEvent<Element> | React.TouchEvent<Element>;
 type Callback = (e: EventType) => void;
 
-const isTouchEvent = (event: EventType): event is React.TouchEvent => {
-  return "touches" in event;
-};
-
 // Native preventDefault handler for touchend (DOM event, not React event)
 const preventDefault = (event: Event) => {
   const e = event as TouchEvent;
@@ -20,7 +16,7 @@ const preventDefault = (event: Event) => {
   }
 };
 
-const useLongPress = (
+export const useLongPress = (
   onLongPress: Callback,
   onClick: () => void,
   { shouldPreventDefault = true, delay = 300 }: Options = {}
@@ -39,7 +35,7 @@ const useLongPress = (
       }
 
       timeout.current = setTimeout(() => {
-        onLongPress(event);
+        onLongPress(event); // event is passed here
         setLongPressTriggered(true);
       }, delay);
     },
@@ -47,13 +43,13 @@ const useLongPress = (
   );
 
   const clear = useCallback(
-    (event: EventType, shouldTriggerClick = true) => {
+    (shouldTriggerClick = true) => {
       if (timeout.current) {
         clearTimeout(timeout.current);
       }
 
       if (shouldTriggerClick && !longPressTriggered) {
-        onClick();
+        onClick(); // event is not needed here
       }
 
       setLongPressTriggered(false);
@@ -71,10 +67,8 @@ const useLongPress = (
   return {
     onMouseDown: (e: React.MouseEvent) => start(e),
     onTouchStart: (e: React.TouchEvent) => start(e),
-    onMouseUp: (e: React.MouseEvent) => clear(e),
-    onMouseLeave: (e: React.MouseEvent) => clear(e, false),
-    onTouchEnd: (e: React.TouchEvent) => clear(e),
+    onMouseUp: () => clear(),
+    onMouseLeave: () => clear(false),
+    onTouchEnd: () => clear(),
   };
 };
-
-export default useLongPress;

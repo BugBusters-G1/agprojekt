@@ -1,10 +1,6 @@
-import { useState } from "react";
-import { useAppContext } from "../../context/AppContext";
-import { useCopyJoke } from "../../hooks/useCopyJoke";
 import { Joke } from "../../types/Joke";
 import { categoryColors } from "../../utils/Colors";
 import { CardContent } from "./CardContent";
-import useLongPress from "../../hooks/useLongPress"; // Import the useLongPress hook
 
 interface CardProps {
   joke: Joke;
@@ -15,12 +11,9 @@ interface CardProps {
 export function Card({ joke, expanded, index }: CardProps) {
   const style =
     categoryColors[joke.category.toLowerCase()] || categoryColors.default;
-  const { toggleCardExpand } = useAppContext();
-  const { copyJokeToClipboard } = useCopyJoke();
 
   return (
     <div
-      // Spread the long press event handlers here
       className={`rounded-xl h-auto select-none w-80 p-4 z- ${
         index !== 1 ? "shadow-xl" : "shadow-2xl"
       }`}
@@ -52,7 +45,7 @@ export function Card({ joke, expanded, index }: CardProps) {
             alert("hello");
             await navigator.clipboard.writeText("testing");
           }}
-          onTouchStart={(e) => e.stopPropagation()} // Stop the touch event from propagating
+          onTouchStart={(e) => e.stopPropagation()}
         >
           {expanded ? "Minimize" : "Don't get it?"}
         </button>
