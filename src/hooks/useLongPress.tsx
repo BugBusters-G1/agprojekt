@@ -27,6 +27,9 @@ export const useLongPress = (
 
   const start = useCallback(
     (event: EventType) => {
+      if (shouldPreventDefault && event.cancelable) {
+        event.preventDefault();
+      }
       if (shouldPreventDefault && event.target) {
         (event.target as Element).addEventListener("touchend", preventDefault, {
           passive: false,

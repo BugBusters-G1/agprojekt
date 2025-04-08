@@ -3,8 +3,6 @@ import { useJokesContext } from "../../context/JokeContext";
 import { useAppContext } from "../../context/AppContext";
 import { Joke } from "../../types/Joke";
 import { useMediaQuery } from "react-responsive";
-import { useCopyJoke } from "../../hooks/useCopyJoke";
-import { useLongPress } from "../../hooks/useLongPress";
 
 interface SwipeCardProps {
   children: React.ReactNode;
@@ -13,7 +11,7 @@ interface SwipeCardProps {
   joke: Joke;
 }
 
-export function SwipeCard({ joke, children, id, queue }: SwipeCardProps) {
+export function SwipeCard({ children, id, queue }: SwipeCardProps) {
   const { removeTopJoke } = useJokesContext();
   const { isCardExpanded } = useAppContext();
 
@@ -32,24 +30,10 @@ export function SwipeCard({ joke, children, id, queue }: SwipeCardProps) {
       removeTopJoke();
     }
   };
-  const { showPopup } = useAppContext();
-  const { copyJokeToClipboard } = useCopyJoke();
 
-  const onLongPress = () => {
-    showPopup("Kopierade skämtet!");
-    copyJokeToClipboard(joke, isCardExpanded);
-  };
-
-  const onClick = () => {};
-
-  const longPressEvent = useLongPress(onLongPress, onClick, {
-    shouldPreventDefault: true,
-    delay: 900,
-  });
   return (
     <motion.div
       drag={!(isCardExpanded || isDesktop)}
-      {...longPressEvent}
       onDragEnd={handleDragEnd}
       dragConstraints={{
         left: 0,
@@ -64,6 +48,7 @@ export function SwipeCard({ joke, children, id, queue }: SwipeCardProps) {
         gridRow: 1,
         x,
         rotate,
+        touchAction: "none",
       }}
     >
       {children}
