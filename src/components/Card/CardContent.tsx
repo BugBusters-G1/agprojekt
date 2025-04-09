@@ -17,7 +17,7 @@ export function CardContent({
 }: CardContentProps) {
   return (
     <div
-      className={`w-full flex flex-col min-h-100 pt-4 justify-between  overflow-hidden`}
+      className={`w-full flex flex-col min-h-100 p-4 justify-between  overflow-hidden`}
     >
       <div className="flex flex-col gap-10">
         <div className="flex flex-col gap-4">

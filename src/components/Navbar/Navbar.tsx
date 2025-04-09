@@ -8,6 +8,7 @@ import RightIcon from "../../assets/ARROW_RIGHT.svg";
 import ExitIcon from "../../assets/EXIT_BIG.svg";
 import CheckIcon from "../../assets/Checmark.svg";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 export const Navbar = () => {
   const {
@@ -21,7 +22,6 @@ export const Navbar = () => {
   } = useAppContext();
 
   const {
-    removeTopJoke,
     selectedCategories,
     tempSelectedCategories,
     applyCategoryChanges,
@@ -30,6 +30,8 @@ export const Navbar = () => {
   } = useJokesContext();
 
   const [categoriesChanged, setCategoriesChanged] = useState(false);
+
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   useEffect(() => {
     const areArraysEqual = (a: string[], b: string[]) => {
@@ -75,25 +77,11 @@ export const Navbar = () => {
     {
       type: "button",
       onClick: () => {
-        if (isCategorySelector) {
-          if (categoriesChanged) {
-            applyCategoryChanges();
-            togglePopup();
-            setCategoriesChanged(false);
-          } else {
-            discardCategoryChanges();
-          }
-        } else {
-          initCategorySelection();
-        }
+        handleCategoryButtonClick();
 
         toggleCategorySelector();
       },
-      imgSrc: isCategorySelector
-        ? categoriesChanged
-          ? CheckIcon
-          : ExitIcon
-        : BurgerIcon,
+      imgSrc: getCategoryIcon(),
     },
 
     {
@@ -108,9 +96,24 @@ export const Navbar = () => {
 
   return (
     <nav>
-      {navItems.map((item, index) => (
-        <NavItem key={index} {...item} />
-      ))}
+      {!isDesktop && (
+        <NavItem
+          type="button"
+          onClick={() => {
+            handleCategoryButtonClick();
+            toggleCategorySelector();
+          }}
+          imgSrc={getCategoryIcon()}
+        />
+      )}
+      <NavItem
+        type="button"
+        onClick={() => {
+          if (isCardExpanded) toggleCardExpand();
+          triggerSwipeAnimation();
+        }}
+        imgSrc={RightIcon}
+      />
     </nav>
   );
 };

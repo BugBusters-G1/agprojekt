@@ -56,7 +56,7 @@ export function Card({ joke, expanded, index }: CardProps) {
       onMouseLeave={handlePressEnd}
       onTouchStart={(e) => handlePressStart(e)}
       onTouchEnd={handlePressEnd}
-      className={`rounded-[20px] select-none h-auto lg:min-h-150 lg:max-h-150 w-80 flex flex-col gap-10 lg:w-200 p-3 ${
+      className={`rounded-[15px] select-none h-auto lg:min-h-150 lg:max-h-150 w-80 flex flex-col gap-10 lg:w-200 p-3 ${
         isDesktop ? "flex flex-row " : "block"
       }${index != 1 ? "shadow-lg" : "shadow-2xl"}`}
       style={{
@@ -76,7 +76,7 @@ export function Card({ joke, expanded, index }: CardProps) {
       {isDesktop && (
         <div className="flex items-center justify-center">
           <span
-            className="w-[1px] h-[70%] bg-black mx-4"
+            className="w-[0.5px] h-[70%] bg-black mx-4"
             style={{ backgroundColor: style.lineColor }}
           />
         </div>
@@ -84,7 +84,7 @@ export function Card({ joke, expanded, index }: CardProps) {
       {!isDesktop && expanded && (
         <div className="flex flex-col justify-center items-center">
           <span
-            className="w-[90%] h-[1px] bg-black my-4"
+            className="w-[95%] h-[0.5px] bg-black my-4"
             style={{ backgroundColor: style.lineColor }}
           />
         </div>

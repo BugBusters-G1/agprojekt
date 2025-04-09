@@ -30,7 +30,7 @@ export function CardButton({
         backgroundColor: isPressed ? "activeColor" : "white",
         color: textColor,
       }}
-      className={`rounded-[100px] text-[20px] font-[400] px-4 py-2 transition-colors duration-150 shadow-md ${className}`}
+      className={`flex items-center justify-center rounded-full px-3 py-[3px] text-base font-medium transition-colors duration-150 shadow-[0_4px_8px_rgba(0,0,0,0.30)] cursor-pointer ${className}`}
     >
       <span className="flex items-center gap-2">
         <span>{label}</span>

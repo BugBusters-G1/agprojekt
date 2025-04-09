@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import { SwipeCard } from "../components/Card/SwipeCard";
 import { Navbar } from "../components/Navbar/Navbar";
 import { FilterContainer } from "../components/CategorySelector/CategorySelector";
+import { DesktopNavbar } from "../components/Navbar/DesktopNavbar";
+import { useMediaQuery } from "react-responsive";
 
 const Home = () => {
   const {
@@ -20,6 +22,7 @@ const Home = () => {
   } = useJokesContext();
   const { isCardExpanded, toggleCategorySelector, isCategorySelector } =
     useAppContext();
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   useEffect(() => {
     const jokesToUse =
@@ -48,14 +51,18 @@ const Home = () => {
 
   return (
     <main
-      className={`w-screen min-h-screen flex flex-col justify-start pt-30 gap-10 items-center`}
+      className={`w-screen min-h-screen flex justify-start ${
+        isDesktop ? "pt-0 flex-row" : "pt-30 flex-col"
+      }  items-center`}
+      style={{ backgroundColor: "#fffcf7" }}
     >
-      {loading ? (
-        <Skeleton count={1} height={100} />
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
-        <div className="h-auto flex flex-col justify-center">
+      {isDesktop && <DesktopNavbar />}
+      <div className="flex flex-col w-screen h-full gap-10 items-center">
+        {loading ? (
+          <Skeleton count={1} height={100} />
+        ) : error ? (
+          <p>{error}</p>
+        ) : (
           <div className="grid place-items-center w-full h-auto">
             {isCategorySelector ? (
               <FilterContainer toggleFilter={toggleCategorySelector} />
@@ -76,10 +83,10 @@ const Home = () => {
               ))
             )}
           </div>
+        )}
+        <div className="w-60">
+          <Navbar />
         </div>
-      )}
-      <div className="w-60">
-        <Navbar />
       </div>
     </main>
   );
