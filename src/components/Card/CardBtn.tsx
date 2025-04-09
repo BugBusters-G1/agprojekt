@@ -27,10 +27,10 @@ export function CardButton({
       onMouseLeave={() => setIsPressed(false)}
       onClick={onClick}
       style={{
-        backgroundColor: isPressed ? activeColor : "transparent",
+        backgroundColor: isPressed ? activeColor : "#ffffff",
         color: textColor,
       }}
-      className={`flex items-center justify-center rounded-full px-4 py-2 transition-colors duration-150 shadow-md ${className}`}
+      className={`flex items-center justify-center rounded-full px-3 py-[3px] text-base font-[450] transition-colors duration-150 shadow-[0_4px_8px_rgba(0,0,0,0.30)] cursor-pointer ${className}`}
     >
   <span className="flex items-center gap-2">
     <span>{label}</span>
