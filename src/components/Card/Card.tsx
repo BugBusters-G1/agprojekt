@@ -1,6 +1,5 @@
 import { useMediaQuery } from "react-responsive";
 import { useAppContext } from "../../context/AppContext";
-import { useCopyJoke } from "../../hooks/useCopyJoke";
 import { Joke } from "../../types/Joke";
 import { categoryColors } from "../../utils/Colors";
 import { CardButton } from "./CardBtn";
@@ -19,46 +18,12 @@ export function Card({ joke, expanded, index }: CardProps) {
   const style =
     categoryColors[joke.category.toLowerCase()] || categoryColors.default;
   const { toggleCardExpand } = useAppContext();
-  const { copyJokeToClipboard } = useCopyJoke();
 
-  const timerRef = useRef<number | null>(null);
-  const [longPressTriggered, setLongPressTriggered] = useState(false);
-
-  const handlePressStart = (e: React.TouchEvent | React.MouseEvent) => {
-    if ("button" in e) {
-      return;
-    }
-
-    setLongPressTriggered(false);
-    timerRef.current = window.setTimeout(() => {
-      copyJokeToClipboard(joke, expanded);
-      setLongPressTriggered(true);
-    }, 900);
-  };
-
-  const handlePressEnd = () => {
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
-  };
-
-  const handleClick = () => {
-    if (!longPressTriggered) {
-      toggleCardExpand();
-    }
-  };
-
-  const isDesktop = useMediaQuery({ minWidth: 1024 });
   return (
     <div
-      onMouseDown={(e) => handlePressStart(e)}
-      onMouseUp={handlePressEnd}
-      onMouseLeave={handlePressEnd}
-      onTouchStart={(e) => handlePressStart(e)}
-      onTouchEnd={handlePressEnd}
-      className={`rounded-[15px] select-none h-auto lg:min-h-150 lg:max-h-150 w-80 flex flex-col gap-2 lg:w-200 p-3 ${
-        isDesktop ? "flex flex-row " : "block"
-      }${index != 1 ? "shadow-lg" : "shadow-2xl"}`}
+      className={`rounded-xl select-none h-auto w-80 p-4 z- ${
+        index !== 1 ? "shadow-xl" : "shadow-2xl"
+      }`}
       style={{
         backgroundColor: style.background,
         color: style.text,
