@@ -3,10 +3,7 @@ import { useJokesContext } from "../../context/JokeContext";
 import { useAppContext } from "../../context/AppContext";
 import { Joke } from "../../types/Joke";
 import { useEffect } from "react";
-<<<<<<< HEAD
 import { useMediaQuery } from "react-responsive";
-=======
->>>>>>> 4ce6771 (Add: trigger swipe animation on Next joke button click)
 
 interface SwipeCardProps {
   children: React.ReactNode;
@@ -15,15 +12,8 @@ interface SwipeCardProps {
 }
 
 export function SwipeCard({ children, id, queue }: SwipeCardProps) {
-<<<<<<< HEAD
-
   const { removeTopJoke } = useJokesContext();
-  const { isCardExpanded } = useAppContext();
-=======
-  const { removeTopJoke, restorePreviousJoke } = useJokesContext();
   const { isCardExpanded, registerSwipeAnimation } = useAppContext();
->>>>>>> 4ce6771 (Add: trigger swipe animation on Next joke button click)
-
 
   const x = useMotionValue(0);
   const rotate = useTransform(x, [-200, 0, 200], [-15, 0, 15]);
@@ -36,7 +26,7 @@ export function SwipeCard({ children, id, queue }: SwipeCardProps) {
   const handleDragEnd = (_: any, info: { offset: { x: number } }) => {
     if (Math.abs(info.offset.x) > SWIPE_THRESHOLD) {
       removeTopJoke();
-    } 
+    }
   };
 
   const swipeRight = () => {

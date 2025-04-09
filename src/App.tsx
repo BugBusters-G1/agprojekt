@@ -9,6 +9,7 @@ import Popup from "./components/Popup/Popup";
 function AppContent() {
   return (
     <>
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>

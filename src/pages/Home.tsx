@@ -37,7 +37,6 @@ const Home = () => {
     setJokeQueue(randomJokes);
   }, [selectedCategories, jokes]);
 
-  //Keeping jokequeue from running out
   useEffect(() => {
     if (jokeQueue.length < 2) {
       const newJoke = getUniqueRandomJoke(selectedCategories);

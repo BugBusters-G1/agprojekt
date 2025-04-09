@@ -13,7 +13,7 @@ export function Header() {
     await controls.start({
       rotate: [0, 10, -10, 5, -5, 0],
       scale: [1, 1.1, 0.95, 1],
-      transition: { duration: 0.6, ease: "easeInOut" }
+      transition: { duration: 0.6, ease: "easeInOut" },
     });
     resetUI();
     resetJokes();
@@ -21,12 +21,8 @@ export function Header() {
 
   return (
     <header
-<<<<<<< HEAD
-      onClick={handleClick}
-      className={"app-header"}
-=======
       className={"w-100 h-30"}
->>>>>>> ead2cc4 (Change: css layout)
+      onClick={handleClick}
       style={{
         backgroundColor: isCardExpanded ? "#fffcf7" : "transparent",
       }}

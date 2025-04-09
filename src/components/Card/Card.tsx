@@ -87,20 +87,22 @@ export function Card({ joke, expanded, index }: CardProps) {
         />
       ) : null}
 
-      <div className="flex flex-col justify-center items-center">
-        <CardButton
-          onClick={toggleCardExpand}
-          activeColor={style.backgroundActive}
-          label={expanded ? "Got it!" : "Don't get it?"}
-          icon={
-            expanded ? (
-              <img src={ArrowUp} alt="Arrow up" className="w-4 h-4" />
-            ) : (
-              <img src={ArrowDown} alt="Arrow down" className="w-4 h-4" />
-            )
-          }
-        />
-      </div>
+      {!isDesktop && (
+        <div className="flex flex-col justify-center items-center">
+          <CardButton
+            onClick={toggleCardExpand}
+            activeColor={style.backgroundActive}
+            label={expanded ? "Got it!" : "Don't get it?"}
+            icon={
+              expanded ? (
+                <img src={ArrowUp} alt="Arrow up" className="w-4 h-4" />
+              ) : (
+                <img src={ArrowDown} alt="Arrow down" className="w-4 h-4" />
+              )
+            }
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -9,21 +9,16 @@ import ExitIcon from "../../assets/EXIT_BIG.svg";
 import CheckIcon from "../../assets/Checmark.svg";
 import { useEffect, useState } from "react";
 
-
 export const Navbar = () => {
   const {
     toggleCardExpand,
     toggleCategorySelector,
     isCategorySelector,
     isCardExpanded,
-<<<<<<< HEAD
-    showPopup
-=======
+    showPopup,
     togglePopup,
     triggerSwipeAnimation,
->>>>>>> 4ce6771 (Add: trigger swipe animation on Next joke button click)
   } = useAppContext();
-
 
   const {
     removeTopJoke,
@@ -36,15 +31,7 @@ export const Navbar = () => {
 
   const [categoriesChanged, setCategoriesChanged] = useState(false);
 
-  const areArraysEqual = (a: string[], b: string[]) => {
-    if (a.length !== b.length) return false;
-    return [...a].sort().every((val, i) => val === [...b].sort()[i]);
-  };
-  
   useEffect(() => {
-<<<<<<< HEAD
-    setCategoriesChanged(!areArraysEqual(tempSelectedCategories, selectedCategories));
-=======
     const areArraysEqual = (a: string[], b: string[]) => {
       if (a.length !== b.length) return false;
       const sortedA = [...a].sort();
@@ -57,17 +44,15 @@ export const Navbar = () => {
       selectedCategories
     );
     setCategoriesChanged(hasChanged);
->>>>>>> 4ce6771 (Add: trigger swipe animation on Next joke button click)
   }, [tempSelectedCategories, selectedCategories]);
-  
- 
+
   const handleCategoryButtonClick = () => {
     if (!isCategorySelector) {
       initCategorySelection();
       toggleCategorySelector();
       return;
     }
-  
+
     if (categoriesChanged) {
       applyCategoryChanges();
       showPopup("Ändringar sparade!");
@@ -75,29 +60,18 @@ export const Navbar = () => {
     } else {
       discardCategoryChanges();
     }
-  
+
     toggleCategorySelector();
   };
-  
- 
+
   const getCategoryIcon = () =>
     isCategorySelector
       ? categoriesChanged
         ? CheckIcon
         : ExitIcon
       : BurgerIcon;
-  
-  const navItems: NavItemProps[] = [
-    {
-      type: "button",
-<<<<<<< HEAD
-      onClick: handleCategoryButtonClick,
-      imgSrc: getCategoryIcon(),
-=======
-      onClick: restorePreviousJoke,
-      imgSrc: LeftIcon,
-    },
 
+  const navItems: NavItemProps[] = [
     {
       type: "button",
       onClick: () => {
@@ -120,7 +94,6 @@ export const Navbar = () => {
           ? CheckIcon
           : ExitIcon
         : BurgerIcon,
->>>>>>> 4ce6771 (Add: trigger swipe animation on Next joke button click)
     },
 
     {
