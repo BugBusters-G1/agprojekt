@@ -56,7 +56,7 @@ export function Card({ joke, expanded, index }: CardProps) {
       onMouseLeave={handlePressEnd}
       onTouchStart={(e) => handlePressStart(e)}
       onTouchEnd={handlePressEnd}
-      className={`rounded-[15px] select-none h-auto lg:min-h-150 lg:max-h-150 w-80 flex flex-col gap-10 lg:w-200 p-3 ${
+      className={`rounded-[15px] select-none h-auto lg:min-h-150 lg:max-h-150 w-80 flex flex-col gap-2 lg:w-200 p-3 ${
         isDesktop ? "flex flex-row " : "block"
       }${index != 1 ? "shadow-lg" : "shadow-2xl"}`}
       style={{

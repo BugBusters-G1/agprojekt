@@ -14,6 +14,8 @@ interface TAppContext {
   resetUI: () => void;
   triggerSwipeAnimation: () => void;
   registerSwipeAnimation: (fn: () => void) => void;
+  isDesktopNavbarExpand: boolean;
+  toggleDesktopNavbarExpand: () => void;
 }
 
 const AppContext = createContext<TAppContext | null>(null);
@@ -25,7 +27,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [isPopupVisible, setPopupVisible] = useState(false); // State for popup visibility
   const [popupMessage, setPopupMessage] = useState<string>("");
 
+  const [isDesktopNavbarExpand, setDesktopNavbarExpand] =
+    useState<boolean>(false);
+
   const toggleCategorySelector = () => setCategorySelector(!isCategorySelector);
+  const toggleDesktopNavbarExpand = () =>
+    setDesktopNavbarExpand(!isDesktopNavbarExpand);
   const toggleCardExpand = () => setCardExpanded(!isCardExpanded);
   const togglePopup = () => setPopupVisible((prev) => !prev);
 
@@ -66,6 +73,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         resetUI,
         registerSwipeAnimation,
         triggerSwipeAnimation,
+        isDesktopNavbarExpand,
+        toggleDesktopNavbarExpand,
       }}
     >
       {children}

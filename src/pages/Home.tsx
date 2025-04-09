@@ -20,8 +20,12 @@ const Home = () => {
     selectedCategories,
     getUniqueRandomJoke,
   } = useJokesContext();
-  const { isCardExpanded, toggleCategorySelector, isCategorySelector } =
-    useAppContext();
+  const {
+    isCardExpanded,
+    toggleCategorySelector,
+    isCategorySelector,
+    isDesktopNavbarExpand,
+  } = useAppContext();
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   useEffect(() => {
@@ -57,14 +61,29 @@ const Home = () => {
       style={{ backgroundColor: "#fffcf7" }}
     >
       {isDesktop && <DesktopNavbar />}
-      <div className="flex flex-col w-screen h-full gap-10 items-center">
+      {isDesktop && isDesktopNavbarExpand && (
+        <span
+          className="absolute  w-screen h-screen"
+          style={{
+            background: isDesktopNavbarExpand ? "black" : "transparent",
+            opacity: isDesktopNavbarExpand ? "0.6" : "0",
+            zIndex: isDesktopNavbarExpand ? 900 : 0,
+          }}
+        ></span>
+      )}
+
+      <div
+        className="flex flex-col w-screen h-full gap-10 items-center"
+        style={{}}
+      >
+        {" "}
         {loading ? (
           <Skeleton count={1} height={100} />
         ) : error ? (
           <p>{error}</p>
         ) : (
           <div className="grid place-items-center w-full h-auto">
-            {isCategorySelector ? (
+            {isCategorySelector && !isDesktop ? (
               <FilterContainer toggleFilter={toggleCategorySelector} />
             ) : (
               jokeQueue.map((joke, index) => (

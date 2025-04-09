@@ -73,27 +73,6 @@ export const Navbar = () => {
         : ExitIcon
       : BurgerIcon;
 
-  const navItems: NavItemProps[] = [
-    {
-      type: "button",
-      onClick: () => {
-        handleCategoryButtonClick();
-
-        toggleCategorySelector();
-      },
-      imgSrc: getCategoryIcon(),
-    },
-
-    {
-      type: "button",
-      onClick: () => {
-        if (isCardExpanded) toggleCardExpand();
-        triggerSwipeAnimation();
-      },
-      imgSrc: RightIcon,
-    },
-  ];
-
   return (
     <nav>
       {!isDesktop && (
