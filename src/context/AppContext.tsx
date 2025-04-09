@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useRef, useState } from "react";
 
 interface TAppContext {
   isCategorySelector: boolean;
@@ -9,9 +9,13 @@ interface TAppContext {
   setIsLoading: (state: boolean) => void;
   isPopupVisible: boolean;
   togglePopup: () => void;
-  popupMessage: string; 
-  showPopup: (message: string) => void; 
+  popupMessage: string;
+  showPopup: (message: string) => void;
   resetUI: () => void;
+  triggerSwipeAnimation: () => void;
+  registerSwipeAnimation: (fn: () => void) => void;
+  isDesktopNavbarExpand: boolean;
+  toggleDesktopNavbarExpand: () => void;
 }
 
 const AppContext = createContext<TAppContext | null>(null);
@@ -23,21 +27,35 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [isPopupVisible, setPopupVisible] = useState(false); // State for popup visibility
   const [popupMessage, setPopupMessage] = useState<string>("");
 
+  const [isDesktopNavbarExpand, setDesktopNavbarExpand] =
+    useState<boolean>(false);
+
   const toggleCategorySelector = () => setCategorySelector(!isCategorySelector);
+  const toggleDesktopNavbarExpand = () =>
+    setDesktopNavbarExpand(!isDesktopNavbarExpand);
   const toggleCardExpand = () => setCardExpanded(!isCardExpanded);
   const togglePopup = () => setPopupVisible((prev) => !prev);
 
   const showPopup = (message: string) => {
-    setPopupMessage(message)
-    setPopupVisible(true)
-  }
+    setPopupMessage(message);
+    setPopupVisible(true);
+  };
 
   const resetUI = () => {
-    setCategorySelector(false)
-    setCardExpanded(false)
-    setPopupVisible(false)
-    setPopupMessage("")
-  }
+    setCategorySelector(false);
+    setCardExpanded(false);
+    setPopupVisible(false);
+    setPopupMessage("");
+  };
+  const swipeAnimationRef = useRef<() => void>(() => {});
+
+  const registerSwipeAnimation = (fn: () => void) => {
+    swipeAnimationRef.current = fn;
+  };
+
+  const triggerSwipeAnimation = () => {
+    swipeAnimationRef.current?.();
+  };
 
   return (
     <AppContext.Provider
@@ -52,7 +70,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         togglePopup,
         popupMessage,
         showPopup,
-        resetUI
+        resetUI,
+        registerSwipeAnimation,
+        triggerSwipeAnimation,
+        isDesktopNavbarExpand,
+        toggleDesktopNavbarExpand,
       }}
     >
       {children}

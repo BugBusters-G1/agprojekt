@@ -7,12 +7,26 @@ import { useEffect } from "react";
 import { SwipeCard } from "../components/Card/SwipeCard";
 import { Navbar } from "../components/Navbar/Navbar";
 import { FilterContainer } from "../components/CategorySelector/CategorySelector";
+import { DesktopNavbar } from "../components/Navbar/DesktopNavbar";
+import { useMediaQuery } from "react-responsive";
 
 const Home = () => {
-  const { loading, error, jokes, jokeQueue, setJokeQueue, selectedCategories, getUniqueRandomJoke } =
-    useJokesContext();
-  const { isCardExpanded, toggleCategorySelector, isCategorySelector } =
-    useAppContext();
+  const {
+    loading,
+    error,
+    jokes,
+    jokeQueue,
+    setJokeQueue,
+    selectedCategories,
+    getUniqueRandomJoke,
+  } = useJokesContext();
+  const {
+    isCardExpanded,
+    toggleCategorySelector,
+    isCategorySelector,
+    isDesktopNavbarExpand,
+  } = useAppContext();
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   useEffect(() => {
     const jokesToUse =
@@ -30,7 +44,6 @@ const Home = () => {
     setJokeQueue(randomJokes);
   }, [selectedCategories, jokes]);
 
-  //Keeping jokequeue from running out
   useEffect(() => {
     if (jokeQueue.length < 2) {
       const newJoke = getUniqueRandomJoke(selectedCategories);
@@ -42,18 +55,35 @@ const Home = () => {
 
   return (
     <main
-      className={`w-screen min-h-screen pt-30 flex flex-col justify-between ${
-        isCardExpanded ? "h-auto gap-3" : "h-full"
-      }`}
+      className={`w-screen min-h-screen flex justify-start ${
+        isDesktop ? "pt-0 flex-row" : "pt-30 flex-col"
+      }  items-center`}
+      style={{ backgroundColor: "#fffcf7" }}
     >
-      {loading ? (
-        <Skeleton count={1} height={100} />
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
-        <div className="h-full flex flex-col justify-center">
+      {isDesktop && <DesktopNavbar />}
+      {isDesktop && isDesktopNavbarExpand && (
+        <span
+          className="absolute  w-screen h-screen"
+          style={{
+            background: isDesktopNavbarExpand ? "black" : "transparent",
+            opacity: isDesktopNavbarExpand ? "0.6" : "0",
+            zIndex: isDesktopNavbarExpand ? 900 : 0,
+          }}
+        ></span>
+      )}
+
+      <div
+        className="flex flex-col w-screen h-full gap-10 items-center"
+        style={{}}
+      >
+        {" "}
+        {loading ? (
+          <Skeleton count={1} height={100} />
+        ) : error ? (
+          <p>{error}</p>
+        ) : (
           <div className="grid place-items-center w-full h-auto">
-            {isCategorySelector ? (
+            {isCategorySelector && !isDesktop ? (
               <FilterContainer toggleFilter={toggleCategorySelector} />
             ) : (
               jokeQueue.map((joke, index) => (
@@ -72,9 +102,11 @@ const Home = () => {
               ))
             )}
           </div>
+        )}
+        <div className="w-60">
+          <Navbar />
         </div>
-      )}
-      <Navbar />
+      </div>
     </main>
   );
 };

@@ -17,7 +17,7 @@ export function FilterContainer({}: FilterProps) {
   } = useJokesContext();
 
   return (
-    <div className="rounded-2xl shadow-xl select-none h-auto w-70 overflow-hidden">
+    <div className="rounded-xl shadow-xl select-none h-auto w-80 overflow-hidden">
       {loading ? (
         <p>Laddar kategorier...</p>
       ) : error ? (
@@ -27,14 +27,14 @@ export function FilterContainer({}: FilterProps) {
           <CategoryItem
             key={category.category}
             category={category}
-           selected={tempSelectedCategories.includes(category.category)}
-onToggle={(categoryName: string) => {
-  setTempSelectedCategories((prev) =>
-    prev.includes(categoryName)
-      ? prev.filter((c) => c !== categoryName)
-      : [...prev, categoryName]
-  );
-}}
+            selected={tempSelectedCategories.includes(category.category)}
+            onToggle={(categoryName: string) => {
+              setTempSelectedCategories((prev) =>
+                prev.includes(categoryName)
+                  ? prev.filter((c) => c !== categoryName)
+                  : [...prev, categoryName]
+              );
+            }}
             colors={categoryColors}
           />
         ))

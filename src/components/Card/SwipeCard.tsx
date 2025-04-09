@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 import { useJokesContext } from "../../context/JokeContext";
 import { useAppContext } from "../../context/AppContext";
 import { Joke } from "../../types/Joke";
@@ -12,17 +12,13 @@ interface SwipeCardProps {
 }
 
 export function SwipeCard({ children, id, queue }: SwipeCardProps) {
-
   const { removeTopJoke } = useJokesContext();
-  const { isCardExpanded } = useAppContext();
-
+  const { isCardExpanded, registerSwipeAnimation } = useAppContext();
 
   const x = useMotionValue(0);
-
   const rotate = useTransform(x, [-200, 0, 200], [-15, 0, 15]);
 
   const isFront = id === queue[queue.length - 1]._id;
-
   const SWIPE_THRESHOLD = 100;
 
   const isDesktop = useMediaQuery({ minWidth: 1024 });
@@ -30,8 +26,25 @@ export function SwipeCard({ children, id, queue }: SwipeCardProps) {
   const handleDragEnd = (_: any, info: { offset: { x: number } }) => {
     if (Math.abs(info.offset.x) > SWIPE_THRESHOLD) {
       removeTopJoke();
-    } 
+    }
   };
+
+  const swipeRight = () => {
+    animate(x, window.innerWidth, {
+      duration: 0.4,
+      ease: "easeInOut",
+      onComplete: () => {
+        removeTopJoke();
+      },
+    });
+  };
+
+  // Register swipeRight function to context on mount
+  useEffect(() => {
+    if (isFront) {
+      registerSwipeAnimation(swipeRight);
+    }
+  }, [isFront]);
 
   return (
     <motion.div
@@ -43,6 +56,7 @@ export function SwipeCard({ children, id, queue }: SwipeCardProps) {
         top: 0,
         bottom: 0,
       }}
+      className="relative"
       dragElastic={{ left: 0.6, right: 0.6, bottom: 0.2, top: 0.2 }}
       animate={{ scale: isFront ? 1.05 : 1 }}
       style={{

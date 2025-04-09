@@ -18,7 +18,6 @@ export function CardButton({
   textColor = "#000",
   className = "",
 }: CardButtonProps) {
-  const [isPressed, setIsPressed] = useState(false);
 
   return (
     <button
@@ -27,15 +26,15 @@ export function CardButton({
       onMouseLeave={() => setIsPressed(false)}
       onClick={onClick}
       style={{
-        backgroundColor: isPressed ? activeColor : "#ffffff",
+        backgroundColor: "#ffffff",
         color: textColor,
       }}
       className={`flex items-center justify-center rounded-full px-3 py-[3px] text-base font-medium transition-colors duration-150 shadow-[0_4px_8px_rgba(0,0,0,0.30)] cursor-pointer ${className}`}
     >
-  <span className="flex items-center gap-2">
-    <span>{label}</span>
-    {icon}
-  </span>
+      <span className="flex items-center gap-2">
+        <span>{label}</span>
+        {icon}
+      </span>
     </button>
   );
 }
