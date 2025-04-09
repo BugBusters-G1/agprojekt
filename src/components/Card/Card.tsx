@@ -20,7 +20,7 @@ export function Card({ joke, expanded, index }: CardProps) {
   return (
     <div
       className={`rounded-xl select-none h-auto w-80 p-4 z- ${
-        index != 1 ? "shadow-xl" : "shadow-2xl"
+        index !== 1 ? "shadow-xl" : "shadow-2xl"
       }`}
       style={{
         backgroundColor: style.background,
