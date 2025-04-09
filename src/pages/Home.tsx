@@ -82,7 +82,7 @@ const Home = () => {
         ) : error ? (
           <p>{error}</p>
         ) : (
-          <div className="grid place-items-center w-full h-auto">
+          <div className="grid items-start justify-items-center w-full h-auto pt-16">
             {isCategorySelector && !isDesktop ? (
               <FilterContainer toggleFilter={toggleCategorySelector} />
             ) : (

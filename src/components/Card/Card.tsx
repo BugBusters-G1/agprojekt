@@ -18,7 +18,7 @@ export function Card({ joke, expanded, index }: CardProps) {
     categoryColors[joke.category.toLowerCase()] || categoryColors.default;
   const { toggleCardExpand } = useAppContext();
 
-  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  const isDesktop = useMediaQuery({ minWidth: 1024});
   return (
     <div
       className={`rounded-[15px] select-none h-auto lg:min-h-150 lg:max-h-150 w-80 flex flex-col gap-2 lg:w-200 p-3 ${
