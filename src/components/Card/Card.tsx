@@ -87,7 +87,6 @@ export function Card({ joke, expanded, index }: CardProps) {
         />
       ) : null}
 
-<<<<<<< HEAD
       <div className="flex flex-col justify-center items-center">
         <CardButton
           onClick={toggleCardExpand}
@@ -102,17 +101,6 @@ export function Card({ joke, expanded, index }: CardProps) {
           }
         />
       </div>
-=======
-      {!isDesktop && (
-        <div className="flex flex-col justify-centert items-center pb-4">
-          <CardButton
-            onClick={toggleCardExpand}
-            activeColor={style.backgroundActive}
-            label={expanded ? "Minimze" : "Don't get it?"}
-          />
-        </div>
-      )}
->>>>>>> ead2cc4 (Change: css layout)
     </div>
   );
 }
