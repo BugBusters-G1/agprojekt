@@ -26,11 +26,9 @@ export function SwipeCard({ children, id, queue }: SwipeCardProps) {
 
 
   const x = useMotionValue(0);
-
   const rotate = useTransform(x, [-200, 0, 200], [-15, 0, 15]);
 
   const isFront = id === queue[queue.length - 1]._id;
-
   const SWIPE_THRESHOLD = 100;
 
   const isDesktop = useMediaQuery({ minWidth: 1024 });
