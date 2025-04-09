@@ -17,18 +17,14 @@ export function CardContent({
 }: CardContentProps) {
   return (
     <div
-      className={`w-full flex flex-col min-h-100 pt-2 justify-between  overflow-hidden ${
-        !isDesktop && isExpanded && !showDesktopBorder
-          ? "pb-2 pt-3 border-t-1"
-          : ""
-      }${isDesktop && showDesktopBorder ? "border-r-1 pb-2 pt-3" : ""} `}
+      className={`w-full flex flex-col min-h-100 pt-4 justify-between  overflow-hidden`}
     >
       <div className="flex flex-col gap-10">
         <div className="flex flex-col gap-4">
-          <p className="text-[32px]">{joke}</p>
-          <p className="text-[32px] font-semibold ">{punchline}</p>
+          <p className="lg:text-3xl text-2xl">{joke}</p>
+          <p className="lg:text-3xl text-2xl font-semibold ">{punchline}</p>
         </div>
-        <p className="text-[32px]">{explanation}</p>
+        <p className="lg:text-2xl text-xl">{explanation}</p>
       </div>
     </div>
   );

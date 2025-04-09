@@ -48,16 +48,14 @@ const Home = () => {
 
   return (
     <main
-      className={`w-screen h-auto flex flex-col ${
-        isCardExpanded ? "h-auto" : "h-screen"
-      }`}
+      className={`w-screen min-h-screen flex flex-col justify-start pt-30 gap-10 items-center`}
     >
       {loading ? (
         <Skeleton count={1} height={100} />
       ) : error ? (
         <p>{error}</p>
       ) : (
-        <div className="h-full flex flex-col justify-center">
+        <div className="h-auto flex flex-col justify-center">
           <div className="grid place-items-center w-full h-auto">
             {isCategorySelector ? (
               <FilterContainer toggleFilter={toggleCategorySelector} />
@@ -80,7 +78,9 @@ const Home = () => {
           </div>
         </div>
       )}
-      <Navbar />
+      <div className="w-60">
+        <Navbar />
+      </div>
     </main>
   );
 };
