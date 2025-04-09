@@ -55,9 +55,9 @@ const Home = () => {
 
   return (
     <main
-      className={`w-screen min-h-screen flex justify-start ${
+      className={`w-screen min-h-screen flex  flex-row justify-start ${
         isDesktop ? "pt-0 flex-row" : "pt-30 flex-col"
-      }  items-center`}
+      }  items-start`}
       style={{ backgroundColor: "#fffcf7" }}
     >
       {isDesktop && <DesktopNavbar />}
@@ -82,7 +82,7 @@ const Home = () => {
         ) : error ? (
           <p>{error}</p>
         ) : (
-          <div className="grid items-start justify-items-center w-full h-auto pt-16">
+          <div className="grid items-start justify-items-center w-full h-auto pt-8 lg:pt-16">
             {isCategorySelector && !isDesktop ? (
               <FilterContainer toggleFilter={toggleCategorySelector} />
             ) : (

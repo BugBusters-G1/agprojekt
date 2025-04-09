@@ -65,10 +65,12 @@ export const DesktopNavbar = () => {
   const getCategoryIcon = () => (categoriesChanged ? CheckIcon : ExitIcon);
 
   return (
-    <aside className="absolute h-screen z-[1000] bg-white flex flex-col gap-2 w-auto items-center p-4">
+    <aside className="absolute top-0 h-screen z-[1000] bg-white flex flex-col gap-2 w-auto items-center p-4 shadow-lg shadow-gray-400/40">
       <div className={` ${isDesktopNavbarExpand ? "w-35" : "w-10"}`}>
         <img src={isDesktopNavbarExpand ? lgLogo : smLogo} />
       </div>
+
+      <div className="border-t border-gray-300 w-full my-2" />
 
       {isDesktopNavbarExpand ? (
         <div
