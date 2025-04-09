@@ -9,8 +9,10 @@ import ExitIcon from "../../assets/EXIT_BIG.svg";
 import CheckIcon from "../../assets/Checmark.svg";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-
-export const Navbar = () => {
+type NavbarProps = {
+  expanded?: boolean;
+};
+export const Navbar = ({ expanded }: NavbarProps) => {
   const {
     toggleCardExpand,
     toggleCategorySelector,
@@ -19,6 +21,7 @@ export const Navbar = () => {
     showPopup,
     togglePopup,
     triggerSwipeAnimation,
+    toggleDesktopNavbarExpand,
   } = useAppContext();
 
   const {
@@ -63,6 +66,7 @@ export const Navbar = () => {
       discardCategoryChanges();
     }
 
+    toggleDesktopNavbarExpand();
     toggleCategorySelector();
   };
 
@@ -75,7 +79,8 @@ export const Navbar = () => {
 
   return (
     <nav>
-      {!isDesktop && (
+      {/* Show category icon on mobile OR desktop if expanded */}
+      {(!isDesktop || (isDesktop && expanded)) && (
         <NavItem
           type="button"
           onClick={() => {
@@ -85,14 +90,18 @@ export const Navbar = () => {
           imgSrc={getCategoryIcon()}
         />
       )}
-      <NavItem
-        type="button"
-        onClick={() => {
-          if (isCardExpanded) toggleCardExpand();
-          triggerSwipeAnimation();
-        }}
-        imgSrc={RightIcon}
-      />
+
+      {/* Show right icon only when not expanded */}
+      {!expanded && (
+        <NavItem
+          type="button"
+          onClick={() => {
+            if (isCardExpanded) toggleCardExpand();
+            triggerSwipeAnimation();
+          }}
+          imgSrc={RightIcon}
+        />
+      )}
     </nav>
   );
 };
