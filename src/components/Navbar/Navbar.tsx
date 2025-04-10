@@ -1,6 +1,6 @@
 import { useAppContext } from "../../context/AppContext";
 import { useJokesContext } from "../../context/JokeContext";
-import { NavItem, NavItemProps } from "./NavItem";
+import { NavItem } from "./NavItem";
 import "./Navbar.css";
 import BurgerIcon from "../../assets/BURGER.svg";
 import RightIcon from "../../assets/ARROW_RIGHT.svg";
@@ -9,15 +9,19 @@ import CheckIcon from "../../assets/Checmark.svg";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 
-export const Navbar = () => {
+type NavbarProps = {
+  expanded?: boolean;
+};
+
+export const Navbar = ({ expanded }: NavbarProps) => {
   const {
     toggleCardExpand,
     toggleCategorySelector,
     isCategorySelector,
     isCardExpanded,
-    showPopup,
-    togglePopup,
     triggerSwipeAnimation,
+    showPopup,
+    toggleDesktopNavbarExpand,
   } = useAppContext();
 
   const {
@@ -29,7 +33,6 @@ export const Navbar = () => {
   } = useJokesContext();
 
   const [categoriesChanged, setCategoriesChanged] = useState(false);
-
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   useEffect(() => {
@@ -62,6 +65,7 @@ export const Navbar = () => {
       discardCategoryChanges();
     }
 
+    toggleDesktopNavbarExpand();
     toggleCategorySelector();
   };
 
@@ -73,28 +77,49 @@ export const Navbar = () => {
       : BurgerIcon;
 
   return (
-<nav>
-  {!isDesktop && (
-    <NavItem
-      type="button"
-      onClick={() => {
-        handleCategoryButtonClick();
-        toggleCategorySelector();
-      }}
-      imgSrc={getCategoryIcon()}
-    />
-  )}
+    <nav>
+      {/* Hamburgermeny för desktop när navbar är expanded */}
+      {/* Hamburgermeny för både telefon och desktop när navbar är expanded */}
+      {(isDesktop && expanded) || !isDesktop ? (
+        <NavItem
+          type="button"
+          onClick={() => {
+            handleCategoryButtonClick();
+            toggleCategorySelector();
+          }}
+          imgSrc={
+            isDesktop
+              ? categoriesChanged
+                ? CheckIcon
+                : ExitIcon
+              : getCategoryIcon()
+          }
+        />
+      ) : null}
 
-  {!isCategorySelector && (
-    <NavItem
-      type="button"
-      onClick={() => {
-        if (isCardExpanded) toggleCardExpand();
-        triggerSwipeAnimation();
-      }}
-      imgSrc={RightIcon}
-    />
-  )}
-</nav>
+      {/* Högerikon ska alltid vara synlig på telefon */}
+      {!isDesktop && !isCategorySelector && (
+        <NavItem
+          type="button"
+          onClick={() => {
+            if (isCardExpanded) toggleCardExpand();
+            triggerSwipeAnimation();
+          }}
+          imgSrc={RightIcon}
+        />
+      )}
+
+      {/* Högerikon för desktop när navbar inte är expanded */}
+      {isDesktop && !expanded && (
+        <NavItem
+          type="button"
+          onClick={() => {
+            if (isCardExpanded) toggleCardExpand();
+            triggerSwipeAnimation();
+          }}
+          imgSrc={RightIcon}
+        />
+      )}
+    </nav>
   );
 };

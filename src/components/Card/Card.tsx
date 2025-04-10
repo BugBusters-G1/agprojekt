@@ -6,7 +6,6 @@ import { CardButton } from "./CardBtn";
 import { CardContent } from "./CardContent";
 import ArrowDown from "../../assets/Pil_ner.svg";
 import ArrowUp from "../../assets/Pil_upp.svg";
-import { useRef, useState } from "react";
 
 interface CardProps {
   joke: Joke;
@@ -19,11 +18,20 @@ export function Card({ joke, expanded, index }: CardProps) {
   const { toggleCardExpand } = useAppContext();
 
   const isDesktop = useMediaQuery({ minWidth: 1024 });
+  const isMedium = useMediaQuery({ query: "(min-height: 800px)" });
+
   return (
     <div
-      className={`rounded-[15px] select-none h-auto lg:min-h-150 lg:max-h-150 w-80 flex flex-col gap-2 lg:w-200 p-3 ${
-        isDesktop ? "flex flex-row " : "block"
-      }${index != 1 ? "shadow-lg" : "shadow-2xl"}`}
+      className={`rounded-[15px] select-none h-auto w-80 flex flex-col gap-2 lg:max-[500px overflow-hidden p-3 pb-5
+        ${isDesktop ? "flex flex-row lg:w-200" : "block"}
+        ${
+          isMedium
+            ? "lg:min-h-[600px] lg:max-[600px]"
+            : "lg:min-h-[500px] lg:max-[500px]"
+        }
+        ${index !== 1 ? "shadow-lg" : "shadow-2xl"}
+
+      `}
       style={{
         backgroundColor: style.background,
         color: style.text,
