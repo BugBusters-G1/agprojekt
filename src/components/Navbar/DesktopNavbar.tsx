@@ -13,8 +13,14 @@ export const DesktopNavbar = () => {
   } = useAppContext();
 
   return (
-    <aside className="fixed top-0 h-screen z-[1000] bg-white flex flex-col gap-2 w-auto items-center p-4 shadow-lg shadow-gray-400/40">
-      <div className={` ${isDesktopNavbarExpand ? "w-35" : "w-10"}`}>
+    <aside
+      className="fixed top-0 h-screen z-[1000] overflow-hidden bg-white flex flex-col gap-2 items-center p-4 shadow-lg shadow-gray-400/40"
+      style={{
+        width: isDesktopNavbarExpand ? "30%" : "7%",
+        transition: "all 300ms ease-in-out",
+      }}
+    >
+      <div className={`${isDesktopNavbarExpand ? "w-35" : "w-15"}`}>
         <img src={isDesktopNavbarExpand ? lgLogo : smLogo} />
       </div>
 
@@ -28,10 +34,10 @@ export const DesktopNavbar = () => {
             toggleCategorySelector();
           }}
         >
-          <div className={`w-7 `}>
+          <div className={`w-9`}>
             <img src={burger} />
           </div>
-          <p>Kategorier</p>
+          <p className="text-2xl">Kategorier</p>
         </div>
       ) : (
         <div
@@ -41,16 +47,24 @@ export const DesktopNavbar = () => {
             toggleCategorySelector();
           }}
         >
-          <div className="w-7">
+          <div className="w-9">
             <img src={burger} />
           </div>
         </div>
       )}
+
       {isDesktopNavbarExpand && (
         <>
-          {" "}
-          <FilterContainer toggleFilter={toggleCategorySelector} />
-          <Navbar expanded={isDesktopNavbarExpand} />
+          <div
+            className="transition-opacity duration-500 ease-in-out opacity-100"
+            style={{
+              opacity: isDesktopNavbarExpand ? 1 : 0,
+              visibility: isDesktopNavbarExpand ? "visible" : "hidden",
+            }}
+          >
+            <FilterContainer toggleFilter={toggleCategorySelector} />
+            <Navbar expanded={isDesktopNavbarExpand} />
+          </div>
         </>
       )}
     </aside>

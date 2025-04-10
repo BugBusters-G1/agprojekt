@@ -9,9 +9,11 @@ import ExitIcon from "../../assets/EXIT_BIG.svg";
 import CheckIcon from "../../assets/Checmark.svg";
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
+
 type NavbarProps = {
   expanded?: boolean;
 };
+
 export const Navbar = ({ expanded }: NavbarProps) => {
   const {
     toggleCardExpand,
@@ -33,7 +35,6 @@ export const Navbar = ({ expanded }: NavbarProps) => {
   } = useJokesContext();
 
   const [categoriesChanged, setCategoriesChanged] = useState(false);
-
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   useEffect(() => {
@@ -80,7 +81,19 @@ export const Navbar = ({ expanded }: NavbarProps) => {
   return (
     <nav>
       {/* Show category icon on mobile OR desktop if expanded */}
-      {(!isDesktop || (isDesktop && expanded)) && (
+      {(!isDesktop || (isDesktop && expanded)) && !isCategorySelector && (
+        <NavItem
+          type="button"
+          onClick={() => {
+            handleCategoryButtonClick();
+            toggleCategorySelector();
+          }}
+          imgSrc={BurgerIcon}
+        />
+      )}
+
+      {/* Show category exit/check icon only when category selector is active */}
+      {isCategorySelector && !isDesktop && (
         <NavItem
           type="button"
           onClick={() => {
@@ -91,8 +104,20 @@ export const Navbar = ({ expanded }: NavbarProps) => {
         />
       )}
 
-      {/* Show right icon only when not expanded */}
-      {!expanded && (
+      {/* Show category icon on desktop only when expanded */}
+      {isCategorySelector && isDesktop && expanded && (
+        <NavItem
+          type="button"
+          onClick={() => {
+            handleCategoryButtonClick();
+            toggleCategorySelector();
+          }}
+          imgSrc={getCategoryIcon()}
+        />
+      )}
+
+      {/* Show right icon only when not expanded and category selector is not active */}
+      {!expanded && !isCategorySelector && (
         <NavItem
           type="button"
           onClick={() => {

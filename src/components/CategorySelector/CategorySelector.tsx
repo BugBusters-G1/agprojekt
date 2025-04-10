@@ -20,8 +20,9 @@ export function FilterContainer({}: FilterProps) {
   return (
     <div
       className={`rounded-xl shadow-xl select-none flex flex-col w-80 overflow-hidden ${
-        isTall ? "h-100" : "h-70"
-      } `}
+        isTall ? "h-100" : "h-80"
+      }
+       `}
     >
       {loading ? (
         <p>Laddar kategorier...</p>

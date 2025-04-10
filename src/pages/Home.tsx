@@ -27,6 +27,7 @@ const Home = () => {
     toggleCategorySelector,
     isCategorySelector,
     isDesktopNavbarExpand,
+    toggleDesktopNavbarExpand,
   } = useAppContext();
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
@@ -64,18 +65,17 @@ const Home = () => {
       }  items-start`}
       style={{ backgroundColor: "#fffcf7" }}
     >
-      {/* Conditionally render the loading state with the full screen overlay */}
       {loading ? (
         <div
           className="w-screen h-screen bg-[#fffcf7] fixed z-[1000] flex items-center justify-center"
           style={{
-            position: "absolute", // Position it absolutely to cover the full screen
+            position: "absolute",
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
-            padding: 0, // Ensure no padding
-            margin: 0, // Ensure no margin
+            padding: 0,
+            margin: 0,
           }}
         >
           <div className="w-64">
@@ -84,7 +84,6 @@ const Home = () => {
         </div>
       ) : (
         <>
-          {/* Only render Header after loading is complete */}
           <Header />
 
           {isDesktop && <DesktopNavbar />}
@@ -96,6 +95,7 @@ const Home = () => {
                 opacity: isDesktopNavbarExpand ? "0.6" : "0",
                 zIndex: isDesktopNavbarExpand ? 900 : 0,
               }}
+              onClick={toggleDesktopNavbarExpand}
             ></span>
           )}
 
