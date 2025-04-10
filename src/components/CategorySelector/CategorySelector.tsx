@@ -16,8 +16,6 @@ export function FilterContainer({}: FilterProps) {
     setTempSelectedCategories,
   } = useJokesContext();
   const isTall = useMediaQuery({ query: "(min-height: 600px)" });
-  const isShort = useMediaQuery({ query: "(max-height: 200px)" });
-  const heightClass = isTall ? "h-100" : isShort ? "h-80" : "h-96"; // fallback if neither
 
   return (
     <div

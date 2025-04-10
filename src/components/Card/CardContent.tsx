@@ -21,10 +21,10 @@ export function CardContent({
     >
       <div className="flex flex-col gap-10">
         <div className="flex flex-col gap-4">
-          <p className="lg:text-3xl text-2xl">{joke}</p>
-          <p className="lg:text-3xl text-2xl font-semibold ">{punchline}</p>
+          <p className="lg:text-2xl text-xl">{joke}</p>
+          <p className="lg:text-2xl text-xl font-semibold ">{punchline}</p>
         </div>
-        <p className="lg:text-2xl text-xl">{explanation}</p>
+        <p className="lg:text-xl text-lg">{explanation}</p>
       </div>
     </div>
   );

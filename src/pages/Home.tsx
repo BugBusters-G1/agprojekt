@@ -55,8 +55,10 @@ const Home = () => {
 
   return (
     <main
-      className={`w-screen min-h-screen flex  flex-row justify-start ${
-        isDesktop ? "pt-0 flex-row" : "pt-30 flex-col"
+      className={`w-screen h-screen flex flex-row justify-start ${
+        isDesktop
+          ? "pt-0 flex-row overflow-hidden"
+          : "pt-30 flex-col overflow-auto"
       }  items-start`}
       style={{ backgroundColor: "#fffcf7" }}
     >
