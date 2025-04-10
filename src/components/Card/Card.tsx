@@ -4,8 +4,8 @@ import { Joke } from "../../types/Joke";
 import { categoryColors } from "../../utils/Colors";
 import { CardButton } from "./CardBtn";
 import { CardContent } from "./CardContent";
-import ArrowDown from "../../assets/Pil_ner.svg";
-import ArrowUp from "../../assets/Pil_upp.svg";
+import ArrowDown from "../../assets/ArrowDown.svg";
+import ArrowUp from "../../assets/ArrowUP.svg";
 
 interface CardProps {
   joke: Joke;
