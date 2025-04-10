@@ -22,7 +22,7 @@ export const DesktopNavbar = () => {
     <aside
       className="fixed top-0 h-screen z-[1000] overflow-hidden bg-white flex flex-col gap-2 items-center p-4 shadow-lg shadow-gray-400/40"
       style={{
-        width: isDesktopNavbarExpand ? "20%" : "7%",
+        width: isDesktopNavbarExpand ? "25%" : "7%",
         transition: "all 300ms ease-in-out",
       }}
     >
