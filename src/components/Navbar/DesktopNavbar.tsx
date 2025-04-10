@@ -13,7 +13,7 @@ export const DesktopNavbar = () => {
   } = useAppContext();
 
   return (
-    <aside className="absolute top-0 h-screen z-[1000] bg-white flex flex-col gap-2 w-auto items-center p-4 shadow-lg shadow-gray-400/40">
+    <aside className="fixed top-0 h-screen z-[1000] bg-white flex flex-col gap-2 w-auto items-center p-4 shadow-lg shadow-gray-400/40">
       <div className={` ${isDesktopNavbarExpand ? "w-35" : "w-10"}`}>
         <img src={isDesktopNavbarExpand ? lgLogo : smLogo} />
       </div>

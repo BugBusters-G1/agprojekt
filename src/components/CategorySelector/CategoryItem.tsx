@@ -1,3 +1,4 @@
+import { useMediaQuery } from "react-responsive";
 import { Category } from "../../types/Category";
 
 interface CategoryItemProps {
@@ -21,9 +22,11 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
   onToggle,
   colors,
 }) => {
+  const isTall = useMediaQuery({ query: "(min-height: 600px)" });
+
   return (
     <div
-      className="w-full min-h-40 p-5"
+      className="w-full h-full p-2 flex flex-col justify-center pl-2 pr-2"
       style={{
         backgroundColor: colors[category.category.toLowerCase()]?.background,
         color: colors[category.category.toLowerCase()]?.text,
@@ -43,8 +46,10 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
         />
       </div>
 
-      <div className="text-sm pt-3 w-3/4">
-        <p>{categoryDescriptions[category.category.toLowerCase()]}</p>
+      <div className="text-sm lg:text-md w-3/4">
+        {isTall && (
+          <p>{categoryDescriptions[category.category.toLowerCase()]}</p>
+        )}
       </div>
     </div>
   );

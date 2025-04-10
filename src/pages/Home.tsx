@@ -63,7 +63,7 @@ const Home = () => {
       {isDesktop && <DesktopNavbar />}
       {isDesktop && isDesktopNavbarExpand && (
         <span
-          className="absolute  w-screen h-screen"
+          className="fixed  w-screen h-screen"
           style={{
             background: isDesktopNavbarExpand ? "black" : "transparent",
             opacity: isDesktopNavbarExpand ? "0.6" : "0",

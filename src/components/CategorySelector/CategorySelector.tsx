@@ -1,7 +1,7 @@
 import CategoryItem from "./CategoryItem";
-import "./CateogrySelectror.css";
 import { useJokesContext } from "../../context/JokeContext";
 import { categoryColors } from "../../utils/Colors";
+import { useMediaQuery } from "react-responsive";
 
 interface FilterProps {
   toggleFilter: () => void;
@@ -15,9 +15,16 @@ export function FilterContainer({}: FilterProps) {
     tempSelectedCategories,
     setTempSelectedCategories,
   } = useJokesContext();
+  const isTall = useMediaQuery({ query: "(min-height: 600px)" });
+  const isShort = useMediaQuery({ query: "(max-height: 200px)" });
+  const heightClass = isTall ? "h-100" : isShort ? "h-80" : "h-96"; // fallback if neither
 
   return (
-    <div className="rounded-xl shadow-xl select-none h-auto w-80 overflow-hidden">
+    <div
+      className={`rounded-xl shadow-xl select-none flex flex-col w-80 overflow-hidden ${
+        isTall ? "h-100" : "h-70"
+      } `}
+    >
       {loading ? (
         <p>Laddar kategorier...</p>
       ) : error ? (
