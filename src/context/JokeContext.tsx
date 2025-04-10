@@ -33,7 +33,6 @@ interface JokesContextType {
   applyCategoryChanges: () => void;
   discardCategoryChanges: () => void;
   resetJokes: () => void;
-
 }
 
 const JokesContext = createContext<JokesContextType | null>(null);
@@ -47,19 +46,21 @@ export const JokesProvider = ({ children }: { children: ReactNode }) => {
     loading: categoryLoading,
   } = useCategories();
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [tempSelectedCategories, setTempSelectedCategories] = useState<string[]>([]);
+  const [tempSelectedCategories, setTempSelectedCategories] = useState<
+    string[]
+  >([]);
 
-const initCategorySelection = () => {
-  setTempSelectedCategories(selectedCategories);
-};
+  const initCategorySelection = () => {
+    setTempSelectedCategories(selectedCategories);
+  };
 
-const applyCategoryChanges = () => {
-  setSelectedCategories(tempSelectedCategories);
-};
+  const applyCategoryChanges = () => {
+    setSelectedCategories(tempSelectedCategories);
+  };
 
-const discardCategoryChanges = () => {
-  setTempSelectedCategories(selectedCategories);
-};
+  const discardCategoryChanges = () => {
+    setTempSelectedCategories(selectedCategories);
+  };
 
   const [jokeQueue, setJokeQueue] = useState<Joke[]>([]);
 
@@ -80,14 +81,14 @@ const discardCategoryChanges = () => {
   };
 
   const removeTopJoke = () => {
-    setJokeQueue((prevQueue) => prevQueue.slice(0, -1))
+    setJokeQueue((prevQueue) => prevQueue.slice(0, -1));
   };
 
   const resetJokes = () => {
-    setSelectedCategories([])
-    setTempSelectedCategories([])
-    setJokeQueue([])
-  }
+    setSelectedCategories([]);
+    setTempSelectedCategories([]);
+    setJokeQueue([]);
+  };
 
   return (
     <JokesContext.Provider
@@ -110,7 +111,7 @@ const discardCategoryChanges = () => {
         initCategorySelection,
         applyCategoryChanges,
         discardCategoryChanges,
-        resetJokes
+        resetJokes,
       }}
     >
       {children}

@@ -4,65 +4,13 @@ import lgLogo from "../../assets/LogoWithName.png";
 
 import burger from "../../assets/BURGER.svg";
 import { useAppContext } from "../../context/AppContext";
-import { useEffect, useState } from "react";
-import { useJokesContext } from "../../context/JokeContext";
-import BurgerIcon from "../../assets/BURGER.svg";
-import ExitIcon from "../../assets/EXIT_BIG.svg";
-import CheckIcon from "../../assets/Checmark.svg";
-import { NavItem } from "./NavItem";
+import { Navbar } from "./Navbar";
 export const DesktopNavbar = () => {
   const {
     toggleCategorySelector,
-    isCategorySelector,
     isDesktopNavbarExpand,
-    showPopup,
     toggleDesktopNavbarExpand,
   } = useAppContext();
-
-  const {
-    selectedCategories,
-    tempSelectedCategories,
-    applyCategoryChanges,
-    discardCategoryChanges,
-    initCategorySelection,
-  } = useJokesContext();
-
-  const [categoriesChanged, setCategoriesChanged] = useState(false);
-
-  useEffect(() => {
-    const areArraysEqual = (a: string[], b: string[]) => {
-      if (a.length !== b.length) return false;
-      const sortedA = [...a].sort();
-      const sortedB = [...b].sort();
-      return sortedA.every((val, i) => val === sortedB[i]);
-    };
-
-    const hasChanged = !areArraysEqual(
-      tempSelectedCategories,
-      selectedCategories
-    );
-    setCategoriesChanged(hasChanged);
-  }, [tempSelectedCategories, selectedCategories]);
-
-  const handleCategoryButtonClick = () => {
-    if (!isCategorySelector) {
-      initCategorySelection();
-      toggleCategorySelector();
-      return;
-    }
-
-    if (categoriesChanged) {
-      applyCategoryChanges();
-      showPopup("Ändringar sparade!");
-      setCategoriesChanged(false);
-    } else {
-      discardCategoryChanges();
-    }
-
-    toggleCategorySelector();
-  };
-
-  const getCategoryIcon = () => (categoriesChanged ? CheckIcon : ExitIcon);
 
   return (
     <aside className="absolute top-0 h-screen z-[1000] bg-white flex flex-col gap-2 w-auto items-center p-4 shadow-lg shadow-gray-400/40">
@@ -75,7 +23,10 @@ export const DesktopNavbar = () => {
       {isDesktopNavbarExpand ? (
         <div
           className="flex flex-row p-3 w-80 bg-gray-100 rounded-xl items-center gap-4 cursor-pointer"
-          onClick={toggleDesktopNavbarExpand}
+          onClick={() => {
+            toggleDesktopNavbarExpand();
+            toggleCategorySelector();
+          }}
         >
           <div className={`w-7 `}>
             <img src={burger} />
@@ -85,7 +36,10 @@ export const DesktopNavbar = () => {
       ) : (
         <div
           className="flex flex-row p-3 w-auto items-center gap-4 cursor-pointer"
-          onClick={toggleDesktopNavbarExpand}
+          onClick={() => {
+            toggleDesktopNavbarExpand();
+            toggleCategorySelector();
+          }}
         >
           <div className="w-7">
             <img src={burger} />
@@ -96,15 +50,7 @@ export const DesktopNavbar = () => {
         <>
           {" "}
           <FilterContainer toggleFilter={toggleCategorySelector} />
-          <NavItem
-            type="button"
-            onClick={() => {
-              handleCategoryButtonClick();
-              toggleCategorySelector();
-              toggleDesktopNavbarExpand();
-            }}
-            imgSrc={getCategoryIcon()}
-          />
+          <Navbar expanded={isDesktopNavbarExpand} />
         </>
       )}
     </aside>
