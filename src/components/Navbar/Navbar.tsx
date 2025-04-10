@@ -2,7 +2,6 @@ import { useAppContext } from "../../context/AppContext";
 import { useJokesContext } from "../../context/JokeContext";
 import { NavItem, NavItemProps } from "./NavItem";
 import "./Navbar.css";
-
 import BurgerIcon from "../../assets/BURGER.svg";
 import RightIcon from "../../assets/ARROW_RIGHT.svg";
 import ExitIcon from "../../assets/EXIT_BIG.svg";
@@ -74,25 +73,28 @@ export const Navbar = () => {
       : BurgerIcon;
 
   return (
-    <nav>
-      {!isDesktop && (
-        <NavItem
-          type="button"
-          onClick={() => {
-            handleCategoryButtonClick();
-            toggleCategorySelector();
-          }}
-          imgSrc={getCategoryIcon()}
-        />
-      )}
-      <NavItem
-        type="button"
-        onClick={() => {
-          if (isCardExpanded) toggleCardExpand();
-          triggerSwipeAnimation();
-        }}
-        imgSrc={RightIcon}
-      />
-    </nav>
+<nav>
+  {!isDesktop && (
+    <NavItem
+      type="button"
+      onClick={() => {
+        handleCategoryButtonClick();
+        toggleCategorySelector();
+      }}
+      imgSrc={getCategoryIcon()}
+    />
+  )}
+
+  {!isCategorySelector && (
+    <NavItem
+      type="button"
+      onClick={() => {
+        if (isCardExpanded) toggleCardExpand();
+        triggerSwipeAnimation();
+      }}
+      imgSrc={RightIcon}
+    />
+  )}
+</nav>
   );
 };
