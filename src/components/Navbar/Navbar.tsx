@@ -2,7 +2,6 @@ import { useAppContext } from "../../context/AppContext";
 import { useJokesContext } from "../../context/JokeContext";
 import { NavItem } from "./NavItem";
 import "./Navbar.css";
-
 import BurgerIcon from "../../assets/BURGER.svg";
 import RightIcon from "../../assets/ARROW_RIGHT.svg";
 import ExitIcon from "../../assets/EXIT_BIG.svg";
