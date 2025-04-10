@@ -24,7 +24,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [isCategorySelector, setCategorySelector] = useState(false);
   const [isCardExpanded, setCardExpanded] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isPopupVisible, setPopupVisible] = useState(false); // State for popup visibility
+  const [isPopupVisible, setPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState<string>("");
 
   const [isDesktopNavbarExpand, setDesktopNavbarExpand] =

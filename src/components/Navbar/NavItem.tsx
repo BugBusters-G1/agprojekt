@@ -17,7 +17,6 @@ export function NavItem({ type, to, onClick, imgSrc }: NavItemProps) {
     </Link>
   ) : (
     <button onClick={onClick} className="nav-item">
-      {/* Render either an image or a React component depending on the type of imgSrc */}
       {imgSrc ? (
         typeof imgSrc === "string" ? (
           <img src={imgSrc} alt="icon" />

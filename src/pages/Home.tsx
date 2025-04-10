@@ -1,5 +1,4 @@
 import { Card } from "../components/Card/Card";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useJokesContext } from "../context/JokeContext";
 import { useAppContext } from "../context/AppContext";
@@ -9,7 +8,6 @@ import { Navbar } from "../components/Navbar/Navbar";
 import { FilterContainer } from "../components/CategorySelector/CategorySelector";
 import { DesktopNavbar } from "../components/Navbar/DesktopNavbar";
 import { useMediaQuery } from "react-responsive";
-import { div } from "framer-motion/client";
 import logo from "../assets/LogoWithName.png";
 import { Header } from "../components/Header/Header";
 const Home = () => {

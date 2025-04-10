@@ -10,9 +10,6 @@ interface CardContentProps {
 export function CardContent({
   joke,
   punchline,
-  isExpanded,
-  showDesktopBorder,
-  isDesktop,
   explanation,
 }: CardContentProps) {
   return (

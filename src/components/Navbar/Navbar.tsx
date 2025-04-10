@@ -1,6 +1,6 @@
 import { useAppContext } from "../../context/AppContext";
 import { useJokesContext } from "../../context/JokeContext";
-import { NavItem, NavItemProps } from "./NavItem";
+import { NavItem } from "./NavItem";
 import "./Navbar.css";
 
 import BurgerIcon from "../../assets/BURGER.svg";
@@ -21,7 +21,6 @@ export const Navbar = ({ expanded }: NavbarProps) => {
     isCategorySelector,
     isCardExpanded,
     showPopup,
-    togglePopup,
     triggerSwipeAnimation,
     toggleDesktopNavbarExpand,
   } = useAppContext();
@@ -92,7 +91,6 @@ export const Navbar = ({ expanded }: NavbarProps) => {
         />
       )}
 
-      {/* Show category exit/check icon only when category selector is active */}
       {isCategorySelector && !isDesktop && (
         <NavItem
           type="button"
@@ -104,7 +102,6 @@ export const Navbar = ({ expanded }: NavbarProps) => {
         />
       )}
 
-      {/* Show category icon on desktop only when expanded */}
       {isCategorySelector && isDesktop && expanded && (
         <NavItem
           type="button"
@@ -116,7 +113,6 @@ export const Navbar = ({ expanded }: NavbarProps) => {
         />
       )}
 
-      {/* Show right icon only when not expanded and category selector is not active */}
       {!expanded && !isCategorySelector && (
         <NavItem
           type="button"

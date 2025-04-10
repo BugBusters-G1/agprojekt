@@ -1,4 +1,3 @@
-import { useState } from "react";
 import React from "react";
 
 interface CardButtonProps {
@@ -14,9 +13,7 @@ export function CardButton({
   label,
   icon,
   onClick,
-  activeColor = "#e2e8f0",
   textColor = "#000",
-  className = "",
 }: CardButtonProps) {
   return (
     <button
