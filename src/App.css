@@ -15,8 +15,19 @@
   font-style: normal;
 }
 
-body {
+body { 
   background-color: #fffcf7;
   overflow-x: hidden;
-  height: auto;
+}
+@keyframes shrinkBar {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+.shrink-bar {
+  animation: shrinkBar 1.2s linear forwards;
 }
