@@ -9,7 +9,9 @@ import { Navbar } from "../components/Navbar/Navbar";
 import { FilterContainer } from "../components/CategorySelector/CategorySelector";
 import { DesktopNavbar } from "../components/Navbar/DesktopNavbar";
 import { useMediaQuery } from "react-responsive";
-
+import { div } from "framer-motion/client";
+import logo from "../assets/LogoWithName.png";
+import { Header } from "../components/Header/Header";
 const Home = () => {
   const {
     loading,
@@ -58,57 +60,81 @@ const Home = () => {
       className={`w-screen h-screen flex flex-row justify-start ${
         isDesktop
           ? "pt-0 flex-row overflow-hidden"
-          : "pt-30 flex-col overflow-auto"
+          : "pt-20 flex-col overflow-auto"
       }  items-start`}
       style={{ backgroundColor: "#fffcf7" }}
     >
-      {isDesktop && <DesktopNavbar />}
-      {isDesktop && isDesktopNavbarExpand && (
-        <span
-          className="fixed  w-screen h-screen"
+      {/* Conditionally render the loading state with the full screen overlay */}
+      {loading ? (
+        <div
+          className="w-screen h-screen bg-[#fffcf7] fixed z-[1000] flex items-center justify-center"
           style={{
-            background: isDesktopNavbarExpand ? "black" : "transparent",
-            opacity: isDesktopNavbarExpand ? "0.6" : "0",
-            zIndex: isDesktopNavbarExpand ? 900 : 0,
+            position: "absolute", // Position it absolutely to cover the full screen
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            padding: 0, // Ensure no padding
+            margin: 0, // Ensure no margin
           }}
-        ></span>
-      )}
-
-      <div
-        className="flex flex-col w-screen h-full gap-10 items-center"
-        style={{}}
-      >
-        {" "}
-        {loading ? (
-          <Skeleton count={1} height={100} />
-        ) : error ? (
-          <p>{error}</p>
-        ) : (
-          <div className="grid items-start justify-items-center w-full h-auto pt-8 lg:pt-16">
-            {isCategorySelector && !isDesktop ? (
-              <FilterContainer toggleFilter={toggleCategorySelector} />
-            ) : (
-              jokeQueue.map((joke, index) => (
-                <SwipeCard
-                  key={`${joke._id}-${index}`}
-                  id={joke._id}
-                  queue={jokeQueue}
-                >
-                  <Card
-                    key={`${joke._id}-${index}`}
-                    joke={joke}
-                    expanded={index === jokeQueue.length - 1 && isCardExpanded}
-                    index={index}
-                  />
-                </SwipeCard>
-              ))
-            )}
+        >
+          <div className="w-64">
+            <img src={logo} alt="Logo" />
           </div>
-        )}
-        <div className="w-60">
-          <Navbar />
         </div>
-      </div>
+      ) : (
+        <>
+          {/* Only render Header after loading is complete */}
+          <Header />
+
+          {isDesktop && <DesktopNavbar />}
+          {isDesktop && isDesktopNavbarExpand && (
+            <span
+              className="fixed  w-screen h-screen"
+              style={{
+                background: isDesktopNavbarExpand ? "black" : "transparent",
+                opacity: isDesktopNavbarExpand ? "0.6" : "0",
+                zIndex: isDesktopNavbarExpand ? 900 : 0,
+              }}
+            ></span>
+          )}
+
+          <div
+            className="flex flex-col w-screen h-full gap-3 items-center"
+            style={{}}
+          >
+            {error ? (
+              <p>{error}</p>
+            ) : (
+              <div className="grid items-start justify-items-center w-full h-auto pt-8 lg:pt-16">
+                {isCategorySelector && !isDesktop ? (
+                  <FilterContainer toggleFilter={toggleCategorySelector} />
+                ) : (
+                  jokeQueue.map((joke, index) => (
+                    <SwipeCard
+                      key={`${joke._id}-${index}`}
+                      id={joke._id}
+                      queue={jokeQueue}
+                    >
+                      <Card
+                        key={`${joke._id}-${index}`}
+                        joke={joke}
+                        expanded={
+                          index === jokeQueue.length - 1 && isCardExpanded
+                        }
+                        index={index}
+                      />
+                    </SwipeCard>
+                  ))
+                )}
+              </div>
+            )}
+            <div className="w-60">
+              <Navbar />
+            </div>
+          </div>
+        </>
+      )}
     </main>
   );
 };

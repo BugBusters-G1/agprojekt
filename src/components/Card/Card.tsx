@@ -22,7 +22,7 @@ export function Card({ joke, expanded, index }: CardProps) {
 
   return (
     <div
-      className={`rounded-[15px] select-none h-auto w-80 flex flex-col gap-2 lg:max-[500px overflow-hidden p-3
+      className={`rounded-[15px] select-none h-auto w-80 flex flex-col gap-2 lg:max-[500px overflow-hidden p-3 pb-5
         ${isDesktop ? "flex flex-row lg:w-200" : "block"}
         ${
           isMedium
