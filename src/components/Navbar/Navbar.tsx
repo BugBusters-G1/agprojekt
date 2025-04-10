@@ -1,6 +1,6 @@
 import { useAppContext } from "../../context/AppContext";
 import { useJokesContext } from "../../context/JokeContext";
-import { NavItem, NavItemProps } from "./NavItem";
+import { NavItem } from "./NavItem";
 import "./Navbar.css";
 
 import BurgerIcon from "../../assets/BURGER.svg";
@@ -20,9 +20,8 @@ export const Navbar = ({ expanded }: NavbarProps) => {
     toggleCategorySelector,
     isCategorySelector,
     isCardExpanded,
-    showPopup,
-    togglePopup,
     triggerSwipeAnimation,
+    showPopup,
     toggleDesktopNavbarExpand,
   } = useAppContext();
 
@@ -80,44 +79,39 @@ export const Navbar = ({ expanded }: NavbarProps) => {
 
   return (
     <nav>
-      {/* Show category icon on mobile OR desktop if expanded */}
-      {(!isDesktop || (isDesktop && expanded)) && !isCategorySelector && (
+      {/* Hamburgermeny för desktop när navbar är expanded */}
+      {/* Hamburgermeny för både telefon och desktop när navbar är expanded */}
+      {(isDesktop && expanded) || !isDesktop ? (
         <NavItem
           type="button"
           onClick={() => {
             handleCategoryButtonClick();
             toggleCategorySelector();
           }}
-          imgSrc={BurgerIcon}
+          imgSrc={
+            isDesktop
+              ? categoriesChanged
+                ? CheckIcon
+                : ExitIcon
+              : getCategoryIcon()
+          }
         />
-      )}
+      ) : null}
 
-      {/* Show category exit/check icon only when category selector is active */}
-      {isCategorySelector && !isDesktop && (
+      {/* Högerikon ska alltid vara synlig på telefon */}
+      {!isDesktop && !isCategorySelector && (
         <NavItem
           type="button"
           onClick={() => {
-            handleCategoryButtonClick();
-            toggleCategorySelector();
+            if (isCardExpanded) toggleCardExpand();
+            triggerSwipeAnimation();
           }}
-          imgSrc={getCategoryIcon()}
+          imgSrc={RightIcon}
         />
       )}
 
-      {/* Show category icon on desktop only when expanded */}
-      {isCategorySelector && isDesktop && expanded && (
-        <NavItem
-          type="button"
-          onClick={() => {
-            handleCategoryButtonClick();
-            toggleCategorySelector();
-          }}
-          imgSrc={getCategoryIcon()}
-        />
-      )}
-
-      {/* Show right icon only when not expanded and category selector is not active */}
-      {!expanded && !isCategorySelector && (
+      {/* Högerikon för desktop när navbar inte är expanded */}
+      {isDesktop && !expanded && (
         <NavItem
           type="button"
           onClick={() => {

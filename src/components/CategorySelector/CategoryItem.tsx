@@ -26,7 +26,7 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
 
   return (
     <div
-      className="w-full h-full p-2 flex flex-col justify-center pl-2 pr-2"
+      className="w-full h-full p-2 flex flex-col justify-center pl-4 pr-4"
       style={{
         backgroundColor: colors[category.category.toLowerCase()]?.background,
         color: colors[category.category.toLowerCase()]?.text,

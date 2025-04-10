@@ -39,7 +39,6 @@ export function SwipeCard({ children, id, queue }: SwipeCardProps) {
     });
   };
 
-  // Register swipeRight function to context on mount
   useEffect(() => {
     if (isFront) {
       registerSwipeAnimation(swipeRight);
